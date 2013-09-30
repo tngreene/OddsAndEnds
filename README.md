@@ -22,7 +22,7 @@ bracket system makes for very easy searching. Try it out!
 
 		[1.1.0] Abstract
 		[1.2.0] Requirments
-		[1.3.0] Terms
+		[1.3.0] Credits
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -31,8 +31,9 @@ This is a game started in GDD1 and continued in GDD2
 
 [1.2.0] Requirments:
 *Flash CC
-[1.3.0] Terms:
-Don't forget to credit the people who made this
+
+[1.3.0] Credits:
+SCRUM Master: Theodore "Ted" Greene
 ==============================================================*/
 
 /*==[2.0.0] Getting Started==============================================
