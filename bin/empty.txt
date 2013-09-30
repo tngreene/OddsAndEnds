@@ -1,0 +1,1 @@
+Because Git Cannot commit empty folders and Flash needs bin/ to exist this is place holder file.
