@@ -1,4 +1,4 @@
-﻿package code.layers
+﻿package com.layers
 {
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;

@@ -1,4 +1,4 @@
-﻿package code.layers
+﻿package com.layers
 {
 	//stuff
 	import flash.display.MovieClip;

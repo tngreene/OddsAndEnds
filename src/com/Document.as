@@ -1,11 +1,11 @@
-﻿package code 
+﻿package com
 {
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import code.layers.Layer;
-	import code.layers.PlayerLayer;
-	import code.layers.KeyboardLayer;
-	import code.layers.LayerMediator;
+	import com.layers.Layer;
+	import com.layers.PlayerLayer;
+	import com.layers.KeyboardLayer;
+	import com.layers.LayerMediator;
 
 	public class Document extends MovieClip
 	{

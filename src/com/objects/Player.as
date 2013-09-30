@@ -1,8 +1,8 @@
-﻿package code.objects
+﻿package com.objects
 {
 	
 	import flash.display.MovieClip;
-	import code.layers.Layer;
+	import com.layers.Layer;
 
 	// Reprents the player clip
 	// does its own velocity and position calculations

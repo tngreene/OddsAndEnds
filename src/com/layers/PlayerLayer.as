@@ -1,8 +1,8 @@
-﻿package code.layers
+﻿package com.layers
 {
 	import flash.display.MovieClip;
 	import flash.ui.Keyboard;
-	import code.objects.Player;
+	import com.objects.Player;
 	
 	public class PlayerLayer extends Layer
 	{
