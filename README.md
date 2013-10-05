@@ -34,6 +34,8 @@ This is a game started in GDD1 and continued in GDD2
 
 [1.3.0] Credits:
 Gameplay Programmer: Theodore "Ted" Greene
+Art/Level Designer: Danish Bukhari
+Art/Sound: Sean Mooney
 ==============================================================*/
 
 /*==[2.0.0] Getting Started==============================================
