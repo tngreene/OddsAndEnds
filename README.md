@@ -33,7 +33,7 @@ This is a game started in GDD1 and continued in GDD2
 *Flash CC
 
 [1.3.0] Credits:
-SCRUM Master: Theodore "Ted" Greene
+Gameplay Programmer: Theodore "Ted" Greene
 ==============================================================*/
 
 /*==[2.0.0] Getting Started==============================================
