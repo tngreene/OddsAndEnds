@@ -4,6 +4,7 @@
 	import flash.ui.Keyboard;
 	import com.objects.Player;
 	import com.objects.Platform;
+	import com.objects.GameObject;
 	
 	public class PlayerLayer extends Layer
 	{
@@ -11,7 +12,7 @@
 		private var _level:LevelLayer;
 		private var _keyboard:KeyboardLayer;
 		private var _jumping:Boolean;
-		private var _gravity:Number = 1;
+		private var _gravity:Number = 0.2;
 		
 		public function PlayerLayer(_parent:MovieClip) 
 		{
@@ -26,7 +27,7 @@
 			this._player = new Player(this);
 			// sets him in the middle by default
 			this._player.x = stage.stageWidth / 2;
-			this._player.y = stage.stageHeight;
+			this._player.y = 0;
 			// not jumping either
 			this._jumping = false;
 			this.addChild(this._player);
@@ -64,10 +65,30 @@
 		// limits the x velocity so we dont go too fast
 		private function limitVelocities()
 		{
-			// if its speeds greater than 10, set it to 10
-			if(Math.abs(this._player.fdx) > 10)
+			if (Math.abs(this._player.dy) < 0.02)
 			{
-				this._player.dx = (this._player.dx / Math.abs(this._player.dx)) * 10;
+				this._player.dy = 0;
+			}
+			if (Math.abs(this._player.dx) < 0.02)
+			{
+				this._player.dx = 0;
+			}
+			if (Math.abs(this._player.ay) < 0.02)
+			{
+				this._player.ay = 0;
+			}
+			if (Math.abs(this._player.ax) < 0.02)
+			{
+				this._player.ax = 0;
+			}
+			// if its speeds greater than 10, set it to 10
+			if(Math.abs(this._player.fdx) > 5)
+			{
+				this._player.dx = (this._player.dx / Math.abs(this._player.dx)) * 5;
+			}
+			if(Math.abs(this._player.fdy) > 14)
+			{
+				this._player.dy = (this._player.dy / Math.abs(this._player.dy)) * 14;
 			}
 		}
 		// calculates drag and friction
@@ -76,75 +97,94 @@
 			// if we aren't airborne
 			// add friction
 			if(this._player.dy == 0 && this._player.ay == 0)
-				this._player.ax += this._player.dx * -0.2;
+				this._player.ax += this._player.dx * -0.8;
 		}
 		// checks the screen boundries
 		private function checkBounds()
 		{
-			// if were falling below the stage
-			// fix it
-			if(this._player.fy > stage.stageHeight- this._player.halfHeight)
+			var collision = true;
+			while (collision)
 			{
-				// puts us on the grand
-				this._player.y = stage.stageHeight - this._player.halfHeight;
-				// stops us from moving and lets us jump again
-				this._player.ay -= this._gravity;
-				this._player.dy = 0;
-				this._jumping = false;
-			}
-			// make sure we dont overextend past the left and right of the screen
-			if(this._player.x > stage.stageWidth)
-			{
-				this._player.x = stage.stageWidth;
-				this._player.dx = 0;
-			}
-			if(this._player.x < 0)
-			{
-				this._player.x = 0;
-				this._player.dx = 0;
-			}
-			
-			for each(var platform:Platform in this._level.platforms)
-			{
-				var xDist:Number = this._player.fx - platform.x;
-				var yDist:Number = this._player.fy - platform.y;
-				var xDir:Number = xDist / Math.abs(xDist);
-				var yDir:Number = yDist / Math.abs(yDist);
-				var xRadius:Number = (this._player.halfWidth + platform.halfWidth);
-				var yRadius:Number = (this._player.halfHeight + platform.halfHeight);
-				if(Math.abs(xDist) <= xRadius
-					&& Math.abs(yDist) <= yRadius)
+				collision = false;
+				for each(var platform:GameObject in this._level.platforms)
 				{
-					if(Math.abs(xDist) - xRadius
-						> Math.abs(yDist) - yRadius)
+					var xDist:Number = this._player.fx - platform.x;
+					var yDist:Number = this._player.fy - platform.y;
+					var xDir:Number = xDist / Math.abs(xDist);
+					var yDir:Number = yDist / Math.abs(yDist);
+					var xRadius:Number = (this._player.halfWidth + platform.halfWidth);
+					var yRadius:Number = (this._player.halfHeight + platform.halfHeight);
+					var xPen:Number = xRadius - Math.abs(xDist);
+					var yPen:Number = yRadius - Math.abs(yDist);
+					
+					if (this._player.fdx == 0)
 					{
-						this._player.ax += (Math.abs(xDist) - xRadius) * -xDir;
+						var yTime:Number = (platform.y - this._player.y) / this._player.fdy;
+						var yTimeMin:Number = Math.min(yTime + yRadius / this._player.fdy, yTime - yRadius / this._player.fdy);
+						if (yTimeMin >= 0 && yTimeMin < 1 && Math.abs(xDist) < xRadius)
+						{
+							collision = true;
+							this._player.ay -= (1 - yTimeMin) * this._player.fdy;
+						}
+						
+					} else if (this._player.fdy == 0)
+					{
+						var xTime:Number = (platform.x - this._player.x) / this._player.fdx;
+						var xTimeMin:Number = Math.min(xTime + xRadius / this._player.fdx, xTime - xRadius / this._player.fdx);
+						if (xTimeMin >= 0 && xTimeMin < 1 && Math.abs(yDist) < yRadius)
+						{
+							collision = true;
+							this._player.ax -= (1 - xTimeMin) * this._player.fdx;
+						}
 					} else
 					{
-						this._player.ay += (Math.abs(yDist) - yRadius) * -yDir;
+						var xTime:Number = (platform.x - this._player.x) / this._player.fdx;
+						var yTime:Number = (platform.y - this._player.y) / this._player.fdy;
+						
+						var xTimeMin:Number = Math.min(xTime + xRadius / this._player.fdx, xTime - xRadius / this._player.fdx);
+						var yTimeMin:Number = Math.min(yTime + yRadius / this._player.fdy, yTime - yRadius / this._player.fdy);
+						if (xTimeMin < 1 && yTimeMin < 1)
+						{
+							var xTimeMax:Number = Math.max(xTime + xRadius / this._player.fdx, xTime - xRadius / this._player.fdx); 
+							var yTimeMax:Number = Math.max(yTime + yRadius / this._player.fdy, yTime - yRadius / this._player.fdy);
+							
+							if (xTimeMin < yTimeMax && yTimeMin < xTimeMax)
+							{
+								if ((xTimeMin <= yTimeMin || yTimeMin < 0) && xTimeMin >= 0 )
+								{
+									collision = true;
+									this._player.ax -= (1 - xTimeMin) * this._player.fdx;
+								}else if(yTimeMin >= 0)
+								{
+									collision = true;
+									this._player.ay -= (1 - yTimeMin) * this._player.fdy;
+								}
+							}
+						}
 					}
 				}
 			}
+			
 		}
 		// checks the keys
 		private function checkKeys()
 		{
-			// if were holding right or left accelerate quickly in that direction
-			// terminal velocityis the accel / friction constant
-			if(this._keyboard.isKeyDown(Keyboard.RIGHT) && !this._player.airborne)
-			{
-				this._player.ax += 2;
-			}
-			else if(this._keyboard.isKeyDown(Keyboard.LEFT) && !this._player.airborne)
-			{
-				this._player.ax += -2;
-			}
 			// jump
 			// only if we arent already jumping
 			if(this._keyboard.isKeyDown(Keyboard.UP) && !this._jumping)
 			{
-				this._player.dy = -15;
+				this._player.ay += -8;
 				this._jumping = true;
+			}
+			// if were holding right or left accelerate quickly in that direction
+			// terminal velocityis the accel / friction constant
+			if(this._keyboard.isKeyDown(Keyboard.RIGHT) )//&& !this._player.airborne)
+			{
+				this._player.ax += 2 * (this._player.airborne ? 0.04 : 1);
+			}
+			else if(this._keyboard.isKeyDown(Keyboard.LEFT) )//&& !this._player.airborne)
+			{
+				this._player.ax += -2 * (this._player.airborne ? 0.04 : 1);
 			}
 		}
 		// kills the player clip
