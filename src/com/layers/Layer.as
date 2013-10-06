@@ -1,6 +1,6 @@
 ﻿package com.layers
 {
-	//stuff
+	
 	import flash.display.MovieClip;
 	
 	// class representing all

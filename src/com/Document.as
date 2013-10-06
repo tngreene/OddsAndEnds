@@ -1,4 +1,4 @@
-﻿package com
+﻿package com 
 {
 	import flash.display.MovieClip;
 	import flash.events.Event;
@@ -6,6 +6,7 @@
 	import com.layers.PlayerLayer;
 	import com.layers.KeyboardLayer;
 	import com.layers.LayerMediator;
+	import com.layers.LevelLayer;
 
 	public class Document extends MovieClip
 	{
@@ -20,7 +21,7 @@
 			this.layers = new Vector.<Layer>();
 			this.layers.push(new PlayerLayer(this));			
 			this.layers.push(new KeyboardLayer(this));
-			
+			this.layers.push(new LevelLayer(this));
 			// give the layers a mediator
 			// to enable communication between layers
 			
