@@ -8,6 +8,7 @@
 	public class Player extends GameObject 
 	{
 		private var _dir:String;
+		private var _pose:String;
 		public function Player(layer:Layer) 
 		{
 			super(layer);
@@ -21,6 +22,26 @@
 		{
 			return 8;
 		}
+		
+		public function get dir():String 
+		{
+			return _dir;
+		}
+		
+		public function set dir(value:String):void 
+		{
+			_dir = value;
+		}
+		
+		public function get pose():String 
+		{
+			return _pose;
+		}
+		
+		public function set pose(value:String):void 
+		{
+			_pose = value;
+		}
 		// reset accelerations
 		public function resetAcceleration()
 		{
@@ -30,20 +51,13 @@
 		public override function onFrame()
 		{
 			super.onFrame();
-			if (this.dx < 0 )
-			{
-				this._dir = "left";
-			} else if (this.dx > 0)
-			{
-				this._dir = "right";
-				
-			}
+			if (this.dx == 0)
+				this.pose = "";
+			
 			if (this.airborne)
 				this.gotoAndStop("jump " + this._dir);
-			else if (this.dx != 0)
-				this.gotoAndStop("run " + this._dir);
 			else
-				this.gotoAndStop(this._dir);
+				this.gotoAndStop((this.pose == "" ? "" : (this.pose + " ")) + this._dir);
 		}
 	}
 }

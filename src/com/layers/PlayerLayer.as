@@ -48,8 +48,6 @@
 			this.applyGravity();
 			// make sure we dont go off screen
 			this.checkBounds();
-			// calculate drag and friction
-			this.applyFriction();
 			// make sure we dont go too fast
 			this.limitVelocities();
 			
@@ -65,19 +63,19 @@
 		// limits the x velocity so we dont go too fast
 		private function limitVelocities()
 		{
-			if (Math.abs(this._player.dy) < 0.02)
+			if (Math.abs(this._player.dy) < 0.0002)
 			{
 				this._player.dy = 0;
 			}
-			if (Math.abs(this._player.dx) < 0.02)
+			if (Math.abs(this._player.dx) < 0.0002)
 			{
 				this._player.dx = 0;
 			}
-			if (Math.abs(this._player.ay) < 0.02)
+			if (Math.abs(this._player.ay) < 0.0002)
 			{
 				this._player.ay = 0;
 			}
-			if (Math.abs(this._player.ax) < 0.02)
+			if (Math.abs(this._player.ax) < 0.0002)
 			{
 				this._player.ax = 0;
 			}
@@ -96,8 +94,8 @@
 		{
 			// if we aren't airborne
 			// add friction
-			if(this._player.dy == 0 && this._player.ay == 0)
-				this._player.ax += this._player.dx * -0.8;
+			if(this._player.dy == 0 )
+				this._player.ax += this._player.dx * -0.5;
 		}
 		// checks the screen boundries
 		private function checkBounds()
@@ -154,7 +152,7 @@
 								{
 									collision = true;
 									this._player.ax -= (1 - xTimeMin) * this._player.fdx;
-								}else if(yTimeMin >= 0)
+								} else if(yTimeMin >= 0)
 								{
 									collision = true;
 									this._player.ay -= (1 - yTimeMin) * this._player.fdy;
@@ -181,10 +179,18 @@
 			if(this._keyboard.isKeyDown(Keyboard.RIGHT) )//&& !this._player.airborne)
 			{
 				this._player.ax += 2 * (this._player.airborne ? 0.04 : 1);
+				this._player.pose = "run";
+				this._player.dir = "right";
 			}
 			else if(this._keyboard.isKeyDown(Keyboard.LEFT) )//&& !this._player.airborne)
 			{
 				this._player.ax += -2 * (this._player.airborne ? 0.04 : 1);
+				this._player.pose = "run";
+				this._player.dir = "left";
+			} else
+			{
+				this._player.pose = "";
+				this.applyFriction();
 			}
 		}
 		// kills the player clip
@@ -203,6 +209,11 @@
 			{
 				this._level = target as LevelLayer;
 			}
+		}
+		
+		public function get player():Player 
+		{
+			return _player;
 		}
 	}
 	

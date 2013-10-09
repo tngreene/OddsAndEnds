@@ -6,6 +6,8 @@
 	public class LevelLayer extends Layer
 	{
 		private var _platforms:Vector.<Platform>;
+		private var _levelHeight:Number;
+		private var _levelWidth:Number;
 		public function LevelLayer(_parent:MovieClip) 
 		{
 			super(_parent);
@@ -17,7 +19,17 @@
 			return this._platforms;
 		}
 		
-		// setups the player
+		public function get levelHeight():Number 
+		{
+			return this._levelHeight;
+		}
+		
+		public function get levelWidth():Number 
+		{
+			return this._levelWidth;
+		}
+		
+		// setups the level
 		public override function setup(mediator:LayerMediator):void
 		{
 			super.setupMediator(mediator, "level");
@@ -43,8 +55,16 @@
 			
 			this._platforms[3].x = 320;
 			this._platforms[3].y = 481;
-			this._platforms[3].width = 640;
+			this._platforms[3].width = 680;
 			
+			this._platforms.push(new Platform(this));
+			
+			this._platforms[4].x = -5;
+			this._platforms[4].y = 240;
+			this._platforms[4].width = 10;
+			this._platforms[4].height = 500;
+			this._levelHeight = 480;
+			this._levelWidth = 640;
 		}
 		// calls all the functions
 		// that need to be called once a frame

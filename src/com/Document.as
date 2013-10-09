@@ -1,5 +1,6 @@
 ﻿package com 
 {
+	import com.layers.OffsetLayer;
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import com.layers.Layer;
@@ -11,6 +12,7 @@
 	public class Document extends MovieClip
 	{
 		private var layers:Vector.<Layer>;
+		private var offsetLayer:OffsetLayer;
 		public function Document()
 		{
 			setup();
@@ -19,6 +21,8 @@
 		public function setup():void
 		{
 			this.layers = new Vector.<Layer>();
+			this.offsetLayer = new OffsetLayer(this);
+			this.layers.push(this.offsetLayer);
 			this.layers.push(new PlayerLayer(this));			
 			this.layers.push(new KeyboardLayer(this));
 			this.layers.push(new LevelLayer(this));
@@ -37,6 +41,8 @@
 		// basic game loop
 		public function onFrame(e:Event)
 		{
+			this.x = this.offsetLayer.offsetX;
+			this.y = this.offsetLayer.offsetY;
 			for each(var layer:Layer in this.layers)
 			{
 				layer.onFrame();
