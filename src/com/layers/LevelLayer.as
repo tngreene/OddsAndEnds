@@ -2,16 +2,19 @@
 {
 	import flash.display.MovieClip;
 	import com.objects.Platform;
+	import com.objects.Spikes;
 	
 	public class LevelLayer extends Layer
 	{
 		private var _platforms:Vector.<Platform>;
+		private var _spikes:Vector.<Spikes>;
 		private var _levelHeight:Number;
 		private var _levelWidth:Number;
 		public function LevelLayer(_parent:MovieClip) 
 		{
 			super(_parent);
 			this._platforms = new Vector.<Platform>();
+			this._spikes = new Vector.<Spikes>();
 		}
 		
 		public function get platforms():Vector.<Platform>
@@ -63,6 +66,17 @@
 			this._platforms[4].y = 240;
 			this._platforms[4].width = 10;
 			this._platforms[4].height = 500;
+			
+			
+			
+			this._spikes.push(new Spikes(this, 4, 90));
+			
+			this._spikes[0].x = 0;
+			this._spikes[0].y = 320;
+			
+			this._spikes[0].setup();
+			
+			
 			this._levelHeight = 480;
 			this._levelWidth = 640;
 		}

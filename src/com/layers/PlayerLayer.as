@@ -106,59 +106,19 @@
 				collision = false;
 				for each(var platform:GameObject in this._level.platforms)
 				{
-					var xDist:Number = this._player.fx - platform.x;
-					var yDist:Number = this._player.fy - platform.y;
-					var xDir:Number = xDist / Math.abs(xDist);
-					var yDir:Number = yDist / Math.abs(yDist);
-					var xRadius:Number = (this._player.halfWidth + platform.halfWidth);
-					var yRadius:Number = (this._player.halfHeight + platform.halfHeight);
-					var xPen:Number = xRadius - Math.abs(xDist);
-					var yPen:Number = yRadius - Math.abs(yDist);
-					
-					if (this._player.fdx == 0)
+					var test:Object = this._player.sweepTestCollision(platform);
+					if (test["collision"])
 					{
-						var yTime:Number = (platform.y - this._player.y) / this._player.fdy;
-						var yTimeMin:Number = Math.min(yTime + yRadius / this._player.fdy, yTime - yRadius / this._player.fdy);
-						if (yTimeMin >= 0 && yTimeMin < 1 && Math.abs(xDist) < xRadius)
+						if (test["direction"] == "x")
 						{
-							collision = true;
-							this._player.ay -= (1 - yTimeMin) * this._player.fdy;
-						}
-						
-					} else if (this._player.fdy == 0)
-					{
-						var xTime:Number = (platform.x - this._player.x) / this._player.fdx;
-						var xTimeMin:Number = Math.min(xTime + xRadius / this._player.fdx, xTime - xRadius / this._player.fdx);
-						if (xTimeMin >= 0 && xTimeMin < 1 && Math.abs(yDist) < yRadius)
-						{
-							collision = true;
-							this._player.ax -= (1 - xTimeMin) * this._player.fdx;
-						}
-					} else
-					{
-						var xTime:Number = (platform.x - this._player.x) / this._player.fdx;
-						var yTime:Number = (platform.y - this._player.y) / this._player.fdy;
-						
-						var xTimeMin:Number = Math.min(xTime + xRadius / this._player.fdx, xTime - xRadius / this._player.fdx);
-						var yTimeMin:Number = Math.min(yTime + yRadius / this._player.fdy, yTime - yRadius / this._player.fdy);
-						if (xTimeMin < 1 && yTimeMin < 1)
-						{
-							var xTimeMax:Number = Math.max(xTime + xRadius / this._player.fdx, xTime - xRadius / this._player.fdx); 
-							var yTimeMax:Number = Math.max(yTime + yRadius / this._player.fdy, yTime - yRadius / this._player.fdy);
+							this._player.ax -= (1 - test["time"]) * this._player.fdx;
 							
-							if (xTimeMin < yTimeMax && yTimeMin < xTimeMax)
-							{
-								if ((xTimeMin <= yTimeMin || yTimeMin < 0) && xTimeMin >= 0 )
-								{
-									collision = true;
-									this._player.ax -= (1 - xTimeMin) * this._player.fdx;
-								} else if(yTimeMin >= 0)
-								{
-									collision = true;
-									this._player.ay -= (1 - yTimeMin) * this._player.fdy;
-								}
-							}
+						} else if (test["direction"] == "y")
+						{
+							this._player.ay -= (1 - test["time"]) * this._player.fdy;
+							
 						}
+						collision = true;
 					}
 				}
 			}
