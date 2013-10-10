@@ -1,10 +1,15 @@
 level:
+// property_name:value
+// width and height are needed
 width:1440
 height:960
 spawn:
+// property_name:value
+// x and y are needed
 x:60
 y:40
 platform:
+// x, y, width, height
 100,140,200,40
 640,180,960,40
 1380,340,120,40
@@ -17,6 +22,7 @@ platform:
 120,950,240,20
 1390,840,100,160
 spike:
+//x, y, number of spikes, rotation
 170,400,8,90
 1260,330,6,0
 1330,840,8,270
