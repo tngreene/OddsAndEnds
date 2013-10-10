@@ -24,9 +24,10 @@
 		}
 		// a dummy parent function to be overriden
 		// called once on startup
-		public function setup(mediator:LayerMediator):void
+		public function setup(mediator:LayerMediator):Boolean
 		{
 			trace("ERROR: wrong setup called");
+			return false;
 		}
 		// abstracts out functionality thats the same for every layer
 		// sets up the mediator, allowing requests to be made

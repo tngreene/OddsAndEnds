@@ -9,10 +9,11 @@
 	public class PlayerLayer extends Layer
 	{
 		private var _player:Player;
-		private var _level:LevelLayer;
-		private var _keyboard:KeyboardLayer;
+		private var _level:LevelLayer = null;
+		private var _keyboard:KeyboardLayer = null;
 		private var _jumping:Boolean;
 		private var _gravity:Number = 0.2;
+		private var _started:Boolean = false;
 		
 		public function PlayerLayer(_parent:MovieClip) 
 		{
@@ -20,20 +21,31 @@
 		}
 		
 		// setups the player
-		public override function setup(mediator:LayerMediator):void
+		public override function setup(mediator:LayerMediator):Boolean
 		{
 			super.setupMediator(mediator, "player");
-			// initializes the player
-			this._player = new Player(this);
-			// sets him in the middle by default
-			this._player.x = stage.stageWidth / 2;
-			this._player.y = 0;
-			// not jumping either
-			this._jumping = false;
-			this.addChild(this._player);
-			// requests keyboard access
-			this._mediator.request("keyboard", this);
-			this._mediator.request("level", this);
+			if (!this._started)
+			{
+				// initializes the player
+				this._player = new Player(this);
+				// sets him in the middle by default
+				// not jumping either
+				this._jumping = false;
+				this.addChild(this._player);
+				// requests keyboard access
+				this._mediator.request("keyboard", this);
+				this._mediator.request("level", this);
+				this._started = true;
+			}
+			
+			if (this._level != null)
+			{
+				this._player.x = this._level.spawnPoint.x;
+				this._player.y = this._level.spawnPoint.y;
+				
+				return true;
+			}
+			return false;
 		}
 		
 		// calls all the functions
@@ -94,7 +106,7 @@
 		{
 			// if we aren't airborne
 			// add friction
-			if(this._player.dy == 0 )
+			if(this._player.dy == 0 && !this._jumping)
 				this._player.ax += this._player.dx * -0.5;
 		}
 		// checks the screen boundries
@@ -121,7 +133,25 @@
 						collision = true;
 					}
 				}
+				for each(var spike:GameObject in this._level.spikes)
+				{
+					test = this._player.sweepTestCollision(spike);
+					if (test["collision"])
+					{
+						if (test["direction"] == "x")
+						{
+							this._player.ax -= (1 - test["time"]) * this._player.fdx;
+							
+						} else if (test["direction"] == "y")
+						{
+							this._player.ay -= (1 - test["time"]) * this._player.fdy;
+						}
+						trace("You just died!");
+						collision = true;
+					}
+				}
 			}
+			
 			
 		}
 		// checks the keys

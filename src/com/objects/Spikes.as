@@ -11,11 +11,11 @@ package com.objects
 		private var _halfHeight:Number;
 		public override function get halfHeight():Number
 		{
-			return this._halfWidth;
+			return this._halfHeight;
 		}
 		public override function get halfWidth():Number
 		{
-			return this._halfHeight;
+			return this._halfWidth;
 		}
 		
 		public function Spikes(layer:Layer, length:Number, rotation:Number) 
@@ -27,31 +27,36 @@ package com.objects
 		}
 		public function setup()
 		{
+			var tempSpike:Spike = new Spike(this._parent);
 			if (this._rotation == 0 || this._rotation == 180)
 			{
-				this._halfHeight = 4;
-				this._halfWidth = 8 * this._length;
+				this._halfWidth = 10 * this._length;
+				this._halfHeight = 10;
 			} else
 			{
-				this._halfWidth = 4;
-				this._halfHeight = 8 * this._length;
+				this._halfWidth = 10;
+				this._halfHeight = 10 * this._length;
 			}
-			var tempSpike:Spike;
+			this.x -= this.halfWidth;
+			this.y -= this.halfHeight;
 			for (var i:int = 0; i < this._length; i++)
 			{
-				tempSpike = new Spike(this._parent);
+				if(i != 0)
+					tempSpike = new Spike(this._parent);
 				if (this._rotation == 0 || this._rotation == 180)
 				{
-					tempSpike.x = this.x + i * 16 + 4;
-					tempSpike.y = this.y + 4;
+					tempSpike.x = this.x + i * 20 + 10;
+					tempSpike.y = this.y + 10;
 				} else
 				{
-					tempSpike.x = this.x + 4;
-					tempSpike.y = this.y + i * 16 + 4;
+					tempSpike.x = this.x + 10;
+					tempSpike.y = this.y + i * 20 + 10;
 				}
 				tempSpike.rotation = this._rotation;
 				this._spikes.push(tempSpike);
 			}
+			this.x += this.halfWidth;
+			this.y += this.halfHeight;
 		}
 	}
 

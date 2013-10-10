@@ -15,11 +15,12 @@ package com.layers
 		
 		
 		// setups the player
-		public override function setup(mediator:LayerMediator):void
+		public override function setup(mediator:LayerMediator):Boolean
 		{
 			super.setupMediator(mediator, "offset");
 			this._mediator.request("level", this);
 			this._mediator.request("player", this);
+			return true;
 		}
 		// calls all the functions
 		// that need to be called once a frame

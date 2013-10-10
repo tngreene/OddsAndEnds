@@ -20,15 +20,18 @@
 		// fulfills all requests pending for them
 		public function addLayer(layer:Layer, key:String)
 		{
-			// adds the layer to the layer map
-			this._layers[key] = layer;
-			// checks to see if there are pending requests
-			if(key in this._requests)
+			if (!(key in this._layers))
 			{
-				// fulfills all requests
-				for each(var requester:Layer in this._requests[key])
+				// adds the layer to the layer map
+				this._layers[key] = layer;
+				// checks to see if there are pending requests
+				if(key in this._requests)
 				{
-					requester.fulfill(key, this._layers[key]);
+					// fulfills all requests
+					for each(var requester:Layer in this._requests[key])
+					{
+						requester.fulfill(key, this._layers[key]);
+					}
 				}
 			}
 		}

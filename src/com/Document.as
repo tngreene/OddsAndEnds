@@ -8,17 +8,16 @@
 	import com.layers.KeyboardLayer;
 	import com.layers.LayerMediator;
 	import com.layers.LevelLayer;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
 
 	public class Document extends MovieClip
 	{
 		private var layers:Vector.<Layer>;
 		private var offsetLayer:OffsetLayer;
+		private var mediator:LayerMediator;
+		private var setupDone:Boolean;
 		public function Document()
-		{
-			setup();
-		}
-		// set up layers on the screen
-		public function setup():void
 		{
 			this.layers = new Vector.<Layer>();
 			this.offsetLayer = new OffsetLayer(this);
@@ -26,17 +25,27 @@
 			this.layers.push(new PlayerLayer(this));			
 			this.layers.push(new KeyboardLayer(this));
 			this.layers.push(new LevelLayer(this));
-			// give the layers a mediator
-			// to enable communication between layers
-			
-			var mediator:LayerMediator = new LayerMediator();
-			
+			this.mediator = new LayerMediator();
+			this.setupDone = false;
+			this.addEventListener(Event.ENTER_FRAME, this.setup);
+		}
+		// set up layers on the screen
+		public function setup(e:Event):void
+		{
+			this.setupDone = true;
+	
 			for(var i:int = 0; i < this.layers.length; i++)
 			{
-				this.layers[i].setup(mediator);
+				if (!this.layers[i].setup(mediator))
+				{
+					this.setupDone = false;
+				}
 			}
-			
-			this.addEventListener(Event.ENTER_FRAME, this.onFrame);
+			if (this.setupDone)
+			{
+				this.removeEventListener(Event.ENTER_FRAME, this.setup);
+				this.addEventListener(Event.ENTER_FRAME, this.onFrame);
+			}
 		}
 		// basic game loop
 		public function onFrame(e:Event)

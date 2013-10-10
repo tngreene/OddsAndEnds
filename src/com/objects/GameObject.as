@@ -62,7 +62,7 @@
 			this.x += this.dx;
 			this.y += this.dy;
 		}
-		public function sweepTestCollision(target:GameObject):Object
+		public final function sweepTestCollision(target:GameObject):Object
 		{
 			var ret:Object = new Object();
 			ret["collision"] = false;
@@ -97,11 +97,11 @@
 				}
 			} else
 			{
-				var xTime:Number = (target.x - this.x) / rdx;
-				var yTime:Number = (target.y - this.y) / rdy;
+				xTime = (target.x - this.x) / rdx;
+				yTime = (target.y - this.y) / rdy;
 				
-				var xTimeMin:Number = Math.min(xTime + xRadius / rdx, xTime - xRadius / rdx);
-				var yTimeMin:Number = Math.min(yTime + yRadius / rdy, yTime - yRadius / rdy);
+				xTimeMin = Math.min(xTime + xRadius / rdx, xTime - xRadius / rdx);
+				yTimeMin = Math.min(yTime + yRadius / rdy, yTime - yRadius / rdy);
 				if (xTimeMin < 1 && yTimeMin < 1)
 				{
 					var xTimeMax:Number = Math.max(xTime + xRadius / rdx, xTime - xRadius / rdx); 
