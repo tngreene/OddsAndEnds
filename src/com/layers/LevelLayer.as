@@ -20,6 +20,7 @@
 		// setups the player
 		public override function setup(mediator:LayerMediator):void
 		{
+
 			super.setupMediator(mediator, "level");
 			this._platforms.push(new Platform(this));
 			
