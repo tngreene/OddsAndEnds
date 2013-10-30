@@ -5,8 +5,9 @@ package com.objects
 	public class Spikes extends GameObject 
 	{
 		private var _spikes:Vector.<Spike>;
-		private var _length:Number;
-		private var _rotation:Number;
+		//Not a good solution but I just wanted to make it work once
+		public var _length:Number;
+		public var _rotation:Number;
 		private var _halfWidth:Number;
 		private var _halfHeight:Number;
 		public override function get halfHeight():Number
@@ -18,7 +19,9 @@ package com.objects
 			return this._halfWidth;
 		}
 		
-		public function Spikes(layer:Layer, length:Number, rotation:Number) 
+		//, length:Number, rotation:Number
+		//Changes the contructor
+		public function Spikes(layer:Layer) 
 		{
 			super(layer);
 			this._spikes = new Vector.<Spike>();
