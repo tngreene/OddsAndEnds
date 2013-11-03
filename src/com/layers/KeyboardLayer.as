@@ -20,11 +20,12 @@
 		}
 		
 		// setups keyboard listeners
-		public override function setup(mediator:LayerMediator):void
+		public override function setup(mediator:LayerMediator):Boolean
 		{
 			super.setupMediator(mediator, "keyboard");
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, this.handleKeyDown);
 			stage.addEventListener(KeyboardEvent.KEY_UP, this.handleKeyUp);
+			return true;
 		}
 		//removes keyboard listeners
 		public override function kill():void

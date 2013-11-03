@@ -6,7 +6,7 @@
 	public class GameObject extends MovieClip
 	{
 		// layer its sitting in
-		private var _parent:Layer;
+		protected var _parent:Layer;
 		// velocities
 		public var dx:Number;
 		public var dy:Number;
@@ -62,7 +62,69 @@
 			this.x += this.dx;
 			this.y += this.dy;
 		}
-
+		public final function sweepTestCollision(target:GameObject):Object
+		{
+			var ret:Object = new Object();
+			ret["collision"] = false;
+			var rdx:Number = this.fdx - target.fdx;
+			var rdy:Number = this.fdy - target.fdy;
+			
+			var xDist:Number = this.fx - target.x;
+			var yDist:Number = this.fy - target.y;
+			var xRadius:Number = (this.halfWidth + target.halfWidth);
+			var yRadius:Number = (this.halfHeight + target.halfHeight);
+			
+			if (rdx == 0)
+			{
+				var yTime:Number = (target.y - this.y) / rdy;
+				var yTimeMin:Number = Math.min(yTime + yRadius / rdy, yTime - yRadius / rdy);
+				if (yTimeMin >= 0 && yTimeMin < 1 && Math.abs(xDist) < xRadius)
+				{
+					ret["collision"] = true;
+					ret["direction"] = "y";
+					ret["time"] = yTimeMin;
+				}
+				
+			} else if (rdy == 0)
+			{
+				var xTime:Number = (target.x - this.x) / rdx;
+				var xTimeMin:Number = Math.min(xTime + xRadius / rdx, xTime - xRadius / rdx);
+				if (xTimeMin >= 0 && xTimeMin < 1 && Math.abs(yDist) < yRadius)
+				{
+					ret["direction"] = "x";
+					ret["time"] = xTimeMin;
+					ret["collision"] = true;
+				}
+			} else
+			{
+				xTime = (target.x - this.x) / rdx;
+				yTime = (target.y - this.y) / rdy;
+				
+				xTimeMin = Math.min(xTime + xRadius / rdx, xTime - xRadius / rdx);
+				yTimeMin = Math.min(yTime + yRadius / rdy, yTime - yRadius / rdy);
+				if (xTimeMin < 1 && yTimeMin < 1)
+				{
+					var xTimeMax:Number = Math.max(xTime + xRadius / rdx, xTime - xRadius / rdx); 
+					var yTimeMax:Number = Math.max(yTime + yRadius / rdy, yTime - yRadius / rdy);
+					
+					if (xTimeMin < yTimeMax && yTimeMin < xTimeMax)
+					{
+						if ((xTimeMin <= yTimeMin || yTimeMin < 0) && xTimeMin >= 0 )
+						{
+							ret["direction"] = "x";
+							ret["time"] = xTimeMin;
+							ret["collision"] = true;
+						} else if(yTimeMin >= 0)
+						{
+							ret["direction"] = "y";
+							ret["time"] = yTimeMin;
+							ret["collision"] = true;
+						}
+					}
+				}
+			}
+			return ret;
+		}
 	}
 	
 }

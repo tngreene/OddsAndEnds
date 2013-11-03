@@ -9,10 +9,11 @@
 	public class PlayerLayer extends Layer
 	{
 		private var _player:Player;
-		private var _level:LevelLayer;
-		private var _keyboard:KeyboardLayer;
+		private var _level:LevelLayer = null;
+		private var _keyboard:KeyboardLayer = null;
 		private var _jumping:Boolean;
 		private var _gravity:Number = 0.2;
+		private var _started:Boolean = false;
 		
 		public function PlayerLayer(_parent:MovieClip) 
 		{
@@ -20,20 +21,31 @@
 		}
 		
 		// setups the player
-		public override function setup(mediator:LayerMediator):void
+		public override function setup(mediator:LayerMediator):Boolean
 		{
 			super.setupMediator(mediator, "player");
-			// initializes the player
-			this._player = new Player(this);
-			// sets him in the middle by default
-			this._player.x = stage.stageWidth / 2;
-			this._player.y = 0;
-			// not jumping either
-			this._jumping = false;
-			this.addChild(this._player);
-			// requests keyboard access
-			this._mediator.request("keyboard", this);
-			this._mediator.request("level", this);
+			if (!this._started)
+			{
+				// initializes the player
+				this._player = new Player(this);
+				// sets him in the middle by default
+				// not jumping either
+				this._jumping = false;
+				this.addChild(this._player);
+				// requests keyboard access
+				this._mediator.request("keyboard", this);
+				this._mediator.request("level", this);
+				this._started = true;
+			}
+			
+			if (this._level != null)
+			{
+				this._player.x = this._level.spawnPoint.x;
+				this._player.y = this._level.spawnPoint.y;
+				
+				return true;
+			}
+			return false;
 		}
 		
 		// calls all the functions
@@ -48,8 +60,6 @@
 			this.applyGravity();
 			// make sure we dont go off screen
 			this.checkBounds();
-			// calculate drag and friction
-			this.applyFriction();
 			// make sure we dont go too fast
 			this.limitVelocities();
 			
@@ -65,19 +75,19 @@
 		// limits the x velocity so we dont go too fast
 		private function limitVelocities()
 		{
-			if (Math.abs(this._player.dy) < 0.02)
+			if (Math.abs(this._player.dy) < 0.0002)
 			{
 				this._player.dy = 0;
 			}
-			if (Math.abs(this._player.dx) < 0.02)
+			if (Math.abs(this._player.dx) < 0.0002)
 			{
 				this._player.dx = 0;
 			}
-			if (Math.abs(this._player.ay) < 0.02)
+			if (Math.abs(this._player.ay) < 0.0002)
 			{
 				this._player.ay = 0;
 			}
-			if (Math.abs(this._player.ax) < 0.02)
+			if (Math.abs(this._player.ax) < 0.0002)
 			{
 				this._player.ax = 0;
 			}
@@ -96,8 +106,8 @@
 		{
 			// if we aren't airborne
 			// add friction
-			if(this._player.dy == 0 && this._player.ay == 0)
-				this._player.ax += this._player.dx * -0.8;
+			if(this._player.dy == 0 && !this._jumping)
+				this._player.ax += this._player.dx * -0.5;
 		}
 		// checks the screen boundries
 		private function checkBounds()
@@ -108,62 +118,40 @@
 				collision = false;
 				for each(var platform:GameObject in this._level.platforms)
 				{
-					var xDist:Number = this._player.fx - platform.x;
-					var yDist:Number = this._player.fy - platform.y;
-					var xDir:Number = xDist / Math.abs(xDist);
-					var yDir:Number = yDist / Math.abs(yDist);
-					var xRadius:Number = (this._player.halfWidth + platform.halfWidth);
-					var yRadius:Number = (this._player.halfHeight + platform.halfHeight);
-					var xPen:Number = xRadius - Math.abs(xDist);
-					var yPen:Number = yRadius - Math.abs(yDist);
-					
-					if (this._player.fdx == 0)
+					var test:Object = this._player.sweepTestCollision(platform);
+					if (test["collision"])
 					{
-						var yTime:Number = (platform.y - this._player.y) / this._player.fdy;
-						var yTimeMin:Number = Math.min(yTime + yRadius / this._player.fdy, yTime - yRadius / this._player.fdy);
-						if (yTimeMin >= 0 && yTimeMin < 1 && Math.abs(xDist) < xRadius)
+						if (test["direction"] == "x")
 						{
-							collision = true;
-							this._player.ay -= (1 - yTimeMin) * this._player.fdy;
-						}
-						
-					} else if (this._player.fdy == 0)
-					{
-						var xTime:Number = (platform.x - this._player.x) / this._player.fdx;
-						var xTimeMin:Number = Math.min(xTime + xRadius / this._player.fdx, xTime - xRadius / this._player.fdx);
-						if (xTimeMin >= 0 && xTimeMin < 1 && Math.abs(yDist) < yRadius)
-						{
-							collision = true;
-							this._player.ax -= (1 - xTimeMin) * this._player.fdx;
-						}
-					} else
-					{
-						var xTime:Number = (platform.x - this._player.x) / this._player.fdx;
-						var yTime:Number = (platform.y - this._player.y) / this._player.fdy;
-						
-						var xTimeMin:Number = Math.min(xTime + xRadius / this._player.fdx, xTime - xRadius / this._player.fdx);
-						var yTimeMin:Number = Math.min(yTime + yRadius / this._player.fdy, yTime - yRadius / this._player.fdy);
-						if (xTimeMin < 1 && yTimeMin < 1)
-						{
-							var xTimeMax:Number = Math.max(xTime + xRadius / this._player.fdx, xTime - xRadius / this._player.fdx); 
-							var yTimeMax:Number = Math.max(yTime + yRadius / this._player.fdy, yTime - yRadius / this._player.fdy);
+							this._player.ax -= (1 - test["time"]) * this._player.fdx;
 							
-							if (xTimeMin < yTimeMax && yTimeMin < xTimeMax)
-							{
-								if ((xTimeMin <= yTimeMin || yTimeMin < 0) && xTimeMin >= 0 )
-								{
-									collision = true;
-									this._player.ax -= (1 - xTimeMin) * this._player.fdx;
-								}else if(yTimeMin >= 0)
-								{
-									collision = true;
-									this._player.ay -= (1 - yTimeMin) * this._player.fdy;
-								}
-							}
+						} else if (test["direction"] == "y")
+						{
+							this._player.ay -= (1 - test["time"]) * this._player.fdy;
+							
 						}
+						collision = true;
+					}
+				}
+				for each(var spike:GameObject in this._level.spikes)
+				{
+					test = this._player.sweepTestCollision(spike);
+					if (test["collision"])
+					{
+						if (test["direction"] == "x")
+						{
+							this._player.ax -= (1 - test["time"]) * this._player.fdx;
+							
+						} else if (test["direction"] == "y")
+						{
+							this._player.ay -= (1 - test["time"]) * this._player.fdy;
+						}
+						trace("You just died!");
+						collision = true;
 					}
 				}
 			}
+			
 			
 		}
 		// checks the keys
@@ -181,10 +169,18 @@
 			if(this._keyboard.isKeyDown(Keyboard.RIGHT) )//&& !this._player.airborne)
 			{
 				this._player.ax += 2 * (this._player.airborne ? 0.04 : 1);
+				this._player.pose = "run";
+				this._player.dir = "right";
 			}
 			else if(this._keyboard.isKeyDown(Keyboard.LEFT) )//&& !this._player.airborne)
 			{
 				this._player.ax += -2 * (this._player.airborne ? 0.04 : 1);
+				this._player.pose = "run";
+				this._player.dir = "left";
+			} else
+			{
+				this._player.pose = "";
+				this.applyFriction();
 			}
 		}
 		// kills the player clip
@@ -203,6 +199,11 @@
 			{
 				this._level = target as LevelLayer;
 			}
+		}
+		
+		public function get player():Player 
+		{
+			return _player;
 		}
 	}
 	
