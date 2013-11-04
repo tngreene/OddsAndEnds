@@ -65,6 +65,16 @@
 			return _goal;
 		}
 		
+		public function get currentLevel():Number 
+		{
+			return _currentLevel;
+		}
+		
+		public function set currentLevel(value:Number):void 
+		{
+			_currentLevel = value;
+		}
+		
 		// setups the level
 		public override function setup(mediator:LayerMediator):Boolean
 		{

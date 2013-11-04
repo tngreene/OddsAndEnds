@@ -72,8 +72,15 @@
 			{
 				this._win = false;
 				this._level.currentLevel++;
-				this._level.reload();
-				this.respawn();
+				trace(XMLManager.xmlInstance.xml.levels.@maxId);
+				if (this._level.currentLevel <= XMLManager.xmlInstance.xml.levels.@maxId)
+				{
+					this._level.reload();
+					this.respawn();
+				} else 
+				{
+					trace("quit");
+				}
 			}
 			
 			if(this._jumping && !this._player.airborne)
