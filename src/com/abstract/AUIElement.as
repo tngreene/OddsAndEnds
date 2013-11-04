@@ -4,10 +4,10 @@
 	import flash.display.MovieClip;
 	import flash.events.*;
 	
-	public class AbstractUIElement extends MovieClip
+	public class AUIElement extends MovieClip
 	{
-		protected var _gameManager:AbstractGameManager;
-		public function AbstractUIElement(aGameManager:AbstractGameManager) 
+		protected var _gameManager:AGameManager;
+		public function AUIElement(aGameManager:AGameManager) 
 		{
 			// constructor code
 			//trace(this + " created");

@@ -1,4 +1,4 @@
-﻿package com.layers 
+﻿/* ALL OF THIS IS NOT GOING TO BE USEDpackage com.layers 
 {
 	
 	// used to issue and fulfill requests
@@ -63,4 +63,4 @@
 		}
 	}
 	
-}
+}*/

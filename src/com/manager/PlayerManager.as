@@ -1,56 +1,51 @@
-﻿package com.layers
+﻿package com.manager
 {
-	import flash.display.MovieClip;
+	import com.abstract.AGameManager;
+	import com.as3toolkit.events.KeyboarderEvent;
+	import com.as3toolkit.ui.Keyboarder;
+	import com.MainGame;
+	import com.element.Player;
 	import flash.ui.Keyboard;
-	import com.objects.Player;
-	import com.objects.Platform;
-	import com.objects.GameObject;
 	
-	public class PlayerLayer extends Layer
+	public class PlayerManager extends AGameManager
 	{
 		private var _player:Player;
-		private var _level:LevelLayer = null;
-		private var _keyboard:KeyboardLayer = null;
-		private var _jumping:Boolean;
+		//private var _level:LevelLayer = null;
+		//private var _keyboard:KeyboardLayer = null;
+		private var _jumping:Boolean;//This makes no sense to me
 		private var _gravity:Number = 0.2;
 		private var _started:Boolean = false;
 		
-		public function PlayerLayer(_parent:MovieClip) 
+		public function PlayerManager(pMainGame:MainGame) 
 		{
-			super(_parent);
+			super(pMainGame);
+			//...
+			//Keyboarder.Instance.addEventListener(KeyboarderEvent.FIRST_PRESS, onKeyPress);
+			//Keyboarder.Instance.addEventListener(KeyboarderEvent.RELEASE, onKeyRelease);
 		}
 		
-		// setups the player
-		public override function setup(mediator:LayerMediator):Boolean
+		public override function init():void
 		{
-			super.setupMediator(mediator, "player");
-			if (!this._started)
-			{
-				// initializes the player
-				this._player = new Player(this);
-				// sets him in the middle by default
-				// not jumping either
-				this._jumping = false;
-				this.addChild(this._player);
-				// requests keyboard access
-				this._mediator.request("keyboard", this);
-				this._mediator.request("level", this);
-				this._started = true;
-			}
-			
-			if (this._level != null)
-			{
-				this._player.x = this._level.spawnPoint.x;
-				this._player.y = this._level.spawnPoint.y;
+			//Creates the player
+			this._player = new Player(this);
+			this.addChild(this._player);
+			// sets him in the middle by default
+			// not jumping either
+			this._jumping = false;
 				
-				return true;
-			}
-			return false;
+			this._player.x = 0; //this._level.spawnPoint.x;
+			this._player.y = 0;// this._level.spawnPoint.y;
 		}
 		
+		// kills the player clip
+		public override function deconstruct():void
+		{
+			this.removeChild(this._player);
+			this._player = null;
+		}
 		// calls all the functions
 		// that need to be called once a frame
-		public override function onFrame():void
+		public override function update():void
 		{
 			// set acceleration to 0 so we can mess with it later
 			this._player.resetAcceleration();
@@ -66,7 +61,7 @@
 			if(this._jumping && !this._player.airborne)
 				this._jumping = false;
 			// actually move the character
-			this._player.onFrame();
+			this._player.update();
 		}
 		private function applyGravity()
 		{
@@ -106,13 +101,15 @@
 		{
 			// if we aren't airborne
 			// add friction
-			if(this._player.dy == 0 && !this._jumping)
+			if (this._player.dy == 0 && !this._jumping)
+			{
 				this._player.ax += this._player.dx * -0.5;
+			}
 		}
 		// checks the screen boundries
 		private function checkBounds()
 		{
-			var collision = true;
+			/*var collision = true;
 			while (collision)
 			{
 				collision = false;
@@ -151,28 +148,30 @@
 					}
 				}
 			}
-			
+			*/
 			
 		}
+		
+		
 		// checks the keys
 		private function checkKeys()
 		{
 			// jump
 			// only if we arent already jumping
-			if(this._keyboard.isKeyDown(Keyboard.UP) && !this._jumping)
+			if(Keyboarder.keyIsDown(Keyboard.UP) && !this._jumping)
 			{
 				this._player.ay += -8;
 				this._jumping = true;
 			}
 			// if were holding right or left accelerate quickly in that direction
 			// terminal velocityis the accel / friction constant
-			if(this._keyboard.isKeyDown(Keyboard.RIGHT) )//&& !this._player.airborne)
+			if(Keyboarder.keyIsDown(Keyboard.RIGHT) )//&& !this._player.airborne)
 			{
 				this._player.ax += 2 * (this._player.airborne ? 0.04 : 1);
 				this._player.pose = "run";
 				this._player.dir = "right";
 			}
-			else if(this._keyboard.isKeyDown(Keyboard.LEFT) )//&& !this._player.airborne)
+			else if(Keyboarder.keyIsDown(Keyboard.LEFT) )//&& !this._player.airborne)
 			{
 				this._player.ax += -2 * (this._player.airborne ? 0.04 : 1);
 				this._player.pose = "run";
@@ -183,23 +182,7 @@
 				this.applyFriction();
 			}
 		}
-		// kills the player clip
-		public override function kill():void
-		{
-			this.removeChild(this._player);
-			this._player = null;
-		}
-		// fulfills all requests we make
-		public override function fulfill(key:String, target:Layer):void
-		{
-			if(key == "keyboard")
-			{
-				this._keyboard = target as KeyboardLayer;
-			} else if(key == "level")
-			{
-				this._level = target as LevelLayer;
-			}
-		}
+
 		
 		public function get player():Player 
 		{

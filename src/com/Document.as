@@ -1,69 +1,66 @@
 ﻿package com 
 {
-	//1 michigan
-	import com.layers.OffsetLayer;
-	//Add the xml manager
-	import com.layers.XMLManager;
+	import com.abstract.*;
+	import com.as3toolkit.ui.Keyboarder;
+	import com.manager.OffsetManager;
+	import com.manager.XMLManager;
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import com.abstract.*;
+	//Add the xml manager
 	/*import com.layers.Layer;
 	import com.layers.PlayerLayer;
 	import com.layers.KeyboardLayer;
 	import com.layers.LayerMediator;
 	import com.layers.LevelLayer;*/
-	import flash.net.URLLoader;
-	import flash.net.URLRequest;
 
 	public class Document extends MovieClip
 	{
-		private var _view:AView;
-		private var mediator:LayerMediator;
-		private var setupDone:Boolean;
+		private static const XML_PATH:String = "level.xml";
+		private var mainGame:MainGame;
+		private var kb:Keyboarder;
+		
+		//private var _view:AView;
+		//private var mediator:LayerMediator;
+		//private var setupDone:Boolean;
+		
 		public function Document()
 		{
-			setup();
-		public function setup():void
-			this.layers = new Vector.<Layer>();
-			this.offsetLayer = new OffsetLayer(this);
-			this.layers.push(this.offsetLayer);
-			this.layers.push(new LevelLayer(this));
-			this.layers.push(new PlayerLayer(this));			
-			this.layers.push(new KeyboardLayer(this));
+			//Makes a new keyboarder
+			kb = new Keyboarder(this);
 			
-			this.mediator = new LayerMediator();
-			this.setupDone = false;
-			//this.addEventListener(Event.ENTER_FRAME, this.setup);
-			//Make the XML Manager work, since this is replacing the url loading, it controls setup
+			//Sets up the xml
 			XMLManager.xmlInstance.loadXML(XML_PATH);
-			XMLManager.xmlInstance.addEventListener(XMLManager.LOAD_COMPLETE, setup);
+			XMLManager.xmlInstance.addEventListener(XMLManager.LOAD_COMPLETE, onLoaded);
 		}
-		// set up layers on the screen
-		public function setup(e:Event):void
+		
+		//Once the XML has loaded the game can really start!
+		public function onLoaded(e:Event):void
 		{
-			this.setupDone = true;
-	
-			for(var i:int = 0; i < this.layers.length; i++)
-			{
-				if (!this.layers[i].setup(mediator))
-				{
-					this.setupDone = false;
-				}
-			}
-
-				//this.removeEventListener(Event.ENTER_FRAME, this.setup);
-				this.addEventListener(Event.ENTER_FRAME, this.onFrame);
+			/*Inside of here will be a mini FSM that controls going from the start menu (with hopefully eventually an options screen)
+			 * to the main game to the start screen or the game over screen
+			 * and from the game over screen to the start screen
+			 * 
+			 *               //Press play        //Lose condition
+			 * [Start Screen]----------->[Main Game]----------->[Game Over]
+			 *       <-Click "Go to Menu"/        \-Click "Quit"->    |
+			 *                                                        |
+			 *     ^______________________________________Click "Back"|
+			 * */
 			
+			//Create the start menu
+			//startMenu = new StartMenu();
+			//addChild(startMenu);
+			
+			//Create a new main game
+			mainGame = new MainGame();
+			addChild(mainGame);
+			
+			//Create 
+			mainGame.init();
+			
+			//Create the game over screen
+			//gameOverScreen = new GameOverScreen();
+			//addChild(gameOverScreen)
 		}
-		// basic game loop
-		public function onFrame(e:Event)
-		{
-			this.x = this.offsetLayer.offsetX;
-			this.y = this.offsetLayer.offsetY;
-			for each(var layer:Layer in this.layers)
-			{
-				layer.onFrame();
-			}
-		}*/
 	}
 }

@@ -8,7 +8,7 @@
 	// and processing
 	public class Layer extends MovieClip
 	{
-		// parent movieclip of this object
+		/*WILL NOT BE USED // parent movieclip of this object
 		// usually Document
 		protected var _parent:MovieClip;
 		// mediator to get in communication
@@ -55,6 +55,6 @@
 		// used when requests are made to the mediator
 		public function fulfill(key:String, target:Layer):void
 		{
-		}
+		}*/
 	}
 }

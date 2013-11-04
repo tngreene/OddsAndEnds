@@ -1,4 +1,4 @@
-﻿package com.layers
+﻿/*package com.layers
 {
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
@@ -58,5 +58,4 @@
 			return !this._keys[key];
 		}
 	}
-	
-}
+}*/

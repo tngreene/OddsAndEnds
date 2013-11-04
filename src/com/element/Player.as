@@ -1,20 +1,20 @@
-﻿package com.objects
+﻿package com.element
 {
-	
-	import com.layers.Layer;
+	import com.abstract.AGameManager;
+	import com.abstract.AGameElement;
 
 	// Reprents the player clip
 	// does its own velocity and position calculations
-	public class Player extends GameObject 
+	public class Player extends AGameElement 
 	{
 		private var _dir:String;
 		private var _pose:String;
-		public function Player(layer:Layer) 
+		public function Player(pGameManager:AGameManager) 
 		{
-			super(layer);
+			super(pGameManager);
 			this._dir = "left";
 		}
-		public override function  get halfHeight():Number
+		public override function get halfHeight():Number
 		{
 			return 40;
 		}
@@ -48,9 +48,10 @@
 			this.ax = 0;
 			this.ay = 0;
 		}
-		public override function onFrame()
+		
+		public override function update():void
 		{
-			super.onFrame();
+			super.update();//Not sure how this line works
 			if (this.dx == 0)
 				this.pose = "";
 			

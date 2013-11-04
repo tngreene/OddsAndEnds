@@ -1,8 +1,9 @@
-package com.objects 
+package com.element 
 {
-	import com.layers.Layer;
+	import com.abstract.AGameElement;
+	import com.abstract.AGameManager;
 	
-	public class Spikes extends GameObject 
+	public class Spikes extends AGameElement 
 	{
 		private var _spikes:Vector.<Spike>;
 		//Not a good solution but I just wanted to make it work once
@@ -10,6 +11,7 @@ package com.objects
 		public var _rotation:Number;
 		private var _halfWidth:Number;
 		private var _halfHeight:Number;
+		
 		public override function get halfHeight():Number
 		{
 			return this._halfHeight;
@@ -21,16 +23,17 @@ package com.objects
 		
 		//, length:Number, rotation:Number
 		//Changes the contructor
-		public function Spikes(layer:Layer) 
+		public function Spikes(pGameManager:AGameManager) 
 		{
-			super(layer);
+			super(pGameManager);
 			this._spikes = new Vector.<Spike>();
 			this._length = length;
 			this._rotation = rotation;
 		}
-		public function setup()
+		
+		public override function init():void
 		{
-			var tempSpike:Spike = new Spike(this._parent);
+			/*var tempSpike:Spike = new Spike(this._parent);
 			if (this._rotation == 0 || this._rotation == 180)
 			{
 				this._halfWidth = 10 * this._length;
@@ -59,7 +62,7 @@ package com.objects
 				this._spikes.push(tempSpike);
 			}
 			this.x += this.halfWidth;
-			this.y += this.halfHeight;
+			this.y += this.halfHeight;*/
 		}
 	}
 
