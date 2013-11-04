@@ -58,6 +58,10 @@ package com
 			switch(FSM_MODE)
 			{
 				case FSM_GAME_START:
+					if (_levelManager.levels.length == 0)
+					{
+						_levelManager.init();
+					}
 					break;
 				case FSM_SPAWN:
 					break;

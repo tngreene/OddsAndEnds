@@ -106,6 +106,7 @@
 				this._player.ax += this._player.dx * -0.5;
 			}
 		}
+		
 		// checks the screen boundries
 		private function checkBounds()
 		{
