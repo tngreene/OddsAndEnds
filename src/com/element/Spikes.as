@@ -7,8 +7,7 @@ package com.element
 	{
 		private var _spikes:Vector.<Spike>;
 		//Not a good solution but I just wanted to make it work once
-		public var _length:Number;
-		public var _rotation:Number;
+		private var _length:Number;
 		private var _halfWidth:Number;
 		private var _halfHeight:Number;
 		
@@ -21,6 +20,15 @@ package com.element
 			return this._halfWidth;
 		}
 		
+		public function get length():Number
+		{
+			return _length;
+		}
+		public function set length(value:Number)
+		{
+			_length = value;
+		}
+				
 		//, length:Number, rotation:Number
 		//Changes the contructor
 		public function Spikes(pGameManager:AGameManager) 
@@ -28,13 +36,13 @@ package com.element
 			super(pGameManager);
 			this._spikes = new Vector.<Spike>();
 			this._length = length;
-			this._rotation = rotation;
+			//this._rotation = rotation;
 		}
 		
 		public override function init():void
 		{
-			/*var tempSpike:Spike = new Spike(this._parent);
-			if (this._rotation == 0 || this._rotation == 180)
+			var tempSpike:Spike = new Spike(this._gameManager);
+			if (this.rotation == 0 || this.rotation == 180)
 			{
 				this._halfWidth = 10 * this._length;
 				this._halfHeight = 10;
@@ -48,8 +56,8 @@ package com.element
 			for (var i:int = 0; i < this._length; i++)
 			{
 				if(i != 0)
-					tempSpike = new Spike(this._parent);
-				if (this._rotation == 0 || this._rotation == 180)
+					tempSpike = new Spike(this._gameManager);
+				if (this.rotation == 0 || this.rotation == 180)
 				{
 					tempSpike.x = this.x + i * 20 + 10;
 					tempSpike.y = this.y + 10;
@@ -58,11 +66,11 @@ package com.element
 					tempSpike.x = this.x + 10;
 					tempSpike.y = this.y + i * 20 + 10;
 				}
-				tempSpike.rotation = this._rotation;
+				tempSpike.rotation = this.rotation;
 				this._spikes.push(tempSpike);
 			}
 			this.x += this.halfWidth;
-			this.y += this.halfHeight;*/
+			this.y += this.halfHeight;
 		}
 	}
 

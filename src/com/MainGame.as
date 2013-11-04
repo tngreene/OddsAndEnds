@@ -53,7 +53,7 @@ package com
 		{
 			removeEventListener(Event.ENTER_FRAME, gameLoop);
 		}
-		private function gameLoop(e:Event):Boolean
+		private function gameLoop(e:Event):void
 		{
 			switch(FSM_MODE)
 			{
@@ -75,7 +75,6 @@ package com
 					throw new Error("You have entered an invalid mode");
 					break;
 			}
-			return true;
 		}
 		
 		//Changes the FSM by calling the Leave/EnterState methods.

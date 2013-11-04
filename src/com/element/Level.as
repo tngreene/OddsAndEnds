@@ -26,11 +26,19 @@ package com.element
 		public function Level(pGameManager:AGameManager, levelID:uint) 
 		{
 			super(pGameManager);
+			//Add it as a child in the displayobject hierarchy
+			pGameManager.addChild(this);
+			
+			//Set up the collection of platforms
 			this._platforms = new Vector.<Platform>();
+			
+			//Set up the collection of spikes
 			this._spikes = new Vector.<Spikes>();
+			
+			//And the spawn Point
 			this._spawnPoint = new Point();
 			
-						//Set up the level width and height
+			//Set up the level width and height
 			this._levelWidth  = XMLManager.xmlInstance.xml.level[levelID].width[0].text();
 			this._levelHeight = XMLManager.xmlInstance.xml.level[levelID].height[0].text();
 			trace("Width: " + _levelWidth + ", Height: " + _levelHeight);
@@ -51,33 +59,38 @@ package com.element
 			{
 				//The platform type to be used in the switch statement
 				var platType:String = XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].@type;
-				trace(platType);
+				//trace(platType);
 				
 				switch(platType)
 				{
 					case "platform":
 						// platform data is entered as "x,y,width,height"
 						//var info:Array = line.split(",");
-						var platform:Platform = new Platform(this._gameManager);
+						var platform:Platform = new Platform(pGameManager);
+						addChild(platform);//Add it to the stage
 						
 						platform.x = XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].@x;
 						platform.y = XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].@y;
-						platform.width = XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].width[0].text();
-						platform.height = XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].height[0].text();
 						
+						//Set the width and height
+						platform.width = Number(XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].width[0].text());
+						platform.height = Number(XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].height[0].text());
+						
+						//trace("Platform X: " + platform.x + ", Y: " + platform.y + ", Width: " + platform.width + ", Height: " + platform.height);
 						this._platforms.push(platform);
 						break;
 					case "spike":
 						// spike data is entered as "x,y,numspikes,rotation"
-						var spikes:Spikes = new Spikes(this._gameManager);
+						var spikes:Spikes = new Spikes(pGameManager);
+						addChild(spikes);//Add it to the stage
 						
-						spikes._length =  XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].width[0];
-						spikes._rotation = XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].rotation[0];
+						spikes.length =  XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].width[0];
+						spikes.rotation = XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].rotation[0];
 						spikes.x =  XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].@x;
 						spikes.y =  XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].@y;
 						
 						spikes.init();
-						
+						trace("spikes X: " + spikes.x + ", Y: " + spikes.y + ", Width: " + spikes.width + ", Height: " + spikes.height);
 						this._spikes.push(spikes);
 						break;
 					default:
@@ -116,6 +129,15 @@ package com.element
 			this._platforms.push(topWall);
 			this._platforms.push(bottomWall);
 			
+			for (var i:int = 0; i < _platforms.length; i++)
+			{
+				
+			}
+			
+			for (var i:int = 0; i < _spikes.length; i++)
+			{
+				addChild(_spikes[i]);
+			}
 		}//end constructor
 		
 		//GETTERS

@@ -48,8 +48,6 @@
 			var tempLevel:Level = new Level(this, levelID);
 			//Add it to the vector of levels
 			_levels.push(tempLevel);
-			//Add it as a child in the displayobject hierarchy
-			addChild(tempLevel);
 		}
 	}
 	

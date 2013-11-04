@@ -10,6 +10,7 @@ package com.element
 		public function Spike(pGameManager:AGameManager) 
 		{
 			super(pGameManager);
+			pGameManager.addChild(this);
 		}
 	}
 }
