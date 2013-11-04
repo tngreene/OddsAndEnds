@@ -28,8 +28,10 @@ package com.objects
 			this._length = length;
 			this._rotation = rotation;
 		}
-		public function setup()
+		public function setup(gridSize:Number)
 		{
+			this.x *= gridSize;
+			this.y *= gridSize;
 			var tempSpike:Spike = new Spike(this._parent);
 			if (this._rotation == 0 || this._rotation == 180)
 			{

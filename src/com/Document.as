@@ -1,6 +1,7 @@
 ﻿package com 
 {
 	//1 michigan
+	import com.layers.BackgroundLayer;
 	import com.layers.OffsetLayer;
 	//Add the xml manager
 	import com.layers.XMLManager;
@@ -24,7 +25,8 @@
 		private var setupDone:Boolean;
 		public function Document()
 		{
-			this.layers = new Vector.<Layer>();
+			this.layers = new Vector.<Layer>();	
+			this.layers.push(new BackgroundLayer(this));
 			this.offsetLayer = new OffsetLayer(this);
 			this.layers.push(this.offsetLayer);
 			this.layers.push(new LevelLayer(this));

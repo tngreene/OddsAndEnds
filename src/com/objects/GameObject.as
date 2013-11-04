@@ -23,7 +23,11 @@
 			this.ax = 0;
 			this.ay = 0;
 		}
-		
+		public function kill():void
+		{
+			this._parent.removeChild(this);
+			this._parent = null;
+		}
 		public function get halfWidth():Number
 		{
 			return Math.floor(this.width / 2);

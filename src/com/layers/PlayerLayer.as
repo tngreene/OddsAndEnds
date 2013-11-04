@@ -14,6 +14,8 @@
 		private var _jumping:Boolean;
 		private var _gravity:Number = 0.2;
 		private var _started:Boolean = false;
+		private var _dead:Boolean = false;
+		private var _win:Boolean = false;
 		
 		public function PlayerLayer(_parent:MovieClip) 
 		{
@@ -40,9 +42,7 @@
 			
 			if (this._level != null)
 			{
-				this._player.x = this._level.spawnPoint.x;
-				this._player.y = this._level.spawnPoint.y;
-				
+				this.respawn();
 				return true;
 			}
 			return false;
@@ -63,6 +63,19 @@
 			// make sure we dont go too fast
 			this.limitVelocities();
 			
+			if (this._dead)
+			{
+				this._dead = false;
+				this.respawn();
+			}
+			if (this._win)
+			{
+				this._win = false;
+				this._level.currentLevel++;
+				this._level.reload();
+				this.respawn();
+			}
+			
 			if(this._jumping && !this._player.airborne)
 				this._jumping = false;
 			// actually move the character
@@ -75,22 +88,15 @@
 		// limits the x velocity so we dont go too fast
 		private function limitVelocities()
 		{
-			if (Math.abs(this._player.dy) < 0.0002)
+			function cutOff(num:Number):Number
 			{
-				this._player.dy = 0;
+				return Math.round(num * 10000) / 10000;
 			}
-			if (Math.abs(this._player.dx) < 0.0002)
-			{
-				this._player.dx = 0;
-			}
-			if (Math.abs(this._player.ay) < 0.0002)
-			{
-				this._player.ay = 0;
-			}
-			if (Math.abs(this._player.ax) < 0.0002)
-			{
-				this._player.ax = 0;
-			}
+			this._player.dy = cutOff(this._player.dy);
+			this._player.dx = cutOff(this._player.dx);
+			this._player.ay = cutOff(this._player.ay);
+			this._player.ax = cutOff(this._player.ax);
+			
 			// if its speeds greater than 10, set it to 10
 			if(Math.abs(this._player.fdx) > 5)
 			{
@@ -107,7 +113,7 @@
 			// if we aren't airborne
 			// add friction
 			if(this._player.dy == 0 && !this._jumping)
-				this._player.ax += this._player.dx * -0.5;
+				this._player.ax += this._player.dx * -1;
 		}
 		// checks the screen boundries
 		private function checkBounds()
@@ -121,10 +127,14 @@
 					var test:Object = this._player.sweepTestCollision(platform);
 					if (test["collision"])
 					{
+						
+						if (platform.x == -40)
+						{
+							platform.x += 0;
+						}
 						if (test["direction"] == "x")
 						{
 							this._player.ax -= (1 - test["time"]) * this._player.fdx;
-							
 						} else if (test["direction"] == "y")
 						{
 							this._player.ay -= (1 - test["time"]) * this._player.fdy;
@@ -146,9 +156,14 @@
 						{
 							this._player.ay -= (1 - test["time"]) * this._player.fdy;
 						}
-						trace("You just died!");
+						this._dead = true;
 						collision = true;
 					}
+				}
+				test = this._player.sweepTestCollision(this._level.goal);
+				if (test["collision"])
+				{
+					this._win = true;
 				}
 			}
 			
@@ -182,6 +197,9 @@
 				this._player.pose = "";
 				this.applyFriction();
 			}
+			if (this._keyboard.isKeyDown(Keyboard.SPACE))
+			{
+			}
 		}
 		// kills the player clip
 		public override function kill():void
@@ -204,6 +222,15 @@
 		public function get player():Player 
 		{
 			return _player;
+		}
+		public function respawn():void
+		{
+			this._player.x = this._level.spawnPoint.x;
+			this._player.y = this._level.spawnPoint.y;
+			this._player.dx = 0;
+			this._player.dy = 0;
+			this._player.ax = 0;
+			this._player.ay = 0;
 		}
 	}
 	

@@ -65,6 +65,15 @@ package com.layers
 		{
 			return _offsetY;
 		}
+		
+		public function get percentX():Number
+		{
+			return this._offsetX / ( -this._levelLayer.levelWidth + stage.stageWidth);
+		}
+		public function get percentY():Number
+		{
+			return this._offsetY / ( -this._levelLayer.levelHeight + stage.stageHeight);
+		}
 	}
 
 }
