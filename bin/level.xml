@@ -1,5 +1,5 @@
 <root>
-	<levels maxId="1">
+	<levels maxId="1" />
 		<level id="0">
 			<!-- 7.5, 22 -->
 			<width>36</width>
@@ -211,5 +211,4 @@
 				</platform>			
 			</platforms>
 		</level>
-	</levels>
 </root>

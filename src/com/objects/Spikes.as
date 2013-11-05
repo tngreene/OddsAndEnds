@@ -28,6 +28,14 @@ package com.objects
 			this._length = length;
 			this._rotation = rotation;
 		}
+		public override function kill():void
+		{
+			super.kill();
+			for each(var s:Spike in this._spikes)
+			{
+				s.kill();
+			}
+		}
 		public function setup(gridSize:Number)
 		{
 			this.x *= gridSize;

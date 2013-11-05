@@ -91,19 +91,19 @@
 			
 			this._spawnPoint = new Point();
 			
-			this._platforms = new Vector.<Platform>();
 			
 			for each(var platform:Platform in this._platforms)
 			{
 				platform.kill();
 			}
+			this._platforms = new Vector.<Platform>();
 			
-			this._spikes = new Vector.<Spikes>();
 			
 			for each(var spike:Spikes in this._spikes)
 			{
 				spike.kill();
 			}
+			this._spikes = new Vector.<Spikes>();
 			
 			this._goal.kill();
 			this._goal = null;
