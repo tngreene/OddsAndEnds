@@ -35,6 +35,7 @@ This is a game started in GDD1 and continued in GDD2
 [1.3.0] Credits:
 Product Owner/Project Lead: Edward Finer
 Gameplay Programmer: Theodore "Ted" Greene
+Gameplay Programmer: Julien Kilian
 Art/Level Designer: Danish Bukhari
 Art/Sound: Sean Mooney
 XML Code: Proffesor Tony Jefferson
