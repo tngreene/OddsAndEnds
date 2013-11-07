@@ -94,9 +94,9 @@
 			<!-- Even though we likely won't have it tomorrow, I listed it here for future reference. -->
 			<!-- <pickup type="spikeShield" x="2" y="2"></pickup> -->
 			<platforms>
-				<platform type="platform" x="4" y="2">
+				<platform type="platform" x="4" y="3.5">
 					<width>4</width>
-					<height>2</height>
+					<height>1.5</height>
 					<rotation></rotation>
 				</platform>
 				<platform type="platform" x="7.5" y="5.5">
@@ -140,7 +140,7 @@
 					<rotation></rotation>
 				</platform>
 				<platform type="platform" x="4" y="22">
-					<width>6</width>
+					<width>7.5</width>
 					<height>4</height>
 					<rotation></rotation>
 				</platform>
@@ -185,30 +185,30 @@
 					<rotation></rotation>
 				</platform>			
 				<platform type="spike" x="12" y="12.25">
-					<width>14</width>
+					<width>28</width>
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
 				<platform type="spike" x="7.5" y="21.75">
-					<width>3</width>
+					<width>6</width>
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
 				<platform type="spike" x="13.5" y="21.75">
-					<width>3</width>
+					<width>6</width>
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
 				<platform type="spike" x="19.5" y="21.75">
-					<width>3</width>
+					<width>6</width>
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
 				<platform type="spike" x="28.5" y="20.25">
-					<width>7</width>
+					<width>14</width>
 					<height></height>
 					<rotation>0</rotation>
-				</platform>			
+				</platform>		
 			</platforms>
 		</level>
 </root>
