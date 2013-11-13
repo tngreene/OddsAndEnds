@@ -27,14 +27,28 @@ package com
 		private var _offsetManager:OffsetManager;
 		private var _playerManager:PlayerManager;
 		
+		public function get levelManager():LevelManager
+		{
+			return _levelManager;
+		}
+		public function get playerManager():PlayerManager
+		{
+			return _playerManager;
+		}
 		public function MainGame()
 		{
 			//Create managers here
 			_levelManager = new LevelManager(this);
 			_offsetManager = new OffsetManager(this);
 			_playerManager = new PlayerManager(this);
-			//Player
 			
+			//Call init's afterward
+			_levelManager.init();
+			
+			//Player
+			_playerManager.init();
+			
+			_offsetManager.init();
 			//Set up vital variables here
 		}
 		
@@ -60,12 +74,22 @@ package com
 				case FSM_GAME_START:
 					if (_levelManager.levels.length == 0)
 					{
-						_levelManager.init();
+						
+					}
+					else
+					{
+						changeState(FSM_GAME_START);
 					}
 					break;
 				case FSM_SPAWN:
+					changeState(FSM_SPAWN);
 					break;
 				case FSM_PLAYING:
+					//Call the update methods of various classes
+					_playerManager.update();
+					_offsetManager.update();
+					this.x = _offsetManager.offsetX;
+					this.y = _offsetManager.offsetY;
 					break;
 				case FSM_DIEING:
 					break;
@@ -85,8 +109,12 @@ package com
 			switch(changeFrom)
 			{
 				case FSM_GAME_START:
+					leaveState(FSM_GAME_START);
+					enterState(FSM_SPAWN);
 					break;
 				case FSM_SPAWN:
+					leaveState(FSM_SPAWN);
+					enterState(FSM_PLAYING);
 					break;
 				case FSM_PLAYING:
 					break;
@@ -128,17 +156,24 @@ package com
 		//Put in the mode you will be entering
 		private function enterState(mode:uint):void
 		{
+			//MUST INCLUDE THE FSM_MODE change. This should be the only place it changes
+			//In order to keep the system in line. Other code is optional too
 			switch(mode)
 			{
 				case FSM_GAME_START:
+					FSM_MODE = FSM_GAME_START;
 					break;
 				case FSM_SPAWN:
+					FSM_MODE = FSM_SPAWN;
 					break;
 				case FSM_PLAYING:
+					FSM_MODE = FSM_PLAYING;
 					break;
 				case FSM_DIEING:
+					FSM_MODE = FSM_DIEING;
 					break;
 				case FSM_GAME_OVER:
+					FSM_MODE = FSM_GAME_OVER;
 					break;
 				default:
 					throw new Error("You have entered an invalid mode");

@@ -98,7 +98,10 @@
 		}
 		public function update():void
 		{
-			//Override this 
+			this.dx += this.ax;
+			this.dy += this.ay;
+			this.x += this.dx;
+			this.y += this.dy;
 		}
 		public final function sweepTestCollision(target:AGameElement):Object
 		{

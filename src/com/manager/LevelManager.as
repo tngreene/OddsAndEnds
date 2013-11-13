@@ -17,6 +17,12 @@
 		{
 			return _levels;
 		}
+		
+		public function get currentLevel():uint
+		{
+			return _currentLevel;
+		}
+		
 		public function LevelManager(pMainGame:MainGame) 
 		{
 			super(pMainGame);

@@ -1,8 +1,12 @@
 ﻿package com.manager
 {
+	import com.abstract.AGameElement;
 	import com.abstract.AGameManager;
 	import com.as3toolkit.events.KeyboarderEvent;
 	import com.as3toolkit.ui.Keyboarder;
+	import com.element.Platform;
+	import com.element.Spike;
+	import com.element.Spikes;
 	import com.MainGame;
 	import com.element.Player;
 	import flash.ui.Keyboard;
@@ -10,8 +14,11 @@
 	public class PlayerManager extends AGameManager
 	{
 		private var _player:Player;
-		//private var _level:LevelLayer = null;
-		//private var _keyboard:KeyboardLayer = null;
+		public function get player():Player 
+		{
+			return _player;
+		}
+		
 		private var _jumping:Boolean;//This makes no sense to me
 		private var _gravity:Number = 0.2;
 		private var _started:Boolean = false;
@@ -33,8 +40,8 @@
 			// not jumping either
 			this._jumping = false;
 				
-			this._player.x = 0; //this._level.spawnPoint.x;
-			this._player.y = 0;// this._level.spawnPoint.y;
+			this._player.x = _mainGame.levelManager.levels[_mainGame.levelManager.currentLevel].spawnPoint.x; //this._level.spawnPoint.x;
+			this._player.y = _mainGame.levelManager.levels[_mainGame.levelManager.currentLevel].spawnPoint.y;// this._level.spawnPoint.y;
 		}
 		
 		// kills the player clip
@@ -47,6 +54,8 @@
 		// that need to be called once a frame
 		public override function update():void
 		{
+			trace("X: " + this.player.x);
+			trace("Y: " + this.player.y);
 			// set acceleration to 0 so we can mess with it later
 			this._player.resetAcceleration();
 			// check keys
@@ -66,6 +75,7 @@
 		private function applyGravity()
 		{
 			this._player.ay += this._gravity;
+			trace("player.dy " + _player.dy);
 		}
 		// limits the x velocity so we dont go too fast
 		private function limitVelocities()
@@ -110,11 +120,12 @@
 		// checks the screen boundries
 		private function checkBounds()
 		{
-			/*var collision = true;
-			while (collision)
+			var noCollision = true;
+			while (noCollision)
 			{
-				collision = false;
-				for each(var platform:GameObject in this._level.platforms)
+				noCollision = false;
+				//For each platform in the levelManager's current level's collection of platforms
+				for each(var platform:Platform in this._mainGame.levelManager.levels[this._mainGame.levelManager.currentLevel].platforms)
 				{
 					var test:Object = this._player.sweepTestCollision(platform);
 					if (test["collision"])
@@ -128,12 +139,18 @@
 							this._player.ay -= (1 - test["time"]) * this._player.fdy;
 							
 						}
-						collision = true;
+						noCollision = true;
 					}
 				}
-				for each(var spike:GameObject in this._level.spikes)
+				
+				//Variable to help clean up the aweful verboseness of this
+				var loopSpikeStrips:Vector.<Spikes> = this._mainGame.levelManager.
+											levels[this._mainGame.levelManager.currentLevel].
+																				spikeStrip;
+				//For all the spike strips in the level
+				for (var i:int = 0; i < loopSpikeStrips.length; i++)
 				{
-					test = this._player.sweepTestCollision(spike);
+					test = this._player.sweepTestCollision(loopSpikeStrips[i]);
 					if (test["collision"])
 					{
 						if (test["direction"] == "x")
@@ -145,12 +162,10 @@
 							this._player.ay -= (1 - test["time"]) * this._player.fdy;
 						}
 						trace("You just died!");
-						collision = true;
+						noCollision = true;
 					}
 				}
 			}
-			*/
-			
 		}
 		
 		
@@ -163,6 +178,7 @@
 			{
 				this._player.ay += -8;
 				this._jumping = true;
+				//trace("up");
 			}
 			// if were holding right or left accelerate quickly in that direction
 			// terminal velocityis the accel / friction constant
@@ -171,24 +187,25 @@
 				this._player.ax += 2 * (this._player.airborne ? 0.04 : 1);
 				this._player.pose = "run";
 				this._player.dir = "right";
+				//trace("right");
 			}
 			else if(Keyboarder.keyIsDown(Keyboard.LEFT) )//&& !this._player.airborne)
 			{
 				this._player.ax += -2 * (this._player.airborne ? 0.04 : 1);
 				this._player.pose = "run";
 				this._player.dir = "left";
-			} else
+				//trace("left");
+			} 
+			else
 			{
 				this._player.pose = "";
 				this.applyFriction();
+				//trace("else");
 			}
 		}
 
 		
-		public function get player():Player 
-		{
-			return _player;
-		}
+
 	}
 	
 }

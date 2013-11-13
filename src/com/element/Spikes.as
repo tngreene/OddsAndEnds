@@ -5,8 +5,8 @@ package com.element
 	
 	public class Spikes extends AGameElement 
 	{
-		private var _spikes:Vector.<Spike>;
-		//Not a good solution but I just wanted to make it work once
+		private var _spikes:Vector.<Spike>;// = new Vector.<Spike>();
+		
 		private var _length:Number;
 		private var _halfWidth:Number;
 		private var _halfHeight:Number;
@@ -20,6 +20,10 @@ package com.element
 			return this._halfWidth;
 		}
 		
+		public function innerSpikes():Vector.<Spike>
+		{
+			return _spikes;
+		}
 		public function get length():Number
 		{
 			return _length;

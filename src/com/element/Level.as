@@ -17,11 +17,35 @@ package com.element
 		
 		//PRIVATE VARIABLES
 		private var _platforms:Vector.<Platform>;
-		private var _spikes:Vector.<Spikes>;
+		private var _spikeStrip:Vector.<Spikes>;
 		private var _levelHeight:Number;
 		private var _levelWidth:Number;
 		private var _spawnPoint:Point;
+				//GETTERS
+		public function get platforms():Vector.<Platform>
+		{
+			return this._platforms;
+		}
 		
+		public function get levelHeight():Number 
+		{
+			return this._levelHeight;
+		}
+		
+		public function get levelWidth():Number 
+		{
+			return this._levelWidth;
+		}
+		
+		public function get spikeStrip():Vector.<Spikes> 
+		{
+			return _spikeStrip;
+		}
+		
+		public function get spawnPoint():Point 
+		{
+			return _spawnPoint;
+		}
 		
 		public function Level(pGameManager:AGameManager, levelID:uint) 
 		{
@@ -33,7 +57,7 @@ package com.element
 			this._platforms = new Vector.<Platform>();
 			
 			//Set up the collection of spikes
-			this._spikes = new Vector.<Spikes>();
+			this._spikeStrip = new Vector.<Spikes>();
 			
 			//And the spawn Point
 			this._spawnPoint = new Point();
@@ -91,7 +115,7 @@ package com.element
 						
 						spikes.init();
 						trace("spikes X: " + spikes.x + ", Y: " + spikes.y + ", Width: " + spikes.width + ", Height: " + spikes.height);
-						this._spikes.push(spikes);
+						this._spikeStrip.push(spikes);
 						break;
 					default:
 						throw new Error("You have entered an invalid platformtype");
@@ -134,37 +158,13 @@ package com.element
 				
 			}
 			
-			for (var i:int = 0; i < _spikes.length; i++)
+			for (var i:int = 0; i < _spikeStrip.length; i++)
 			{
-				addChild(_spikes[i]);
+				//addChild(_spikeStrip[i]);
 			}
 		}//end constructor
 		
-		//GETTERS
-		public function get platforms():Vector.<Platform>
-		{
-			return this._platforms;
-		}
-		
-		public function get levelHeight():Number 
-		{
-			return this._levelHeight;
-		}
-		
-		public function get levelWidth():Number 
-		{
-			return this._levelWidth;
-		}
-		
-		public function get spikes():Vector.<Spikes> 
-		{
-			return _spikes;
-		}
-		
-		public function get spawnPoint():Point 
-		{
-			return _spawnPoint;
-		}
+
 		
 		//SETTERS
 	
