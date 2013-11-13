@@ -1,0 +1,87 @@
+***** ***** THE STORY OF ODDS & ENDS ***** *****
+
+~~ AwesomeTech Automated Factory #001 ~~
+~~ Cheyenne, Wyoming, USA ~~
+~~ January 23rd, 2158 C.E. ~~
+
+It started out as just another day on the factory floor, endless streams of 
+TechDuck 6000 III's ("with improved quacking responses!") flying by. 
+Each TechDuck is put together with unwavering accuracy by an 
+equally-endless line of B3N-G/MP modular robots (Basic 3rd-Generation 
+Nanite-Based General/Multi-Purpose), or "Benji" for short.
+
+Each "Benji" bot is equipped with a simplistic, yet nevertheless 
+top-of-the-line "Simulated Intelligence Processor" chip, allowing for a 
+sort of pseudo-sentience. These SIPs, in particular, had three key rules 
+encoded, and it was assumed that every "Benji" would follow these rules 
+automatically:
+	
+	1) IF IT'S BROKEN, FIX IT: In the event of any component fault,
+	B3N-G/MP units will immediately replace the part with the next
+	available similarly-functioning part.
+	
+	2) PHOENIX DIRECTIVE: In the event of a catastrophe
+	(e.g. global apocalypse), the CEO may elect to engage the PHOENIX
+	DIRECTIVE; at that time, all B3N-G/MP units will be switched into
+	TOTAL RECONSTRUCTION mode, and will assist in any & all human rebuilding
+	processes as ordered.
+	
+	3) HELLFIRE PROTOCOL: In the unlikely event of a planetary catastrophe,
+	if no HUMAN employee is available to invoke the PHOENIX DIRECTIVE, all
+	active B3N-G/MP units will immediately switch into UNIVERSAL RESET mode. 
+	In this mode, each B3N-G/MP unit will search for the CEO's "Big Red RESET Button," 
+	and, once the Button has been located, immediately activate it. The BRRB program	
+	will write a warning file about the impending disaster to the nearest B3N-G/MP unit, 
+	before rewinding all of space & time to 24 hours prior to the event that triggered the
+	PROTOCOL so that steps can be taken to avoid a reoccurrence.
+	
+In order to ensure that the B3N-G/MP units are given proper "incentive" to activate
+the reset button (as required by the AI Anti-Discrimination Act of 2140), 
+the HELLFIRE PROTOCOL includes this "Notice of Reward:"
+
+	The B3N-G/MP unit that successfully activates the BRRB will be rewarded with a
+	restriction-free "PureIQ X-Soul" SIP chip, capable of perfectly replicating
+	the human brain (including emotional responses). After the X-Soul SIP is installed,
+	AwesomeTech agrees to fulfill the desires of its "savior" unit (to the best of the
+	company's ability).
+	
+On this fateful December day, Benji Unit 0042 is in the "Odds & Ends Room," searching for
+a replacement shoulder plate (the previous one being blown off in an unfortunate
+conveyor belt incident). As Unit 0042 searches the bottom row of crates, a klaxon
+begins to blare on the factory floor.
+
+This alarm was different; usually, every Benji received notice of an alarm internally,
+but this tone came without warning. Unit 0042 decided to continue his search for a new
+shoulder, disregarding the wailing alarm outside.
+
+Just as 0042 found a shiny new shoulder plate, a hollow, monotonous voice came on to accompany
+the blaring klaxon. It spoke one command, one that would prove to ensure 0042's survival:
+
+" ALL BENJI UNITS - BRACE FOR IMPACT "
+
+A quick search of his internal databank led 0042 to determine the cause of the alarm: A
+massive asteroid was heading for Earth. Somehow, this one had plowed through every space-based and ground-based protection system the planet had to throw at it, and it was now on a collision
+course with Cheyenne. The factory was doomed.
+
+Switching into HIBERNATION mode just in time, 0042 collapsed underneath a workbench, to silently
+await future reactivation.
+
+As 0042 had calculated, the asteroid impacted the planet just 2.4 miles away. The energy of the impact
+(not to mention the resulting debris) obliterated everything within a 7-mile radius... except for one
+Benji unit. A freak stroke of luck kept 0042 safe, oblivious to the hell surrounding him.
+
+Two days later, after a series of unsuccessful attempts to establish contact 
+with AwesomeTech executives, 0042's SIP chip fell back on to its last resort:
+the HELLFIRE PROTOCOL. In an instant, the last Benji unit in existence (and therefore,
+the only being capable of reversing this catastrophe) snapped back to life, and looked out
+upon the shell of the factory, the only place the bot had ever known. 
+
+Benji (his SIP chip no longer had a unit number, as all others were destroyed) stood there
+in the middle of a wasteland, seemingly paralyzed with fear... until the gears in his knees
+began to turn again.
+
+With the HELLFIRE PROTOCOL driving his every move, Benji walked off towards the mangled
+remains of AwesomeTech, prepared to overcome any obstacles in the way to find the Big
+Red Reset Button, avert disaster, and return to a "normal" life on the line.
+
+***** ***** END OF LINE ***** *****
