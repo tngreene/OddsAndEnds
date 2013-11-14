@@ -45,6 +45,9 @@ package com.element
 		
 		public override function init():void
 		{
+			this.x *= Level.GRID_SIZE;
+			this.y *= Level.GRID_SIZE;
+			
 			var tempSpike:Spike = new Spike(this._gameManager);
 			if (this.rotation == 0 || this.rotation == 180)
 			{

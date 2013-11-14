@@ -12,7 +12,7 @@ package com.element
 	public class Level extends AGameElement 
 	{
 		//CONSTANTS
-		
+		public static const GRID_SIZE:uint = 40;
 		//PUBLIC VARIABLES
 		
 		//PRIVATE VARIABLES
@@ -34,12 +34,12 @@ package com.element
 		}
 		public function get levelHeight():Number 
 		{
-			return this._levelHeight;
+			return this._levelHeight * GRID_SIZE;
 		}
 		
 		public function get levelWidth():Number 
 		{
-			return this._levelWidth;
+			return this._levelWidth * GRID_SIZE;
 		}
 		
 		public function get spikeStrip():Vector.<Spikes> 
@@ -76,8 +76,8 @@ package com.element
 			trace("Width: " + _levelWidth + ", Height: " + _levelHeight);
 			
 			//Set up the spawn point of the level
-			this._spawnPoint.x = XMLManager.xmlInstance.xml.level[levelID].spawn[0].@x;
-			this._spawnPoint.y = XMLManager.xmlInstance.xml.level[levelID].spawn[0].@y;
+			this._spawnPoint.x = XMLManager.xmlInstance.xml.level[levelID].spawn[0].@x * GRID_SIZE;
+			this._spawnPoint.y = XMLManager.xmlInstance.xml.level[levelID].spawn[0].@y * GRID_SIZE;
 			trace("Spawn X: " + _spawnPoint.x +", Spawn Y:" + _spawnPoint.y);
 			
 
@@ -89,8 +89,8 @@ package com.element
 			
 			//Set up the goal
 			_goal = new Goal(pGameManager);
-			this._goal.x = XMLManager.xmlInstance.xml.level[levelID].goal[0].@x;
-			this._goal.y = XMLManager.xmlInstance.xml.level[levelID].goal[0].@y;
+			this._goal.x = XMLManager.xmlInstance.xml.level[levelID].goal[0].@x * GRID_SIZE;
+			this._goal.y = XMLManager.xmlInstance.xml.level[levelID].goal[0].@y * GRID_SIZE;
 			addChild(_goal);
 			//trace("goal X: " + _goalPoint.x +", goal Y:" + _goalPoint.y);
 			
@@ -110,13 +110,13 @@ package com.element
 						var platform:Platform = new Platform(pGameManager);
 						addChild(platform);//Add it to the stage
 						
-						platform.x = XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].@x;
-						platform.y = XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].@y;
+						platform.x = XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].@x ;
+						platform.y = XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].@y ;
 						
 						//Set the width and height
-						platform.width = Number(XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].width[0].text());
-						platform.height = Number(XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].height[0].text());
-						
+						platform.width = Number(XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].width[0].text()) ;
+						platform.height = Number(XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].height[0].text()) ;
+						platform.init();
 						//trace("Platform X: " + platform.x + ", Y: " + platform.y + ", Width: " + platform.width + ", Height: " + platform.height);
 						this._platforms.push(platform);
 						break;
@@ -127,8 +127,8 @@ package com.element
 						
 						spikes.length =  XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].width[0];
 						spikes.rotation = XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].rotation[0];
-						spikes.x =  XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].@x;
-						spikes.y =  XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].@y;
+						spikes.x =  XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].@x ;
+						spikes.y =  XMLManager.xmlInstance.xml.level[levelID].platforms[0].platform[i].@y ;
 						
 						spikes.init();
 						trace("spikes X: " + spikes.x + ", Y: " + spikes.y + ", Width: " + spikes.width + ", Height: " + spikes.height);
@@ -140,30 +140,34 @@ package com.element
 			}
 			
 			//Create the barriers of the world
+			//Create the barriers of the world
 			var rightWall:Platform = new Platform(this._gameManager);
-			rightWall.x = -10;
-			rightWall.width = 20;
+			rightWall.x = -1;
+			rightWall.width = 2;
 			rightWall.y = this._levelHeight / 2;
-			rightWall.height = this._levelHeight + 40;
+			rightWall.height = this._levelHeight + 1;
+			rightWall.init();
 			
 			var leftWall:Platform = new Platform(this._gameManager);
-			leftWall.x = this._levelWidth + 10;
-			leftWall.width = 20;
+			leftWall.x = this._levelWidth + 1;
+			leftWall.width = 2;
 			leftWall.y = this._levelHeight / 2;
-			leftWall.height = this._levelHeight + 40;
-			
+			leftWall.height = this._levelHeight + 1;
+			leftWall.init();
 			
 			var topWall:Platform = new Platform(this._gameManager);
 			topWall.x = this._levelWidth / 2;
-			topWall.width = this._levelWidth + 40;
-			topWall.y = -10;
-			topWall.height = 20;
+			topWall.width = this._levelWidth + 1;
+			topWall.y = -1;
+			topWall.height = 2;
+			topWall.init();
 			
 			var bottomWall:Platform = new Platform(this._gameManager);
 			bottomWall.x = this._levelWidth / 2;
-			bottomWall.width = this._levelWidth + 40;
-			bottomWall.y = this._levelHeight + 10;
-			bottomWall.height = 20;
+			bottomWall.width = this._levelWidth + 1;
+			bottomWall.y = this._levelHeight + 1;
+			bottomWall.height = 2;
+			bottomWall.init();
 			
 			this._platforms.push(rightWall);
 			this._platforms.push(leftWall);

@@ -55,6 +55,11 @@
 			//Add it to the vector of levels
 			_levels.push(tempLevel);
 		}
+		public function changeLevel(backgroundName:String)
+		{
+			//Increase the level counter
+			_currentLevel++;		
+		}
 	}
 	
 }
