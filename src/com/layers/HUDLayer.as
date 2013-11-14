@@ -10,6 +10,7 @@
 		private var _hud_mc:HUD;
 		private var _offsetLayer:OffsetLayer;
 		private var _playerLayer:PlayerLayer;
+		private var _levelLayer:LevelLayer;
 		public function HUDLayer(_parent:MovieClip) 
 		{
 			super(_parent);
@@ -21,6 +22,7 @@
 			super.setupMediator(mediator, "hud");
 			this._mediator.request("offset", this);
 			this._mediator.request("player", this);
+			this._mediator.request("level", this);
 			return true;
 		}
 		override public function onFrame():void 
@@ -28,6 +30,7 @@
 			this._hud_mc.death_counter.text = "Deaths: " + this._playerLayer.deaths;
 			this.x = -this._parent.x;
 			this.y = -this._parent.y;
+			this._hud_mc.level_counter.text = "Level: " + (this._levelLayer.currentLevel + 1)
 		}
 		public override function fulfill(key:String, target:Layer):void
 		{
@@ -37,6 +40,9 @@
 			} else if (key == "player")
 			{
 				this._playerLayer = target as PlayerLayer;
+			} else if (key == "level")
+			{
+				this._levelLayer = target as LevelLayer;
 			}
 		}
 	}

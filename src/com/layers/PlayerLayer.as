@@ -139,6 +139,10 @@
 					{
 						if (test["direction"] == "x")
 						{
+							
+							this._player.ax -= (1 - test["time"]) * this._player.fdx;
+							//this._player.ax = cutOff(this._player.ax);
+							/*
 							if (platform.x == -40 && this._player.ax != 0)
 							{
 								trace("Begin");
@@ -154,8 +158,6 @@
 								trace("----------");
 								platform.x += 0;
 							}
-							this._player.ax -= (1 - test["time"]) * this._player.fdx;
-							this._player.ax = cutOff(this._player.ax);
 							if (platform.x == -40 && this._player.fdx != 0)
 							{
 								trace("END");
@@ -170,7 +172,7 @@
 								trace("1 - TIME: " + (1 - test["time"]));
 								
 								platform.x += 0;
-							}
+							}*/
 						} else if (test["direction"] == "y")
 						{
 							this._player.ay -= (1 - test["time"]) * this._player.fdy;
