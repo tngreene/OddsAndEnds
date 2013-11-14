@@ -7,6 +7,10 @@
 	{
 		// layer its sitting in
 		protected var _parent:Layer;
+		// flags the gameobject to be a moving game object
+		// this means it rounds its x and y position to the nearest whole number
+		// this should fix most collision errors
+		protected var _moves:Boolean = false;
 		// velocities
 		public var dx:Number;
 		public var dy:Number;
@@ -128,6 +132,20 @@
 				}
 			}
 			return ret;
+		}
+		public override function get x():Number
+		{
+			if (this._moves)
+				return Math.round(super.x);
+			else
+				return super.x;
+		}
+		public override function get y():Number
+		{
+			if (this._moves)
+				return Math.round(super.y);
+			else
+				return super.y;
 		}
 	}
 	

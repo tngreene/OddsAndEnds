@@ -63,22 +63,22 @@
 					<rotation></rotation>
 				</platform>
 				<platform type="spike" x="4.25" y="10">
-					<width>8</width>
+					<width>4</width>
 					<height></height>
 					<rotation>90</rotation>
 				</platform>
 				<platform type="spike" x="31.5" y="8.25">
-					<width>6</width>
+					<width>3</width>
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
 				<platform type="spike" x="33.25" y="21">
-					<width>8</width>
+					<width>4</width>
 					<height></height>
 					<rotation>270</rotation>
 				</platform>
 				<platform type="spike" x="3" y="23.25">
-					<width>12</width>
+					<width>6</width>
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
@@ -139,8 +139,8 @@
 					<height>2</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="platform" x="4" y="22">
-					<width>7.5</width>
+				<platform type="platform" x="3" y="22">
+					<width>6</width>
 					<height>4</height>
 					<rotation></rotation>
 				</platform>
@@ -185,27 +185,27 @@
 					<rotation></rotation>
 				</platform>			
 				<platform type="spike" x="12" y="12.25">
-					<width>28</width>
+					<width>14</width>
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
 				<platform type="spike" x="7.5" y="21.75">
-					<width>6</width>
+					<width>3</width>
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
 				<platform type="spike" x="13.5" y="21.75">
-					<width>6</width>
+					<width>3</width>
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
 				<platform type="spike" x="19.5" y="21.75">
-					<width>6</width>
+					<width>3</width>
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
 				<platform type="spike" x="28.5" y="20.25">
-					<width>14</width>
+					<width>7</width>
 					<height></height>
 					<rotation>0</rotation>
 				</platform>		

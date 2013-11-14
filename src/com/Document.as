@@ -2,6 +2,7 @@
 {
 	//1 michigan
 	import com.layers.BackgroundLayer;
+	import com.layers.HUDLayer;
 	import com.layers.OffsetLayer;
 	//Add the xml manager
 	import com.layers.XMLManager;
@@ -25,12 +26,17 @@
 		private var setupDone:Boolean;
 		public function Document()
 		{
+			for (var i = 0; i < 10; i++)
+			{
+				trace(i);
+			}
 			this.layers = new Vector.<Layer>();	
 			this.layers.push(new BackgroundLayer(this));
 			this.offsetLayer = new OffsetLayer(this);
 			this.layers.push(this.offsetLayer);
 			this.layers.push(new LevelLayer(this));
-			this.layers.push(new PlayerLayer(this));			
+			this.layers.push(new PlayerLayer(this));
+			this.layers.push(new HUDLayer(this));
 			this.layers.push(new KeyboardLayer(this));
 			
 			this.mediator = new LayerMediator();
@@ -60,8 +66,8 @@
 		// basic game loop
 		public function onFrame(e:Event)
 		{
-			this.x = this.offsetLayer.offsetX;
-			this.y = this.offsetLayer.offsetY;
+			this.x = Math.floor(this.offsetLayer.offsetX);
+			this.y = Math.floor(this.offsetLayer.offsetY);
 			for each(var layer:Layer in this.layers)
 			{
 				layer.onFrame();

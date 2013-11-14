@@ -156,7 +156,7 @@
 						// spike data is entered as "x,y,numspikes,rotation"
 						var spikes:Spikes = new Spikes(this);
 						
-						spikes._length =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].width[0];
+						spikes._length =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].width[0] * 2;
 						spikes._rotation = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].rotation[0];
 						spikes.x =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].@x;
 						spikes.y =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].@y;
@@ -175,14 +175,14 @@
 			rightWall.x = -1;
 			rightWall.width = 2;
 			rightWall.y = this._levelHeight / 2;
-			rightWall.height = this._levelHeight + 1;
+			rightWall.height = this._levelHeight + 8;
 			rightWall.setup(this._gridSize);
 			
 			var leftWall:Platform = new Platform(this);
 			leftWall.x = this._levelWidth + 1;
 			leftWall.width = 2;
 			leftWall.y = this._levelHeight / 2;
-			leftWall.height = this._levelHeight + 1;
+			leftWall.height = this._levelHeight + 8;
 			leftWall.setup(this._gridSize);
 			
 			var topWall:Platform = new Platform(this);
@@ -201,7 +201,7 @@
 			
 			this._platforms.push(rightWall);
 			this._platforms.push(leftWall);
-			this._platforms.push(topWall);
+			//this._platforms.push(topWall);
 			this._platforms.push(bottomWall);
 		}
 		// calls all the functions

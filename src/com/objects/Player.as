@@ -9,10 +9,13 @@
 	{
 		private var _dir:String;
 		private var _pose:String;
+		private var _strongArm:Boolean = false;
+		private var _lightningRod:Boolean = false;
 		public function Player(layer:Layer) 
 		{
 			super(layer);
 			this._dir = "left";
+			super._moves = true;
 		}
 		public override function  get halfHeight():Number
 		{
@@ -58,6 +61,14 @@
 				this.gotoAndStop("jump " + this._dir);
 			else
 				this.gotoAndStop((this.pose == "" ? "" : (this.pose + " ")) + this._dir);
+				
+			if (this.right_arm != null)
+				this.right_arm.visible = this._strongArm;
+			if (this.left_arm != null)
+				this.left_arm.visible = this._strongArm;
+			if (this.lightning_rod != null)
+				this.lightning_rod.visible = this._lightningRod;
+			
 		}
 	}
 }

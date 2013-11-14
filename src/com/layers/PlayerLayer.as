@@ -58,6 +58,7 @@
 			this.checkKeys();
 			// apply gravity
 			this.applyGravity();
+			this.applyFriction();
 			// make sure we dont go off screen
 			this.checkBounds();
 			// make sure we dont go too fast
@@ -92,26 +93,27 @@
 		{
 			this._player.ay += this._gravity;
 		}
+		private function cutOff(num:Number):Number
+		{
+			return Math.round(num * 10000) / 10000;
+		}
 		// limits the x velocity so we dont go too fast
 		private function limitVelocities()
 		{
-			function cutOff(num:Number):Number
-			{
-				return Math.round(num * 10000) / 10000;
-			}
 			this._player.dy = cutOff(this._player.dy);
 			this._player.dx = cutOff(this._player.dx);
 			this._player.ay = cutOff(this._player.ay);
 			this._player.ax = cutOff(this._player.ax);
-			
+			this._player.x = cutOff(this._player.x);
+			this._player.y = cutOff(this._player.y);
 			// if its speeds greater than 10, set it to 10
-			if(Math.abs(this._player.fdx) > 5)
+			if(Math.abs(this._player.fdx) > 4)
 			{
-				this._player.dx = (this._player.dx / Math.abs(this._player.dx)) * 5;
+				this._player.ax += (this._player.dx / Math.abs(this._player.dx)) * (4 - Math.abs(this._player.fdx));
 			}
 			if(Math.abs(this._player.fdy) > 14)
 			{
-				this._player.dy = (this._player.dy / Math.abs(this._player.dy)) * 14;
+				this._player.ay += (this._player.dy / Math.abs(this._player.dy)) * (14 - Math.abs(this._player.fdy));
 			}
 		}
 		// calculates drag and friction
@@ -120,7 +122,7 @@
 			// if we aren't airborne
 			// add friction
 			if(this._player.dy == 0 && !this._jumping)
-				this._player.ax += this._player.dx * -1;
+				this._player.ax += this._player.dx * -0.05;
 		}
 		// checks the screen boundries
 		private function checkBounds()
@@ -134,14 +136,40 @@
 					var test:Object = this._player.sweepTestCollision(platform);
 					if (test["collision"])
 					{
-						
-						if (platform.x == -40)
-						{
-							platform.x += 0;
-						}
 						if (test["direction"] == "x")
 						{
+							if (platform.x == -40 && this._player.ax != 0)
+							{
+								trace("Begin");
+								trace("AX: " + this._player.ax);
+								trace("FDX: " + this._player.fdx);
+								trace("DX: " + this._player.dx);
+								trace("FX: " + this._player.fx);
+								trace("X: " + this._player.x);
+								trace("FUTURE LEFT BOUND: " + (this._player.fx - this._player.halfWidth));
+								trace("LEFT BOUND: " + (this._player.x - this._player.halfWidth));
+								trace("TIME: " + test["time"]);
+								trace("1 - TIME: " + (1 - test["time"]));
+								trace("----------");
+								platform.x += 0;
+							}
 							this._player.ax -= (1 - test["time"]) * this._player.fdx;
+							this._player.ax = cutOff(this._player.ax);
+							if (platform.x == -40 && this._player.fdx != 0)
+							{
+								trace("END");
+								trace("AX: " + this._player.ax);
+								trace("FDX: " + this._player.fdx);
+								trace("DX: " + this._player.dx);
+								trace("FX: " + this._player.fx);
+								trace("X: " + this._player.x);
+								trace("FUTURE LEFT BOUND: " + (this._player.fx - this._player.halfWidth));
+								trace("LEFT BOUND: " + (this._player.x - this._player.halfWidth));
+								trace("TIME: " + test["time"]);
+								trace("1 - TIME: " + (1 - test["time"]));
+								
+								platform.x += 0;
+							}
 						} else if (test["direction"] == "y")
 						{
 							this._player.ay -= (1 - test["time"]) * this._player.fdy;
@@ -179,18 +207,11 @@
 		// checks the keys
 		private function checkKeys()
 		{
-			// jump
-			// only if we arent already jumping
-			if(this._keyboard.isKeyDown(Keyboard.UP) && !this._jumping)
-			{
-				this._player.ay += -8;
-				this._jumping = true;
-			}
 			// if were holding right or left accelerate quickly in that direction
 			// terminal velocityis the accel / friction constant
 			if(this._keyboard.isKeyDown(Keyboard.RIGHT) )//&& !this._player.airborne)
 			{
-				this._player.ax += 2 * (this._player.airborne ? 0.04 : 1);
+				this._player.ax += 2 * (this._player.airborne ? 0.1 : 1);
 				this._player.pose = "run";
 				this._player.dir = "right";
 			}
@@ -204,8 +225,12 @@
 				this._player.pose = "";
 				this.applyFriction();
 			}
-			if (this._keyboard.isKeyDown(Keyboard.SPACE))
+			// jump
+			// only if we arent already jumping
+			if (this._keyboard.isKeyDown(Keyboard.SPACE)&& !this._jumping)
 			{
+				this._player.ay += -8;
+				this._jumping = true;
 			}
 		}
 		// kills the player clip
