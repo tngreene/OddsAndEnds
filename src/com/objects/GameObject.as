@@ -51,11 +51,11 @@
 		}
 		public function get fdx():Number
 		{
-			return this.dx + this.ax;
+			return Math.round((this.dx + this.ax) * 100) / 100;
 		}
 		public function get fdy():Number
 		{
-			return this.dy + this.ay;
+			return Math.round((this.dy + this.ay) * 100) / 100;
 		}
 		
 		public function get airborne():Boolean

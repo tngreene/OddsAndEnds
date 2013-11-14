@@ -16,7 +16,7 @@
 		private var _started:Boolean = false;
 		private var _dead:Boolean = false;
 		private var _win:Boolean = false;
-		
+		private var _deaths:Number = 0;
 		public function PlayerLayer(_parent:MovieClip) 
 		{
 			super(_parent);
@@ -68,6 +68,7 @@
 			{
 				this._dead = false;
 				this.respawn();
+				this._deaths++;
 			}
 			if (this._win)
 			{
@@ -107,9 +108,9 @@
 			this._player.x = cutOff(this._player.x);
 			this._player.y = cutOff(this._player.y);
 			// if its speeds greater than 10, set it to 10
-			if(Math.abs(this._player.fdx) > 4)
+			if(Math.abs(this._player.fdx) > 8)
 			{
-				this._player.ax += (this._player.dx / Math.abs(this._player.dx)) * (4 - Math.abs(this._player.fdx));
+				this._player.ax += (this._player.dx / Math.abs(this._player.dx)) * (8 - Math.abs(this._player.fdx));
 			}
 			if(Math.abs(this._player.fdy) > 14)
 			{
@@ -211,13 +212,13 @@
 			// terminal velocityis the accel / friction constant
 			if(this._keyboard.isKeyDown(Keyboard.RIGHT) )//&& !this._player.airborne)
 			{
-				this._player.ax += 2 * (this._player.airborne ? 0.1 : 1);
+				this._player.ax += 4 * (this._player.airborne ? 0.1 : 1);
 				this._player.pose = "run";
 				this._player.dir = "right";
 			}
 			else if(this._keyboard.isKeyDown(Keyboard.LEFT) )//&& !this._player.airborne)
 			{
-				this._player.ax += -2 * (this._player.airborne ? 0.04 : 1);
+				this._player.ax += -4 * (this._player.airborne ? 0.04 : 1);
 				this._player.pose = "run";
 				this._player.dir = "left";
 			} else
@@ -253,8 +254,14 @@
 		
 		public function get player():Player 
 		{
-			return _player;
+			return this._player;
 		}
+		
+		public function get deaths():Number 
+		{
+			return this._deaths;
+		}
+		
 		public function respawn():void
 		{
 			this._player.x = this._level.spawnPoint.x;
