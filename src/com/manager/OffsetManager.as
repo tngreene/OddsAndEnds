@@ -49,6 +49,10 @@ package com.manager
 			{
 				this._offsetY = -curLevel.levelHeight + stage.stageHeight;
 			}
+			
+			//move the stage
+			this._mainGame.x = this.offsetX;
+			this._mainGame.y = this.offsetY;
 		}
 		// kills the player clip
 		public override function deconstruct():void

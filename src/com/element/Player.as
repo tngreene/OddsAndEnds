@@ -9,6 +9,18 @@
 	{
 		private var _dir:String;
 		private var _pose:String;
+		private var _dead:Boolean = false;
+		
+		//Recomend: Replace this with a method that asks if the health is low enough
+		//the less variable based programing the better
+		public function get dead():Boolean
+		{
+			return _dead;
+		}
+		public function set dead(value:Boolean)
+		{
+			_dead = value;
+		}
 		public function Player(pGameManager:AGameManager) 
 		{
 			super(pGameManager);
@@ -49,6 +61,15 @@
 			this.ay = 0;
 		}
 		
+		public function takeDamage(amount:uint):void
+		{
+			//health--
+			//if health is < 0
+			//dead is true
+			
+			//for now though, just make you dead.
+			_dead = true;
+		}
 		public override function update():void
 		{
 			super.update();//Not sure how this line works

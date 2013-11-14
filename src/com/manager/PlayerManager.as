@@ -1,14 +1,11 @@
 ﻿package com.manager
 {
-	import com.abstract.AGameElement;
 	import com.abstract.AGameManager;
-	import com.as3toolkit.events.KeyboarderEvent;
 	import com.as3toolkit.ui.Keyboarder;
 	import com.element.Platform;
-	import com.element.Spike;
+	import com.element.Player;
 	import com.element.Spikes;
 	import com.MainGame;
-	import com.element.Player;
 	import flash.ui.Keyboard;
 	
 	public class PlayerManager extends AGameManager
@@ -18,11 +15,15 @@
 		{
 			return _player;
 		}
-		
-		private var _jumping:Boolean;//This makes no sense to me
 		private var _gravity:Number = 0.2;
-		private var _started:Boolean = false;
+		private var _win:Boolean = false;
+		public function get win():Boolean
+		{
+			return _win;
+		}
 		
+		private var _jumping:Boolean;//This makes no sense to me, variable based programming
+
 		public function PlayerManager(pMainGame:MainGame) 
 		{
 			super(pMainGame);
@@ -80,22 +81,15 @@
 		// limits the x velocity so we dont go too fast
 		private function limitVelocities()
 		{
-			if (Math.abs(this._player.dy) < 0.0002)
+			function cutOff(num:Number):Number
 			{
-				this._player.dy = 0;
+				return Math.round(num * 10000) / 10000;
 			}
-			if (Math.abs(this._player.dx) < 0.0002)
-			{
-				this._player.dx = 0;
-			}
-			if (Math.abs(this._player.ay) < 0.0002)
-			{
-				this._player.ay = 0;
-			}
-			if (Math.abs(this._player.ax) < 0.0002)
-			{
-				this._player.ax = 0;
-			}
+			this._player.dy = cutOff(this._player.dy);
+			this._player.dx = cutOff(this._player.dx);
+			this._player.ay = cutOff(this._player.ay);
+			this._player.ax = cutOff(this._player.ax);
+			
 			// if its speeds greater than 10, set it to 10
 			if(Math.abs(this._player.fdx) > 5)
 			{
@@ -113,7 +107,7 @@
 			// add friction
 			if (this._player.dy == 0 && !this._jumping)
 			{
-				this._player.ax += this._player.dx * -0.5;
+				this._player.ax += this._player.dx * -1;
 			}
 		}
 		
@@ -161,9 +155,18 @@
 						{
 							this._player.ay -= (1 - test["time"]) * this._player.fdy;
 						}
-						trace("You just died!");
+						_player.takeDamage(1);
+						//this._dead = true;
 						noCollision = true;
 					}
+				}
+				
+				test = this._player.sweepTestCollision(_mainGame.levelManager.
+											levels[this._mainGame.levelManager.currentLevel].goal);
+				if (test["collision"])
+				{
+					this._win = true;
+					trace("win");
 				}
 			}
 		}
@@ -203,9 +206,17 @@
 				//trace("else");
 			}
 		}
-
 		
-
+		public function respawn():void
+		{
+			this._player.x = _mainGame.levelManager.levels[_mainGame.levelManager.currentLevel].spawnPoint.x;
+			this._player.y = _mainGame.levelManager.levels[_mainGame.levelManager.currentLevel].spawnPoint.y;
+			this._player.dx = 0;
+			this._player.dy = 0;
+			this._player.ax = 0;
+			this._player.ay = 0;
+			this._player.dead = false;
+			this._win = false;
+		}
 	}
-	
 }

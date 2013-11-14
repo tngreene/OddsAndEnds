@@ -72,26 +72,36 @@ package com
 			switch(FSM_MODE)
 			{
 				case FSM_GAME_START:
-					if (_levelManager.levels.length == 0)
-					{
-						
-					}
-					else
-					{
-						changeState(FSM_GAME_START);
-					}
+					changeState(FSM_GAME_START,FSM_SPAWN);
 					break;
 				case FSM_SPAWN:
-					changeState(FSM_SPAWN);
+					_playerManager.respawn();
+					changeState(FSM_SPAWN, FSM_PLAYING);
 					break;
 				case FSM_PLAYING:
 					//Call the update methods of various classes
 					_playerManager.update();
 					_offsetManager.update();
-					this.x = _offsetManager.offsetX;
-					this.y = _offsetManager.offsetY;
+					if (_playerManager.player.dead == true)
+					{
+						changeState(FSM_PLAYING, FSM_DIEING);
+					}
+					if (_playerManager.win == true)
+					{
+						_levelManager.levels[_levelManager.currentLevel].background.changeBackground("psyc_t");
+						changeState(FSM_PLAYING, FSM_SPAWN);
+					}
+					//make the stage move
+					//this.x = _offsetManager.offsetX;
+					//this.y = _offsetManager.offsetY;
 					break;
 				case FSM_DIEING:
+					//if player has lives
+					//{
+					changeState(FSM_DIEING, FSM_SPAWN);
+					//}
+					//else{
+					//changeState(FSM_DIEING, 
 					break;
 				case FSM_GAME_OVER:
 					break;
@@ -101,39 +111,13 @@ package com
 			}
 		}
 		
-		//Changes the FSM by calling the Leave/EnterState methods.
-		//The parameter represents the state you are chaging from,
-		//the machine knows what you will be going to next.
-		private function changeState(changeFrom:uint):void
+		//Changes from one state to another, entering in a nonexistant state causes to ignore
+		//that switch statement. USE WITH EXTREME CAUTION!
+		//Debating whether or not it is a good idea to be able to say what you're chaningfrom
+		private function changeState(changeFrom:uint, changeTo:uint):void
 		{
-			switch(changeFrom)
-			{
-				case FSM_GAME_START:
-					leaveState(FSM_GAME_START);
-					enterState(FSM_SPAWN);
-					break;
-				case FSM_SPAWN:
-					leaveState(FSM_SPAWN);
-					enterState(FSM_PLAYING);
-					break;
-				case FSM_PLAYING:
-					break;
-				case FSM_DIEING:
-					break;
-				case FSM_GAME_OVER:
-					break;
-				default:
-					throw new Error("You have entered an invalid mode");
-					break;
-			}
-		}
-		
-		//Used to clean up or export values of an object while leaving a state
-		//do not call on your own
-		//put in the mode you are leaving
-		private function leaveState(mode:uint):void
-		{
-			switch(mode)
+			//Change from block
+			switch(FSM_MODE)
 			{
 				case FSM_GAME_START:
 					break;
@@ -146,19 +130,12 @@ package com
 				case FSM_GAME_OVER:
 					break;
 				default:
-					throw new Error("You have entered an invalid mode");
+					trace("You have entered an invalid mode");
 					break;
 			}
-		}
-		
-		//Used to set up objects or variables before entering a state,
-		//Do not call on your own, use change state instead
-		//Put in the mode you will be entering
-		private function enterState(mode:uint):void
-		{
-			//MUST INCLUDE THE FSM_MODE change. This should be the only place it changes
-			//In order to keep the system in line. Other code is optional too
-			switch(mode)
+			
+			//Change to block
+			switch(changeTo)
 			{
 				case FSM_GAME_START:
 					FSM_MODE = FSM_GAME_START;
@@ -176,7 +153,7 @@ package com
 					FSM_MODE = FSM_GAME_OVER;
 					break;
 				default:
-					throw new Error("You have entered an invalid mode");
+					trace("trace you have entered an invalid mode");
 					break;
 			}
 		}

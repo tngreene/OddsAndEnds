@@ -21,12 +21,17 @@ package com.element
 		private var _levelHeight:Number;
 		private var _levelWidth:Number;
 		private var _spawnPoint:Point;
+		private var _goal:Goal;
+		private var _background:Background;
 				//GETTERS
 		public function get platforms():Vector.<Platform>
 		{
 			return this._platforms;
 		}
-		
+		public function get background():Background
+		{
+			return _background;
+		}
 		public function get levelHeight():Number 
 		{
 			return this._levelHeight;
@@ -46,7 +51,10 @@ package com.element
 		{
 			return _spawnPoint;
 		}
-		
+		public function get goal():Goal
+		{
+			return _goal;
+		}
 		public function Level(pGameManager:AGameManager, levelID:uint) 
 		{
 			super(pGameManager);
@@ -72,10 +80,19 @@ package com.element
 			this._spawnPoint.y = XMLManager.xmlInstance.xml.level[levelID].spawn[0].@y;
 			trace("Spawn X: " + _spawnPoint.x +", Spawn Y:" + _spawnPoint.y);
 			
-			//Set up the goal, currently not implemented
-			/*this._goalPoint.x = XMLManager.xmlInstance.xml.level[levelID].goal[0].@x;
-			this._goalPoint.y = XMLManager.xmlInstance.xml.level[levelID].goal[0].@y;
-			trace("goal X: " + _goalPoint.x +", goal Y:" + _goalPoint.y);*/
+
+			
+			//Create the background
+			var backName:String = XMLManager.xmlInstance.xml.level[levelID].background[0].@name;
+			_background = new Background(pGameManager,backName);
+			addChild(_background);//Add it first thing so that it is at the very back of the display obects
+			
+			//Set up the goal
+			_goal = new Goal(pGameManager);
+			this._goal.x = XMLManager.xmlInstance.xml.level[levelID].goal[0].@x;
+			this._goal.y = XMLManager.xmlInstance.xml.level[levelID].goal[0].@y;
+			addChild(_goal);
+			//trace("goal X: " + _goalPoint.x +", goal Y:" + _goalPoint.y);
 			
 			//Add the platforms
 			//For all the remaining elements in the platform section
@@ -152,16 +169,6 @@ package com.element
 			this._platforms.push(leftWall);
 			this._platforms.push(topWall);
 			this._platforms.push(bottomWall);
-			
-			for (var i:int = 0; i < _platforms.length; i++)
-			{
-				
-			}
-			
-			for (var i:int = 0; i < _spikeStrip.length; i++)
-			{
-				//addChild(_spikeStrip[i]);
-			}
 		}//end constructor
 		
 

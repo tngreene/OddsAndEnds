@@ -3,7 +3,8 @@
 		<width>1440</width>
 		<height>960</height>
 		<spawn x="60" y="40"></spawn>
-		<goal x="60" y="300"></goal>
+		<goal x="420" y="870"></goal>
+		<background name="night"></background>
 		<platforms>
 			<platform type="platform" x="100" y="140">
 				<width>200</width>
