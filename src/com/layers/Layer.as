@@ -1,6 +1,7 @@
 ﻿package com.layers
 {
 	
+	import com.screens.GameScreen;
 	import flash.display.MovieClip;
 	
 	// class representing all
@@ -10,14 +11,14 @@
 	{
 		// parent movieclip of this object
 		// usually Document
-		protected var _parent:MovieClip;
+		protected var _parent:GameScreen;
 		// mediator to get in communication
 		// with other layers
 		protected var _mediator:LayerMediator;
 		
 		// basic constructor intializing
 		// this object to the parent
-		public function Layer(_parent:MovieClip) 
+		public function Layer(_parent:GameScreen) 
 		{
 			this._parent = _parent;
 			this._parent.addChild(this);

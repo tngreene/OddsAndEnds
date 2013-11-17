@@ -1,77 +1,84 @@
 ﻿package com 
 {
-	//1 michigan
-	import com.layers.BackgroundLayer;
-	import com.layers.HUDLayer;
-	import com.layers.OffsetLayer;
-	//Add the xml manager
-	import com.layers.XMLManager;
+	import com.screens.CreditsScreen;
+	import com.screens.GameScreen;
+	import com.screens.InstructionScreen;
+	import com.screens.PauseScreen;
+	import com.screens.Screen;
+	import com.screens.StoryScreen;
+	import com.screens.TitleScreen;
+	import com.screens.VictoryScreen;
 	import flash.display.MovieClip;
 	import flash.events.Event;
-	import com.layers.Layer;
-	import com.layers.PlayerLayer;
-	import com.layers.KeyboardLayer;
-	import com.layers.LayerMediator;
-	import com.layers.LevelLayer;
-	import flash.net.URLLoader;
-	import flash.net.URLRequest;
+	import flash.system.fscommand;
+	
 
 	public class Document extends MovieClip
 	{
+		private var _screens:Object;
 		//where the file will be loaded from
-		private static const XML_PATH:String = "level.xml";
-		private var layers:Vector.<Layer>;
-		private var offsetLayer:OffsetLayer;
-		private var mediator:LayerMediator;
-		private var setupDone:Boolean;
 		public function Document()
 		{
-			for (var i = 0; i < 10; i++)
-			{
-				trace(i);
-			}
-			this.layers = new Vector.<Layer>();	
-			this.layers.push(new BackgroundLayer(this));
-			this.offsetLayer = new OffsetLayer(this);
-			this.layers.push(this.offsetLayer);
-			this.layers.push(new LevelLayer(this));
-			this.layers.push(new PlayerLayer(this));
-			this.layers.push(new HUDLayer(this));
-			this.layers.push(new KeyboardLayer(this));
+			this._screens = new Object();
 			
-			this.mediator = new LayerMediator();
-			this.setupDone = false;
-			//this.addEventListener(Event.ENTER_FRAME, this.setup);
-			//Make the XML Manager work, since this is replacing the url loading, it controls setup
-			XMLManager.xmlInstance.loadXML(XML_PATH);
-			XMLManager.xmlInstance.addEventListener(XMLManager.LOAD_COMPLETE, setup);
-		}
-		// set up layers on the screen
-		public function setup(e:Event):void
-		{
-			this.setupDone = true;
-	
-			for(var i:int = 0; i < this.layers.length; i++)
-			{
-				if (!this.layers[i].setup(mediator))
-				{
-					this.setupDone = false;
-				}
-			}
-
-				//this.removeEventListener(Event.ENTER_FRAME, this.setup);
-				this.addEventListener(Event.ENTER_FRAME, this.onFrame);
+			this._screens["game"] = new GameScreen(this);
+			this._screens["title"] = new TitleScreen(this);
+			this._screens["instructions"] = new InstructionScreen(this);
+			this._screens["story"] = new StoryScreen(this);
+			this._screens["credits"] = new CreditsScreen(this);
+			this._screens["victory"] = new VictoryScreen(this);
+			this._screens["pause"] = new PauseScreen(this);
 			
+			this._screens["title"].playScreen();
+			
+			this.addEventListener(Event.ENTER_FRAME, this.onFrame);
 		}
-		// basic game loop
 		public function onFrame(e:Event)
 		{
-			this.x = Math.floor(this.offsetLayer.offsetX);
-			this.y = Math.floor(this.offsetLayer.offsetY);
-			for each(var layer:Layer in this.layers)
+			for each (var screen:Screen in this._screens)
 			{
-				layer.onFrame();
+				if (screen.visible && !screen.paused())
+				{
+					screen.update();
+				}
 			}
 		}
+		public function pauseScreen(name:String)
+		{
+			this._screens[name].pause();
+		}
+		public function unpauseScreen(name:String)
+		{
+			this._screens[name].unpause();
+		}
+		public function togglePauseScreen(name:String)
+		{
+			this._screens[name].togglePause();
+		}
+		public function showScreen(name:String)
+		{
+			this._screens[name].show();
+		}
+		public function hideScreen(name:String)
+		{
+			this._screens[name].hide();
+		}
+		public function stopScreen(name:String)
+		{
+			this._screens[name].stopScreen();
+		}
+		public function playScreen(name:String)
+		{
+			this._screens[name].playScreen();
+		}
+		public function exitClick(e:Event)
+		{
+			fscommand("quit");
+		}
+		public function resetGame(e:Event)
+		{
+			this._screens["game"].reset();
+		}
+		
 	}
 }

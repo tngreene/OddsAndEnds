@@ -1,5 +1,6 @@
 package com.layers 
 {
+	import com.screens.GameScreen;
 	import flash.display.MovieClip;
 	
 	public class OffsetLayer extends Layer 
@@ -8,7 +9,7 @@ package com.layers
 		private var _levelLayer:LevelLayer;
 		private var _offsetX:Number;
 		private var _offsetY:Number
-		public function OffsetLayer(_parent:MovieClip) 
+		public function OffsetLayer(_parent:GameScreen) 
 		{
 			super(_parent);
 		}

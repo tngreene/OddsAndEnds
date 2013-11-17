@@ -1,5 +1,6 @@
 ﻿package com.layers
 {
+	import com.screens.GameScreen;
 	import flash.events.KeyboardEvent;
 	import flash.ui.Keyboard;
 	import flash.display.MovieClip;
@@ -13,7 +14,7 @@
 		private var _keys:Object = new Object();
 		
 		// initializes key map
-		public function KeyboardLayer(_parent:MovieClip) 
+		public function KeyboardLayer(_parent:GameScreen) 
 		{
 			super(_parent);
 			this._keys = new Object();

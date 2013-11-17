@@ -1,5 +1,6 @@
 ﻿package com.layers
 {
+	import com.screens.GameScreen;
 	import flash.display.MovieClip;
 	import flash.ui.Keyboard;
 	import com.objects.Player;
@@ -17,7 +18,7 @@
 		private var _dead:Boolean = false;
 		private var _win:Boolean = false;
 		private var _deaths:Number = 0;
-		public function PlayerLayer(_parent:MovieClip) 
+		public function PlayerLayer(_parent:GameScreen) 
 		{
 			super(_parent);
 		}
@@ -81,7 +82,8 @@
 					this.respawn();
 				} else 
 				{
-					trace("quit");
+					this._parent.toVictory(null);
+					this._parent.reset();
 				}
 			}
 			
@@ -141,38 +143,7 @@
 						{
 							
 							this._player.ax -= (1 - test["time"]) * this._player.fdx;
-							//this._player.ax = cutOff(this._player.ax);
-							/*
-							if (platform.x == -40 && this._player.ax != 0)
-							{
-								trace("Begin");
-								trace("AX: " + this._player.ax);
-								trace("FDX: " + this._player.fdx);
-								trace("DX: " + this._player.dx);
-								trace("FX: " + this._player.fx);
-								trace("X: " + this._player.x);
-								trace("FUTURE LEFT BOUND: " + (this._player.fx - this._player.halfWidth));
-								trace("LEFT BOUND: " + (this._player.x - this._player.halfWidth));
-								trace("TIME: " + test["time"]);
-								trace("1 - TIME: " + (1 - test["time"]));
-								trace("----------");
-								platform.x += 0;
-							}
-							if (platform.x == -40 && this._player.fdx != 0)
-							{
-								trace("END");
-								trace("AX: " + this._player.ax);
-								trace("FDX: " + this._player.fdx);
-								trace("DX: " + this._player.dx);
-								trace("FX: " + this._player.fx);
-								trace("X: " + this._player.x);
-								trace("FUTURE LEFT BOUND: " + (this._player.fx - this._player.halfWidth));
-								trace("LEFT BOUND: " + (this._player.x - this._player.halfWidth));
-								trace("TIME: " + test["time"]);
-								trace("1 - TIME: " + (1 - test["time"]));
-								
-								platform.x += 0;
-							}*/
+							
 						} else if (test["direction"] == "y")
 						{
 							this._player.ay -= (1 - test["time"]) * this._player.fdy;
@@ -230,10 +201,15 @@
 			}
 			// jump
 			// only if we arent already jumping
-			if (this._keyboard.isKeyDown(Keyboard.SPACE)&& !this._jumping)
+			if ((this._keyboard.isKeyDown(Keyboard.SPACE) || this._keyboard.isKeyDown(Keyboard.UP)) && !this._jumping)
 			{
 				this._player.ay += -8;
 				this._jumping = true;
+			}
+			// pause
+			if (this._keyboard.isKeyDown(Keyboard.P))
+			{
+				this._parent.toPause(null);
 			}
 		}
 		// kills the player clip

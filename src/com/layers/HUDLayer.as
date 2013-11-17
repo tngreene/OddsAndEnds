@@ -2,6 +2,7 @@
 {
 	import com.objects.HUD;
 	import com.objects.Player;
+	import com.screens.GameScreen;
 	import flash.display.MovieClip;
 	
 	public class HUDLayer extends Layer 
@@ -11,7 +12,7 @@
 		private var _offsetLayer:OffsetLayer;
 		private var _playerLayer:PlayerLayer;
 		private var _levelLayer:LevelLayer;
-		public function HUDLayer(_parent:MovieClip) 
+		public function HUDLayer(_parent:GameScreen) 
 		{
 			super(_parent);
 			this._hud_mc = new HUD(this);

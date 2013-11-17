@@ -1,6 +1,7 @@
 package com.layers 
 {
 	import com.objects.Background;
+	import com.screens.GameScreen;
 	import flash.display.MovieClip;
 	
 	public class BackgroundLayer extends Layer 
@@ -8,7 +9,7 @@ package com.layers
 			
 		private var _background_mc:Background;
 		
-		public function BackgroundLayer(_parent:MovieClip) 
+		public function BackgroundLayer(_parent:GameScreen) 
 		{
 			super(_parent);
 			this._background_mc = new Background(this);
