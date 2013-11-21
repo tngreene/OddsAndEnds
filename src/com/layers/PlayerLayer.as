@@ -123,9 +123,9 @@
 			this._player.x = cutOff(this._player.x);
 			this._player.y = cutOff(this._player.y);
 			// if its speeds greater than 10, set it to 10
-			if(Math.abs(this._player.fdx) > 8)
+			if(Math.abs(this._player.fdx) > 6)
 			{
-				this._player.ax += (this._player.dx / Math.abs(this._player.dx)) * (8 - Math.abs(this._player.fdx));
+				this._player.ax += (this._player.dx / Math.abs(this._player.dx)) * (6 - Math.abs(this._player.fdx));
 			}
 			if(Math.abs(this._player.fdy) > 14)
 			{
@@ -138,7 +138,7 @@
 			// if we aren't airborne
 			// add friction
 			if(this._player.dy == 0 && !this._jumping)
-				this._player.ax += this._player.dx * (this._player.activePowerups.flagged("spike_shield") ? -0.9 : -0.05);
+				this._player.ax += this._player.dx * (this._player.activePowerups.flagged("spike_shield") ? -0.9 : -0.13);
 		}
 		// checks the screen boundries
 		private function checkBounds()
