@@ -9,6 +9,7 @@ package com.screens
 	import com.layers.OffsetLayer;
 	import com.layers.PlayerLayer;
 	import com.layers.Layer;
+	import com.layers.SoundLayer;
 	import com.layers.XMLManager
 	import flash.events.Event;
 	/**
@@ -32,9 +33,11 @@ package com.screens
 			this.offsetLayer = new OffsetLayer(this);
 			this.layers.push(this.offsetLayer);
 			this.layers.push(new LevelLayer(this));
+			this.layers.push(new SoundLayer(this));
 			this.layers.push(new PlayerLayer(this));
 			this.layers.push(new HUDLayer(this));
 			this.layers.push(new KeyboardLayer(this));
+			
 			
 			this.mediator = new LayerMediator();
 			this.setupDone = false;
@@ -52,10 +55,10 @@ package com.screens
 			this.offsetLayer = new OffsetLayer(this);
 			this.layers.push(this.offsetLayer);
 			this.layers.push(new LevelLayer(this));
+			this.layers.push(new SoundLayer(this));
 			this.layers.push(new PlayerLayer(this));
 			this.layers.push(new HUDLayer(this));
 			this.layers.push(new KeyboardLayer(this));
-			
 			this.mediator = new LayerMediator();
 			this.setupDone = false;
 			

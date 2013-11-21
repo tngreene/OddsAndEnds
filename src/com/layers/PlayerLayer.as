@@ -15,6 +15,7 @@
 		private var _player:Player;
 		private var _level:LevelLayer = null;
 		private var _keyboard:KeyboardLayer = null;
+		private var _sound:SoundLayer = null;
 		private var _jumping:Boolean;
 		private var _gravity:Number = 0.2;
 		private var _started:Boolean = false;
@@ -48,6 +49,7 @@
 				// requests keyboard access
 				this._mediator.request("keyboard", this);
 				this._mediator.request("level", this);
+				this._mediator.request("sound", this);
 				this._started = true;
 			}
 			
@@ -92,6 +94,7 @@
 					this.respawn();
 				} else 
 				{
+					_sound.kill();
 					this._parent.toVictory(null);
 					this._parent.reset();
 				}
@@ -177,7 +180,9 @@
 						}
 						if(!this._player.activePowerups.flagged("spike_shield"))
 							this._dead = true;
+						_sound.playSound("die");	
 						if (test["time"] < 0.9999999)
+					
 							collision = true;
 					}
 				}
@@ -231,12 +236,22 @@
 				this._player.ax += 4 * (this._player.airborne ? 0.1 : 1);
 				this._player.pose = "run";
 				this._player.dir = "right";
+				
+				if (_player.airborne == false)
+				{
+					_sound.playSound("move");
+				}
 			}
 			else if(this._keyboard.isKeyDown(Keyboard.LEFT) )//&& !this._player.airborne)
 			{
 				this._player.ax += -4 * (this._player.airborne ? 0.04 : 1);
 				this._player.pose = "run";
 				this._player.dir = "left";
+				
+				if (_player.airborne == false)
+				{
+					_sound.playSound("move");
+				}
 			} else
 			{
 				this._player.pose = "standing";
@@ -248,8 +263,11 @@
 			{
 				this._player.ay += -8;
 				this._jumping = true;
+				_sound.playSound("jump");
 				if (this._keyboard.isKeyDown(Keyboard.F4))
+				{
 					this._win = true;
+				}
 			}
 			// pause
 			if (this._keyboard.isKeyDown(Keyboard.P))
@@ -269,9 +287,14 @@
 			if(key == "keyboard")
 			{
 				this._keyboard = target as KeyboardLayer;
-			} else if(key == "level")
+			}
+			else if(key == "level")
 			{
 				this._level = target as LevelLayer;
+			}
+			else if (key == "sound")
+			{
+				this._sound = target as SoundLayer;
 			}
 		}
 		
@@ -293,6 +316,7 @@
 			this._player.dy = 0;
 			this._player.ax = 0;
 			this._player.ay = 0;
+			_sound.playSound("respawn");
 		}
 	}
 	

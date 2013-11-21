@@ -102,11 +102,11 @@
 					this.gotoAndStop((this.pose == "" ? "" : (this.pose + " ")) + this._dir);
 			}
 			if (this.robot_mc.right_arm != null)
-				this.robot_mc.right_arm.visible = this._activePowerups.flagged("strong_arm");
+				this.robot_mc.right_arm.visible = this.robot_mc._strongArm;
 			if (this.robot_mc.left_arm != null)
-				this.robot_mc.left_arm.visible = this._activePowerups.flagged("strong_arm");
+				this.robot_mc.left_arm.visible = this.robot_mc._strongArm;
 			if (this.robot_mc.lightning_rod != null)
-				this.robot_mc.lightning_rod.visible = this._activePowerups.flagged("lightning_rod");
+				this.robot_mc.lightning_rod.visible = this.robot_mc._lightningRod;
 			
 		}
 	}

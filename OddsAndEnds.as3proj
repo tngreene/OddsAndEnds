@@ -24,6 +24,7 @@
     <option allowSourcePathOverlap="False" />
     <option benchmark="False" />
     <option es="False" />
+    <option inline="False" />
     <option locale="" />
     <option loadConfig="" />
     <option optimize="False" />
@@ -85,6 +86,7 @@
   <options>
     <option showHiddenPaths="False" />
     <option testMovie="ExternalPlayer" />
+    <option testMovieCommand="" />
   </options>
   <!-- Plugin storage -->
   <storage />
