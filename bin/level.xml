@@ -208,7 +208,12 @@
 					<width>7</width>
 					<height></height>
 					<rotation>0</rotation>
-				</platform>		
+				</platform>
+				<platform type="powerup" x="4" y="2" name="spike_shield">
+					<width>7</width>
+					<height></height>
+					<rotation>0</rotation>
+				</platform>
 			</platforms>
 		</level>
 </root>

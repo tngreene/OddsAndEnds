@@ -10,6 +10,7 @@
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.events.Event;
+	import com.objects.PowerUp;
 	
 	public class LevelLayer extends Layer
 	{
@@ -17,6 +18,7 @@
 		
 		private var _platforms:Vector.<Platform>;
 		private var _spikes:Vector.<Spikes>;
+		private var _powerups:Vector.<PowerUp>;
 		private var _levelHeight:Number;
 		private var _levelWidth:Number;
 		private var _loaded:Boolean;
@@ -30,6 +32,7 @@
 			super(_parent);
 			this._platforms = new Vector.<Platform>();
 			this._spikes = new Vector.<Spikes>();
+			this._powerups = new Vector.<PowerUp>();
 			this._loaded = false;
 			this._started = false;
 			this._spawnPoint = new Point();
@@ -76,6 +79,11 @@
 			_currentLevel = value;
 		}
 		
+		public function get powerups():Vector.<PowerUp> 
+		{
+			return _powerups;
+		}
+		
 		// setups the level
 		public override function setup(mediator:LayerMediator):Boolean
 		{
@@ -92,21 +100,12 @@
 			
 			this._spawnPoint = new Point();
 			
+			this.kill();
 			
-			for each(var platform:Platform in this._platforms)
-			{
-				platform.kill();
-			}
 			this._platforms = new Vector.<Platform>();
-			
-			
-			for each(var spike:Spikes in this._spikes)
-			{
-				spike.kill();
-			}
 			this._spikes = new Vector.<Spikes>();
+			this._powerups = new Vector.<PowerUp>();
 			
-			this._goal.kill();
 			this._goal = null;
 			
 			this.load();
@@ -168,6 +167,17 @@
 							
 							this._spikes.push(spikes);
 							break;
+						case "powerup":
+							var powerup:PowerUp = new PowerUp(this, XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].@name);
+							
+							powerup.x =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].@x;
+							powerup.y =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].@y;
+							
+							powerup.setup(this._gridSize);
+							trace(powerup.x);
+							trace(powerup.y);
+							this._powerups.push(powerup);
+							break;
 						default:
 							throw new Error("You have entered an invalid platformtype");
 					}
@@ -218,12 +228,27 @@
 		{
 			for each(var platform:Platform in this._platforms)
 			{
-				this.removeChild(platform);
+				platform.kill();
 			}
+			for each(var spike:Spikes in this._spikes)
+			{
+				spike.kill();
+			}
+			for each(var powerup:PowerUp in this._powerups)
+			{
+				powerup.kill();
+			}
+			
+			this._goal.kill();
 		}
 		// fulfills all requests we make
 		public override function fulfill(key:String, target:Layer):void
 		{
+		}
+		public function killPowerup(powerup:PowerUp)
+		{
+			powerup.kill();
+			this._powerups.splice(this._powerups.indexOf(powerup), 1);
 		}
 	}
 	

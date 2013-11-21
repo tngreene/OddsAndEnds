@@ -1,5 +1,7 @@
 ﻿package com.layers
 {
+	import com.collections.Set;
+	import com.objects.PowerUp;
 	import com.screens.GameScreen;
 	import flash.display.MovieClip;
 	import flash.ui.Keyboard;
@@ -166,9 +168,20 @@
 							this._player.ay -= (1 - test["time"]) * this._player.fdy;
 						}
 						this._dead = true;
-						collision = true;
+						if (test["time"] < 0.9999999)
+							collision = true;
 					}
 				}
+				for each(var powerup:PowerUp in this._level.powerups)
+				{
+					test = this._player.sweepTestCollision(powerup);
+					if (test["collision"])
+					{
+						this._player.powerup(powerup.powerUpName);
+					this._level.killPowerup(powerup);
+					}
+				}
+				
 				test = this._player.sweepTestCollision(this._level.goal);
 				if (test["collision"])
 				{
@@ -177,6 +190,14 @@
 			}
 			
 			
+		}
+		public function get ownedPowerups():Vector.<String>
+		{
+			return this._player.ownedPowerups;
+		}
+		public function get activePowerups():Vector.<String>
+		{
+			return this._player.activePowerups;
 		}
 		// checks the keys
 		private function checkKeys()
@@ -196,7 +217,7 @@
 				this._player.dir = "left";
 			} else
 			{
-				this._player.pose = "";
+				this._player.pose = "standing";
 				this.applyFriction();
 			}
 			// jump

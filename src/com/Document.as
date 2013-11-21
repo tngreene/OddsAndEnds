@@ -1,5 +1,6 @@
 ﻿package com 
 {
+	import com.collections.Set;
 	import com.screens.CreditsScreen;
 	import com.screens.GameScreen;
 	import com.screens.InstructionScreen;
@@ -19,6 +20,27 @@
 		//where the file will be loaded from
 		public function Document()
 		{
+			var set1:Set = new Set();
+			
+			
+			var set2:Set = new Set();
+			
+			set2.flag("spike_shield");
+			set2.flag("lightning_rod");
+			set2.flag("strong_arm");
+			
+			
+			trace(set1.toString());
+			
+			trace(set2.toString());
+			
+			
+			
+			
+			
+			
+			
+			
 			this._screens = new Object();
 			
 			this._screens["game"] = new GameScreen(this);

@@ -9,6 +9,7 @@
 	{
 			
 		private var _hud_mc:HUD;
+		//private var _item_hud_mc:ItemHUD;
 		private var _offsetLayer:OffsetLayer;
 		private var _playerLayer:PlayerLayer;
 		private var _levelLayer:LevelLayer;
@@ -31,7 +32,13 @@
 			this._hud_mc.death_counter.text = "Deaths: " + this._playerLayer.deaths;
 			this.x = -this._parent.x;
 			this.y = -this._parent.y;
-			this._hud_mc.level_counter.text = "Level: " + (this._levelLayer.currentLevel + 1)
+			this._hud_mc.level_counter.text = "Level: " + (this._levelLayer.currentLevel + 1);
+			for each(var str:String in this._playerLayer.ownedPowerups)
+			{
+				this._hud_mc[str + "_mc"].visible = true;
+				this._hud_mc[str + "_mc"].gotoAndStop(str);
+				this._hud_mc[str + "_mc"].alpha = 0.2;
+			}
 		}
 		public override function fulfill(key:String, target:Layer):void
 		{
