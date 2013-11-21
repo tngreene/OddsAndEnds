@@ -39,6 +39,10 @@
 				this._hud_mc[str + "_mc"].gotoAndStop(str);
 				this._hud_mc[str + "_mc"].alpha = 0.2;
 			}
+			for each(var str:String in this._playerLayer.activePowerups)
+			{
+				this._hud_mc[str + "_mc"].alpha = 0.8;
+			}
 		}
 		public override function fulfill(key:String, target:Layer):void
 		{

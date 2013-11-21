@@ -8,6 +8,7 @@
 	import com.objects.Player;
 	import com.objects.Platform;
 	import com.objects.GameObject;
+	import flash.utils.Dictionary;
 	
 	public class PlayerLayer extends Layer
 	{
@@ -20,6 +21,8 @@
 		private var _dead:Boolean = false;
 		private var _win:Boolean = false;
 		private var _deaths:Number = 0;
+		private var _keyToPowerup:Dictionary = new Dictionary();
+		
 		public function PlayerLayer(_parent:GameScreen) 
 		{
 			super(_parent);
@@ -36,6 +39,11 @@
 				// sets him in the middle by default
 				// not jumping either
 				this._jumping = false;
+				
+				this._keyToPowerup[Keyboard.Q] = {name: "spike_shield", pressed: false};
+				this._keyToPowerup[Keyboard.W] = {name: "strong_arm", pressed: false};
+				this._keyToPowerup[Keyboard.E] = {name: "lightning_rod", pressed: false};
+				
 				this.addChild(this._player);
 				// requests keyboard access
 				this._mediator.request("keyboard", this);
@@ -61,7 +69,7 @@
 			this.checkKeys();
 			// apply gravity
 			this.applyGravity();
-			this.applyFriction();
+			
 			// make sure we dont go off screen
 			this.checkBounds();
 			// make sure we dont go too fast
@@ -167,7 +175,8 @@
 						{
 							this._player.ay -= (1 - test["time"]) * this._player.fdy;
 						}
-						this._dead = true;
+						if(!this._player.activePowerups.flagged("spike_shield"))
+							this._dead = true;
 						if (test["time"] < 0.9999999)
 							collision = true;
 					}
@@ -193,15 +202,28 @@
 		}
 		public function get ownedPowerups():Vector.<String>
 		{
-			return this._player.ownedPowerups;
+			return this._player.ownedPowerups.items;
 		}
 		public function get activePowerups():Vector.<String>
 		{
-			return this._player.activePowerups;
+			return this._player.activePowerups.items;
 		}
 		// checks the keys
 		private function checkKeys()
 		{
+			for (var key:Object in this._keyToPowerup)
+			{
+				if (this._keyboard.isKeyDown(key as uint))
+				{
+					if (!this._keyToPowerup[key].pressed)
+						this._player.togglePowerup(this._keyToPowerup[key].name);
+					this._keyToPowerup[key].pressed = true;
+				}
+				else
+				{
+					this._keyToPowerup[key].pressed = false;
+				}
+			}
 			// if were holding right or left accelerate quickly in that direction
 			// terminal velocityis the accel / friction constant
 			if(this._keyboard.isKeyDown(Keyboard.RIGHT) )//&& !this._player.airborne)
@@ -222,7 +244,7 @@
 			}
 			// jump
 			// only if we arent already jumping
-			if ((this._keyboard.isKeyDown(Keyboard.SPACE) || this._keyboard.isKeyDown(Keyboard.UP)) && !this._jumping)
+			if ((this._keyboard.isKeyDown(Keyboard.SPACE) || this._keyboard.isKeyDown(Keyboard.UP)) && !this._jumping && !this._player.activePowerups.flagged("spike_shield"))
 			{
 				this._player.ay += -8;
 				this._jumping = true;

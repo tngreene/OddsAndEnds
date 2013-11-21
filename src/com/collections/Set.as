@@ -20,7 +20,13 @@ package com.collections
 		{
 			delete this._data[name];
 		}
-		
+		public function toggle(name:String)
+		{
+			if (this.flagged(name))
+				this.deflag(name);
+			else
+				this.flag(name);
+		}
 		public function flagged(name:String)
 		{
 			return this._data.hasOwnProperty(name);

@@ -12,6 +12,7 @@
 		private var _pose:String;
 		private var _ownedPowerups:Set;
 		private var _activePowerups:Set;
+		
 		public function Player(layer:Layer) 
 		{
 			super(layer);
@@ -34,6 +35,11 @@
 		{
 			if (this._ownedPowerups.flagged(powerupName))
 				this._activePowerups.flag(powerupName);
+		}
+		public function togglePowerup(powerupName:String)
+		{
+			if (this._ownedPowerups.flagged(powerupName))
+				this._activePowerups.toggle(powerupName);
 		}
 		public function deactivatePowerup(powerupName:String)
 		{
@@ -61,13 +67,13 @@
 			this._pose = value;
 		}
 		
-		public function get ownedPowerups():Vector.<String> 
+		public function get ownedPowerups():Set
 		{
-			return this._ownedPowerups.items;
+			return this._ownedPowerups;
 		}
-		public function get activePowerups():Vector.<String> 
+		public function get activePowerups():Set
 		{
-			return this._activePowerups.items;
+			return this._activePowerups;
 		}
 		// reset accelerations
 		public function resetAcceleration()
