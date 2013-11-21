@@ -174,16 +174,11 @@
 					<height>4</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="platform" x="28.5" y="22.25">
-					<width>7</width>
+				<platform type="platform" x="30.5" y="22.25">
+					<width>11</width>
 					<height>3.5</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="platform" x="34" y="22">
-					<width>4</width>
-					<height>4</height>
-					<rotation></rotation>
-				</platform>			
 				<platform type="spike" x="12" y="12.25">
 					<width>14</width>
 					<height></height>
@@ -204,16 +199,12 @@
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
-				<platform type="spike" x="28.5" y="20.25">
-					<width>7</width>
+				<platform type="spike" x="30.5" y="20.25">
+					<width>11</width>
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
-				<platform type="powerup" x="4" y="2" name="spike_shield">
-					<width>7</width>
-					<height></height>
-					<rotation>0</rotation>
-				</platform>
+				<platform type="powerup" x="4" y="2" name="spike_shield" />
 			</platforms>
 		</level>
 </root>

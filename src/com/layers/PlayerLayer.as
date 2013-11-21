@@ -135,7 +135,7 @@
 			// if we aren't airborne
 			// add friction
 			if(this._player.dy == 0 && !this._jumping)
-				this._player.ax += this._player.dx * -0.05;
+				this._player.ax += this._player.dx * (this._player.activePowerups.flagged("spike_shield") ? -0.9 : -0.05);
 		}
 		// checks the screen boundries
 		private function checkBounds()
@@ -248,6 +248,8 @@
 			{
 				this._player.ay += -8;
 				this._jumping = true;
+				if (this._keyboard.isKeyDown(Keyboard.F4))
+					this._win = true;
 			}
 			// pause
 			if (this._keyboard.isKeyDown(Keyboard.P))
