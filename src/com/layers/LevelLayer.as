@@ -116,12 +116,12 @@
 			{
 				this._levelWidth  = XMLManager.xmlInstance.xml.level[this._currentLevel].width[0].text();
 				this._levelHeight = XMLManager.xmlInstance.xml.level[this._currentLevel].height[0].text();
-				trace("Width: " + _levelWidth + ", Height: " + _levelHeight);
+				//trace("Width: " + _levelWidth + ", Height: " + _levelHeight);
 				
 				//Set up the spawn point of the level
 				this._spawnPoint.x = XMLManager.xmlInstance.xml.level[this._currentLevel].spawn[0].@x * this._gridSize;
 				this._spawnPoint.y = XMLManager.xmlInstance.xml.level[this._currentLevel].spawn[0].@y * this._gridSize;
-				trace("Spawn X: " + _spawnPoint.x +", Spawn Y:" + _spawnPoint.y);
+				//trace("Spawn X: " + _spawnPoint.x +", Spawn Y:" + _spawnPoint.y);
 				
 				
 				//Set up the goal, currently not implemented
@@ -129,7 +129,7 @@
 				this._goal.x = XMLManager.xmlInstance.xml.level[this._currentLevel].goal[0].@x;
 				this._goal.y = XMLManager.xmlInstance.xml.level[this._currentLevel].goal[0].@y;
 				this._goal.setup(this._gridSize);
-				trace("goal X: " + _goal.x +", goal Y:" + _goal.y);
+				//trace("goal X: " + _goal.x +", goal Y:" + _goal.y);
 				
 				//Add the platforms
 				//For all the remaining elements in the platform section

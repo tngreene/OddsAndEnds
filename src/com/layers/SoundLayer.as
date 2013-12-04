@@ -1,10 +1,12 @@
-package com.layers 
+﻿package com.layers 
 {
 	import com.objects.Goal;
 	import com.screens.GameScreen;
 	import flash.events.Event;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
+	import flash.media.SoundMixer;
+	import flash.media.SoundTransform;
 	import flash.utils.Dictionary;
 	/**
 	 * This represents a sound manager.
@@ -43,6 +45,10 @@ package com.layers
 		private var _jump:Sound = new jump();
 		private var _goal:Sound = new goal();
 		private var _music:Sound = new music();
+		
+		private var _keyboard:KeyboardLayer = null;
+		var temp:SoundTransform = new SoundTransform();
+		private var _volumeControl:SoundMixer;// = new SoundMixer();
 		public function SoundLayer(_parent:GameScreen) 
 		{
 			super(_parent);
@@ -70,15 +76,15 @@ package com.layers
 			_soundDict[GOAL] = _goal.play(_goal.length-FAKE_END);
 			
 			/*DISABLE LINE TO STOP MUSIC*/_soundDict[MUSIC] = _music.play();
-			
-			//playSound("music", int.MAX_VALUE);
+			this._mediator.request("keyboard", this);
+			stage.addEventListener("LAST_KEY",toggleMute);
 			return true;
 		}
 		
 		//Plays a sound by passing in it's name
 		public function playSound(name:uint)
 		{
-			//Test to see if there is a sound channel with that name
+			//Test to see if there is a sound channel with that name, is not needed?
 			var playSound:SoundChannel = _soundDict[name];
 			
 			switch(name)
@@ -124,15 +130,39 @@ package com.layers
 		
 		public override function onFrame():void
 		{
+			
 		}
-		
+		public function toggleMute(e:Event)
+		{
+			
+			SoundMixer.soundTransform=temp;
+			
+			trace(temp.volume);
+			if (_keyboard.LastKeyPressed == 77)
+			{
+				if (temp.volume== 0)
+				{
+					temp.volume = 1;
+				}
+				else 
+				{
+					temp.volume = 0;
+				}
+			}
+			trace(temp.volume);
+		}
 		public override function kill():void
 		{
-			/*DISABLE LINE TO STOP MUSIC*/_soundDict[MUSIC].stop();
+			/*DISABLE LINE TO STOP MUSIC*/_soundDict[MUSIC].stop();			
+			removeEventListener(_keyboard.LAST_KEY,toggleMute);
 		}
 		public override function fulfill(key:String, target:Layer):void
 		{
-			//Does not need to know about any other classes i dont' think
+			if(key == "keyboard")
+			{
+				this._keyboard = target as KeyboardLayer;
+				
+			}
 			
 		}
 		
