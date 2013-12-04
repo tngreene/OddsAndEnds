@@ -24,7 +24,15 @@ package com.layers
 		//CONSTANTS
 		private const FAKE_END:Number = .000001;
 		
-		//Dictionary of sounds
+		//FAKE ENUM FOR ALL SOUNDS, helps reduce the number of miss typings
+		public const RESPAWN:uint = 0;
+		public const MOVE:uint = 1;
+		public const DIE:uint = 2;
+		public const JUMP:uint = 3;
+		public const GOAL:uint = 4;
+		public const MUSIC:uint = 5;
+		
+		//Dictionary of sounds KEY IS UINT, VALUE IS SOUND
 		public var _soundDict:Dictionary = new Dictionary(true);
 		//PUBLIC VARIABLES
 		
@@ -55,57 +63,57 @@ package com.layers
 			* 2.) Ensure that our later code (playSound's if statements) will work
 			* Sadly, AS3's sound is this much terrible.
 			*/
-			_soundDict["respawn"] = _respawn.play(_respawn.length - FAKE_END);
-			_soundDict["move"] = _move.play(_move.length - FAKE_END);
-			_soundDict["die"] = _die.play(_die.length-FAKE_END);
-			_soundDict["jump"] = _jump.play(_jump.length - FAKE_END);
-			_soundDict["goal"] = _goal.play(_goal.length-FAKE_END);
+			_soundDict[RESPAWN] = _respawn.play(_respawn.length - FAKE_END);
+			_soundDict[MOVE] = _move.play(_move.length - FAKE_END);
+			_soundDict[DIE] = _die.play(_die.length-FAKE_END);
+			_soundDict[JUMP] = _jump.play(_jump.length - FAKE_END);
+			_soundDict[GOAL] = _goal.play(_goal.length-FAKE_END);
 			
-			/*DISABLE LINE TO STOP MUSIC*/_soundDict["music"] = _music.play();
+			/*DISABLE LINE TO STOP MUSIC*/_soundDict[MUSIC] = _music.play();
 			
 			//playSound("music", int.MAX_VALUE);
 			return true;
 		}
 		
 		//Plays a sound by passing in it's name
-		public function playSound(name:String)
+		public function playSound(name:uint)
 		{
 			//Test to see if there is a sound channel with that name
 			var playSound:SoundChannel = _soundDict[name];
 			
 			switch(name)
 			{
-				case "respawn":
+				case RESPAWN:
 					if (_soundDict[name].position >= _respawn.length)
 					{
 						_soundDict[name] = _respawn.play();
 					}
 					break;
-				case "move":
+				case MOVE:
 					if (_soundDict[name].position >= _move.length)
 					{
 						_soundDict[name] = _move.play();
 					}
 					break;
-				case "die":
+				case DIE:
 					if (_soundDict[name].position >= _die.length)
 					{
 						_soundDict[name] = _die.play();
 					}
 					break;
-				case "jump":
+				case JUMP:
 					if (_soundDict[name].position >= _jump.length)
 					{
 						_soundDict[name] = _jump.play();
 					}
 					break;
-				case "goal":
+				case GOAL:
 					if (_soundDict[name].position >= _goal.length)
 					{
 						_soundDict[name] = _goal.play();
 					}
 					break;
-				case "music":
+				case MUSIC:
 					//_soundDict[name] = _music.play(0,int.MAX_VALUE);
 					break;
 				default:
@@ -120,7 +128,7 @@ package com.layers
 		
 		public override function kill():void
 		{
-			/*DISABLE LINE TO STOP MUSIC*/_soundDict["music"].stop();
+			/*DISABLE LINE TO STOP MUSIC*/_soundDict[MUSIC].stop();
 		}
 		public override function fulfill(key:String, target:Layer):void
 		{

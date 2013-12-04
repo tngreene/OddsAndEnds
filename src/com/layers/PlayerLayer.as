@@ -55,7 +55,7 @@
 			
 			if (this._level != null)
 			{
-				this.respawn();
+				this.respawn(false);
 				return true;
 			}
 			return false;
@@ -91,7 +91,7 @@
 				if (this._level.currentLevel <= XMLManager.xmlInstance.xml.levels.@maxId)
 				{
 					this._level.reload();
-					this.respawn();
+					this.respawn(false);
 				} else 
 				{
 					_sound.kill();
@@ -180,10 +180,11 @@
 						}
 						if(!this._player.activePowerups.flagged("spike_shield"))
 							this._dead = true;
-						_sound.playSound("die");	
+						_sound.playSound(_sound.DIE);	
 						if (test["time"] < 0.9999999)
-					
+						{
 							collision = true;
+						}
 					}
 				}
 				for each(var powerup:PowerUp in this._level.powerups)
@@ -239,7 +240,7 @@
 				
 				if (_player.airborne == false)
 				{
-					_sound.playSound("move");
+					_sound.playSound(_sound.MOVE);
 				}
 			}
 			else if(this._keyboard.isKeyDown(Keyboard.LEFT) )//&& !this._player.airborne)
@@ -250,7 +251,7 @@
 				
 				if (_player.airborne == false)
 				{
-					_sound.playSound("move");
+					_sound.playSound(_sound.MOVE);
 				}
 			} else
 			{
@@ -263,7 +264,7 @@
 			{
 				this._player.ay += -8;
 				this._jumping = true;
-				_sound.playSound("jump");
+				_sound.playSound(_sound.JUMP);
 				if (this._keyboard.isKeyDown(Keyboard.F4))
 				{
 					this._win = true;
@@ -308,7 +309,10 @@
 			return this._deaths;
 		}
 		
-		public function respawn():void
+		//Controls the respawning of the player. if the respawn is NOT coming from the 
+		//player dieing (game start, level change, etc...) then don't play the respawn sound
+		//Default value of true since you will die more than you will changle levels
+		public function respawn(fromDeath:Boolean=true):void
 		{
 			this._player.x = this._level.spawnPoint.x;
 			this._player.y = this._level.spawnPoint.y;
@@ -316,7 +320,11 @@
 			this._player.dy = 0;
 			this._player.ax = 0;
 			this._player.ay = 0;
-			_sound.playSound("respawn");
+			
+			if (fromDeath == true)
+			{
+				_sound.playSound(_sound.RESPAWN);
+			}
 		}
 	}
 	
