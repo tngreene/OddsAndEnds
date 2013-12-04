@@ -1,11 +1,11 @@
 <root>
-	<levels maxId="1" />
+	<levels maxId="2" />
 		<level id="0">
-			<!-- 7.5, 22 -->
+			<!-- Object Count: 15 -->
 			<width>36</width>
 			<height>24</height>
-			<spawn x="1.5" y="1"></spawn>
-			<goal x="10.5" y="21.75"></goal>
+			<spawn x="1.5" y="1" />
+			<goal x="10.5" y="21.75" />
 			<platforms>
 				<platform type="platform" x="2.5" y="3.5">
 					<width>5</width>
@@ -85,14 +85,11 @@
 			</platforms>
 		</level>
 		<level id="1">
-			<!-- Platforms: 18, Spike Sets: 5 -->
+			<!-- Object Count: 23 -->
 			<width>36</width>
 			<height>24</height>
-			<spawn x="33" y="2"></spawn>
-			<goal x="3" y="19"></goal>
-			<!-- Level 2 was designed to include the Spike Shield pickup. -->
-			<!-- Even though we likely won't have it tomorrow, I listed it here for future reference. -->
-			<!-- <pickup type="spikeShield" x="2" y="2"></pickup> -->
+			<spawn x="33" y="2" />
+			<goal x="3" y="19" />
 			<platforms>
 				<platform type="platform" x="4" y="3.5">
 					<width>4</width>
@@ -207,4 +204,308 @@
 				<platform type="powerup" x="4" y="2" name="spike_shield" />
 			</platforms>
 		</level>
+		<level id="2">
+			<!-- Object Count: 31 -->
+			<width>36</width>
+			<height>24</height>
+			<spawn x="3" y="21" />
+			<goal x="33" y="4.75" />
+			<platforms>
+				<platform type="platform" x="8" y="23">
+					<width>16</width>
+					<height>2</height>
+					<rotation></rotation>
+				</platform>
+				<platform type="platform" x="24" y="23.25">
+					<width>16</width>
+					<height>1.5</height>
+					<rotation></rotation>
+				</platform>
+				<platform type="platform" x="34" y="23">
+					<width>4</width>
+					<height>2</height>
+					<rotation></rotation>
+				</platform>
+				<platform type="platform" x="19" y="15.25">
+					<width>14</width>
+					<height>1.5</height>
+					<rotation></rotation>
+				</platform>
+				<platform type="platform" x="10" y="15">
+					<width>4</width>
+					<height>2</height>
+					<rotation></rotation>
+				</platform>
+				<platform type="platform" x="4" y="15.25">
+					<width>8</width>
+					<height>1.5</height>
+					<rotation></rotation>
+				</platform>
+				<platform type="platform" x="14" y="7">
+					<width>8</width>
+					<height>2</height>
+					<rotation></rotation>
+				</platform>
+				<platform type="platform" x="24" y="7.25">
+					<width>12</width>
+					<height>1.5</height>
+					<rotation></rotation>
+				</platform>
+				<platform type="platform" x="33" y="7">
+					<width>6</width>
+					<height>2</height>
+					<rotation></rotation>
+				</platform>
+				<platform type="breakaway" x="30.5" y="19.5" delay="1.5">
+					<width>3</width>
+					<height>2</height>
+					<rotation></rotation>
+				</platform>
+				<platform type="breakaway" x="27.5" y="16.5" delay="1.5">
+					<width>3</width>
+					<height>2</height>
+					<rotation></rotation>
+				</platform>
+				<platform type="breakaway" x="1.5" y="11.5" delay="1.5">
+					<width>3</width>
+					<height>2</height>
+					<rotation></rotation>
+				</platform>
+				<platform type="breakaway" x="6.5" y="8.5" delay="1.5">
+					<width>3</width>
+					<height>2</height>
+					<rotation></rotation>
+				</platform>
+				<platform type="spike" x="24" y="22.25">
+					<width>16</width>
+					<height></height>
+					<rotation>0</rotation>
+				</platform>
+				<platform type="spike" x="19" y="14.25">
+					<width>14</width>
+					<height></height>
+					<rotation>0</rotation>
+				</platform>
+				<platform type="spike" x="4" y="14.25">
+					<width>8</width>
+					<height></height>
+					<rotation>0</rotation>
+				</platform>
+				<platform type="spike" x="24" y="6.25">
+					<width>12</width>
+					<height></height>
+					<rotation>0</rotation>
+				</platform>
+				<platform type="crusher" x="7.5" y="16.5" />
+				<platform type="crusher" x="11.5" y="16.5" />
+				<platform type="crusher" x="16.5" y="16.5" />
+				<platform type="crusher" x="19.5" y="16.5" />
+				<platform type="crusher" x="23.5" y="16.5" />
+				<platform type="crusher" x="24.5" y="8.5" />
+				<platform type="crusher" x="18.5" y="8.5" />
+				<platform type="crusher" x="12.5" y="8.5" />
+				<platform type="crusher" x="15.5" y="0.5" />
+				<platform type="crusher" x="18.5" y="0.5" />
+				<platform type="crusher" x="23.5" y="0.5" />
+				<platform type="crusher" x="28.5" y="0.5" />
+				<platform type="crusher" x="32.5" y="0.5" />
+				<platform type="crusher" x="33.5" y="0.5" />
+			</platforms>
+		</level>
+		<level id="3">
+			<!-- Object Count: 37 -->
+			<width></width>
+			<height></height>
+			<spawn x="" y="" />
+			<goal x="" y="" />
+			<platforms>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="" x="" y="">
+					<width></width>
+					<height></height>
+					<rotation></rotation>
+				</platform>
+				<platform type="powerup" x="1.5" y="15.5" name="strongarm" />
+			</platforms>
+			
+		</level>			
 </root>
