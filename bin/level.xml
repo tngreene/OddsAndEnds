@@ -1,5 +1,5 @@
 <root>
-	<levels maxId="2" />
+	<levels maxId="3" />
 		<level id="0">
 			<!-- Object Count: 15 -->
 			<width>36</width>
@@ -314,195 +314,166 @@
 		</level>
 		<level id="3">
 			<!-- Object Count: 37 -->
-			<width></width>
-			<height></height>
-			<spawn x="" y="" />
-			<goal x="" y="" />
+			<width>36</width>
+			<height>24</height>
+			<spawn x="4" y="2" />
+			<goal x="4" y="21.75" />
 			<platforms>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="platform" x="4.5" y="4">
+					<width>9</width>
+					<height>2</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="platform" x="12" y="9">
+					<width>16</width>
+					<height>2</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="platform" x="33" y="4.5">
+					<width>6</width>
+					<height>1</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="platform" x="28" y="9.25">
+					<width>16</width>
+					<height>1.5</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="platform" x="14" y="18">
+					<width>28</width>
+					<height>2</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="platform" x="32.5" y="15">
+					<width>2.5</width>
+					<height>1</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="platform" x="31" y="23.5">
+					<width>10</width>
+					<height>1</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="platform" x="24" y="23.75">
+					<width>4</width>
+					<height>0.5</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="platform" x="20.5" y="23.5">
+					<width>3</width>
+					<height>1</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="platform" x="17" y="23.75">
+					<width>4</width>
+					<height>0.5</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="platform" x="13.5" y="23.5">
+					<width>3</width>
+					<height>1</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="platform" x="10" y="23.75">
+					<width>4</width>
+					<height>0.5</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="platform" x="4" y="23.5">
+					<width>8</width>
+					<height>1</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="breakaway" x="22" y="7">
+					<width>3</width>
+					<height>1</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="breakaway" x="27" y="6">
+					<width>3</width>
+					<height>1</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="breakaway" x="29.5" y="16">
+					<width>2</width>
+					<height>1</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
+				<platform type="breakaway" x="35" y="16">
+					<width>2</width>
+					<height>1</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
+				<platform type="spike" x="28" y="8.25">
+					<width>16</width>
 					<height></height>
-					<rotation></rotation>
+					<rotation>0</rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
+				<platform type="spike" x="24" y="23.25">
+					<width>4</width>
 					<height></height>
-					<rotation></rotation>
+					<rotation>0</rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
+				<platform type="spike" x="17" y="23.25">
+					<width>4</width>
 					<height></height>
-					<rotation></rotation>
+					<rotation>0</rotation>
 				</platform>
-				<platform type="" x="" y="">
-					<width></width>
+				<platform type="spike" x="10" y="23.25">
+					<width>4</width>
 					<height></height>
-					<rotation></rotation>
+					<rotation>0</rotation>
 				</platform>
-				<platform type="" x="" y="">
+				<platform type="crusher" x="5" y="10.5" />
+				<platform type="crusher" x="9" y="10.5" />
+				<platform type="crusher" x="13" y="10.5" />
+				<platform type="crusher" x="17" y="10.5" />
+				<platform type="crusher" x="21" y="10.5" />
+				<platform type="crusher" x="25" y="10.5" />
+				<platform type="switch" x="0.5" y="2.75">
 					<width></width>
 					<height></height>
-					<rotation></rotation>
+					<rotation>0</rotation>
 				</platform>
-				<platform type="" x="" y="">
+				<platform type="switch" x="35.5" y="3.75">
 					<width></width>
 					<height></height>
-					<rotation></rotation>
+					<rotation>0</rotation>
 				</platform>
-				<platform type="" x="" y="">
+				<platform type="switch" x="36" y="15.25">
 					<width></width>
 					<height></height>
-					<rotation></rotation>
+					<rotation>270</rotation>
 				</platform>
-				<platform type="" x="" y="">
+				<platform type="node" x="8.5" y="0.25">
 					<width></width>
 					<height></height>
-					<rotation></rotation>
+					<rotation>180</rotation>
 				</platform>
-				<platform type="" x="" y="">
+				<platform type="node" x="8.5" y="2.75">
 					<width></width>
 					<height></height>
-					<rotation></rotation>
+					<rotation>0</rotation>
 				</platform>
-				<platform type="" x="" y="">
+				<platform type="node" x="4.5" y="5.25">
 					<width></width>
 					<height></height>
-					<rotation></rotation>
+					<rotation>180</rotation>
 				</platform>
-				<platform type="" x="" y="">
+				<platform type="node" x="4.5" y="7.75">
 					<width></width>
 					<height></height>
-					<rotation></rotation>
+					<rotation>0</rotation>
 				</platform>
-				<platform type="" x="" y="">
+				<platform type="node" x="28.25" y="17.5">
 					<width></width>
 					<height></height>
-					<rotation></rotation>
+					<rotation>90</rotation>
 				</platform>
-				<platform type="" x="" y="">
+				<platform type="node" x="35.75" y="17.5">
 					<width></width>
 					<height></height>
-					<rotation></rotation>
-				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
-					<rotation></rotation>
-				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
-					<rotation></rotation>
-				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
-					<rotation></rotation>
-				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
-					<rotation></rotation>
-				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
-					<rotation></rotation>
-				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
-					<rotation></rotation>
-				</platform>
-				<platform type="" x="" y="">
-					<width></width>
-					<height></height>
-					<rotation></rotation>
+					<rotation>270</rotation>
 				</platform>
 				<platform type="powerup" x="1.5" y="15.5" name="strongarm" />
 			</platforms>
