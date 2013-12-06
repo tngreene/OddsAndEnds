@@ -1,5 +1,5 @@
 <root>
-	<levels maxId="3" />
+	<levels maxId="1" />
 		<level id="0">
 			<!-- Object Count: 15 -->
 			<width>36</width>
