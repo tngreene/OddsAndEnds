@@ -1,8 +1,10 @@
 ==============================================================
 	                                 Odds and Ends
 ==============================================================
-[Chapter.Section.Subsection] Title: Content is shown here in sentances. The
+[Chapter.Section.Subsection] Title: Content is shown here in sentences. The
 bracket system makes for very easy searching. Try it out!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		* Content can also be shown here in bullet points.
 		* Like this.
 			* Also, like this.
@@ -29,16 +31,19 @@ bracket system makes for very easy searching. Try it out!
 [1.1.0] Abstract:
 This is a game started in GDD1 and continued in GDD2
 
-[1.2.0] Requirments:
-*Flash CC
+[1.2.0] Requirements:
+* Flash CC
 
 [1.3.0] Credits:
-Product Owner/Project Lead: Edward Finer
-Gameplay Programmer: Theodore "Ted" Greene
-Gameplay Programmer: Julien Kilian
-Art/Level Designer: Danish Bukhari
-Art/Sound: Sean Mooney
-XML Code: Proffesor Tony Jefferson
+* Product Owner, Project Lead, Level Design: Edward Finer
+* Programming, Sound: Theodore "Ted" Greene
+* Programming: Julien Kilian
+* Art, Level Design: Danish Bukhari
+* Art: Sean Mooney
+* XML Code: Professor Tony Jefferson
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 ==============================================================*/
 
 /*==[2.0.0] Getting Started==============================================
