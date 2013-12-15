@@ -82,6 +82,7 @@
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
+				<platform type="powerup" x="8" y="3" name="strong_arm" />
 				<platform type="crusher" x="5" y="1">
 					<delay>40</delay>
 					<crushTime>20</crushTime>

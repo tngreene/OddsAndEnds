@@ -91,27 +91,37 @@
 			{
 				this.dx = 0;
 				this.dy = 0;
+				this.ax = 0;
+				this.ay = 0;
+				if (this._activePowerups.flagged("spike_shield"))
+					this.gotoAndStop("spike idle " + this._dir);
+				else
+					this.gotoAndStop("crusher idle " + this._dir);
 			}
 			super.onFrame();
-			if (this.dx == 0)
-				this.pose = "standing";
+			if (!this._activePowerups.flagged("strong_arm"))
+			{
+				if (this.dx == 0)
+					this.pose = "standing";
+				
+				if (this._activePowerups.flagged("spike_shield"))
+				{
+					this.gotoAndStop((this.pose == "" ? "" : (this.pose + " ")) + "spike " + this._dir);
+				} else 
+				{
+					if (this.airborne)
+						this.gotoAndStop("jump " + this._dir);
+					else
+						this.gotoAndStop((this.pose == "" ? "" : (this.pose + " ")) + this._dir);
+				}
 			
-			if (this._activePowerups.flagged("spike_shield"))
-			{
-				this.gotoAndStop((this.pose == "" ? "" : (this.pose + " ")) + "spike " + this._dir);
-			} else 
-			{
-				if (this.airborne)
-					this.gotoAndStop("jump " + this._dir);
-				else
-					this.gotoAndStop((this.pose == "" ? "" : (this.pose + " ")) + this._dir);
-			}
 			if (this.robot_mc.right_arm != null)
 				this.robot_mc.right_arm.visible = this.robot_mc._strongArm;
 			if (this.robot_mc.left_arm != null)
 				this.robot_mc.left_arm.visible = this.robot_mc._strongArm;
 			if (this.robot_mc.lightning_rod != null)
 				this.robot_mc.lightning_rod.visible = this.robot_mc._lightningRod;
+			}
 			
 		}
 	}
