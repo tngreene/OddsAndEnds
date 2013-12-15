@@ -207,7 +207,7 @@
 							}
 						} else if (test["direction"] == "y")
 						{
-							trace("hit");
+							
 							//this._player.ay -= (1 - test["time"]) * (test["rdy"]);
 							if (true) // replace with the right condition
 							{
@@ -262,6 +262,7 @@
 					this._keyToPowerup[key].pressed = false;
 				}
 			}
+			if(this.
 			// if were holding right or left accelerate quickly in that direction
 			// terminal velocityis the accel / friction constant
 			if(this._keyboard.isKeyDown(Keyboard.RIGHT) )//&& !this._player.airborne)

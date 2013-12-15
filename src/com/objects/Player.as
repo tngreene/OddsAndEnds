@@ -87,6 +87,11 @@
 		}
 		public override function onFrame()
 		{
+			if (this._activePowerups.flagged("strong_arm"))
+			{
+				this.dx = 0;
+				this.dy = 0;
+			}
 			super.onFrame();
 			if (this.dx == 0)
 				this.pose = "standing";
@@ -94,7 +99,7 @@
 			if (this._activePowerups.flagged("spike_shield"))
 			{
 				this.gotoAndStop((this.pose == "" ? "" : (this.pose + " ")) + "spike " + this._dir);
-			} else
+			} else 
 			{
 				if (this.airborne)
 					this.gotoAndStop("jump " + this._dir);
