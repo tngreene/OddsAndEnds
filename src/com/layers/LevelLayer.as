@@ -11,7 +11,7 @@
 	import flash.net.URLRequest;
 	import flash.events.Event;
 	import com.objects.PowerUp;
-	
+	import com.objects.Crusher;
 	public class LevelLayer extends Layer
 	{
 		//XML_PATH to our level.xml
@@ -19,6 +19,7 @@
 		private var _platforms:Vector.<Platform>;
 		private var _spikes:Vector.<Spikes>;
 		private var _powerups:Vector.<PowerUp>;
+		private var _crushers:Vector.<Crusher>;
 		private var _levelHeight:Number;
 		private var _levelWidth:Number;
 		private var _loaded:Boolean;
@@ -33,6 +34,7 @@
 			this._platforms = new Vector.<Platform>();
 			this._spikes = new Vector.<Spikes>();
 			this._powerups = new Vector.<PowerUp>();
+			this._crushers = new Vector.<Crusher>();
 			this._loaded = false;
 			this._started = false;
 			this._spawnPoint = new Point();
@@ -84,6 +86,11 @@
 			return _powerups;
 		}
 		
+		public function get crushers():Vector.<Crusher> 
+		{
+			return _crushers;
+		}
+		
 		// setups the level
 		public override function setup(mediator:LayerMediator):Boolean
 		{
@@ -105,6 +112,7 @@
 			this._platforms = new Vector.<Platform>();
 			this._spikes = new Vector.<Spikes>();
 			this._powerups = new Vector.<PowerUp>();
+			this._crushers = new Vector.<Crusher>();
 			
 			this._goal = null;
 			
@@ -174,9 +182,23 @@
 							powerup.y =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].@y;
 							
 							powerup.setup(this._gridSize);
-							trace(powerup.x);
-							trace(powerup.y);
 							this._powerups.push(powerup);
+							break;
+						case "crusher":
+							var crusher:Crusher = new Crusher(this);
+							
+							crusher.x =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].@x;
+							crusher.y =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].@y;
+							
+							crusher.delay = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].delay[0];
+							crusher.crushTime = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].crushTime[0];
+							crusher.riseTime = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].riseTime[0];
+							crusher.holdTime = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].holdTime[0];
+							crusher.crushDistance = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].crushDistance[0];
+							crusher.timeOffset = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].firstCrushDelay[0];
+							
+							crusher.setup(this._gridSize);
+							this._crushers.push(crusher);
 							break;
 						default:
 							throw new Error("You have entered an invalid platformtype");
@@ -222,6 +244,10 @@
 		// that need to be called once a frame
 		public override function onFrame():void
 		{
+			for each(var crusher:Crusher in this._crushers)
+			{
+				crusher.onFrame();
+			}
 		}
 		// kills the player clip
 		public override function kill():void
@@ -237,6 +263,11 @@
 			for each(var powerup:PowerUp in this._powerups)
 			{
 				powerup.kill();
+			}
+			
+			for each(var crusher:Crusher in this._crushers)
+			{
+				crusher.kill();
 			}
 			
 			this._goal.kill();

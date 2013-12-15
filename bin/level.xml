@@ -82,6 +82,14 @@
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
+				<platform type="crusher" x="5" y="1">
+					<delay>40</delay>
+					<crushTime>20</crushTime>
+					<riseTime>120</riseTime>
+					<holdTime>40</holdTime>
+					<crushDistance>5</crushDistance>
+					<firstCrushDelay>60</firstCrushDelay>
+				</platform>
 			</platforms>
 		</level>
 		<level id="1">

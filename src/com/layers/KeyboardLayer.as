@@ -77,7 +77,7 @@
 		{
 			//Start the timer over
 			_timeBetween = getTimer();
-			trace("Keydown time: " + _timeBetween);
+			//trace("Keydown time: " + _timeBetween);
 			this._keys[evt.keyCode] = true;
 		}
 		
@@ -95,7 +95,7 @@
 			
 			_lastKeyPressed = evt.keyCode;
 			dispatchEvent(new Event(LAST_KEY,true));
-			trace(_lastKeyPressed);
+			//trace(_lastKeyPressed);
 			this._keys[evt.keyCode] = false;
 		}
 		

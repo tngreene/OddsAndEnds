@@ -76,7 +76,10 @@
 			this.checkBounds();
 			// make sure we dont go too fast
 			this.limitVelocities();
-			
+			if (!this._player.airborne && this._player.pose == "run")
+			{
+				this._sound.playSound(this._sound.MOVE);
+			}
 			if (this._dead)
 			{
 				this._dead = false;
@@ -178,22 +181,51 @@
 						{
 							this._player.ay -= (1 - test["time"]) * this._player.fdy;
 						}
-						if(!this._player.activePowerups.flagged("spike_shield"))
+						if (!this._player.activePowerups.flagged("spike_shield"))
+						{
 							this._dead = true;
-						_sound.playSound(_sound.DIE);	
+							this._sound.playSound(this._sound.DIE);
+						}
 						if (test["time"] < 0.9999999)
 						{
 							collision = true;
 						}
 					}
 				}
+				
+				for each(var crusher:GameObject in this._level.crushers)
+				{
+					test = this._player.sweepTestCollision(crusher);
+					if (test["collision"])
+					{
+						if (test["direction"] == "x")
+						{
+							this._player.ax -= (1 - test["time"]) * this._player.fdx;
+							if (test["time"] < 0.9999999)
+							{
+								collision = true;
+							}
+						} else if (test["direction"] == "y")
+						{
+							trace("hit");
+							//this._player.ay -= (1 - test["time"]) * (test["rdy"]);
+							if (true) // replace with the right condition
+							{
+								this._dead = true;
+								this._sound.playSound(this._sound.DIE);
+							}
+						}
+						
+					}
+				}
+				
 				for each(var powerup:PowerUp in this._level.powerups)
 				{
 					test = this._player.sweepTestCollision(powerup);
 					if (test["collision"])
 					{
 						this._player.powerup(powerup.powerUpName);
-					this._level.killPowerup(powerup);
+						this._level.killPowerup(powerup);
 					}
 				}
 				
@@ -238,10 +270,6 @@
 				this._player.pose = "run";
 				this._player.dir = "right";
 				
-				if (_player.airborne == false)
-				{
-					_sound.playSound(_sound.MOVE);
-				}
 			}
 			else if(this._keyboard.isKeyDown(Keyboard.LEFT) )//&& !this._player.airborne)
 			{
@@ -249,10 +277,7 @@
 				this._player.pose = "run";
 				this._player.dir = "left";
 				
-				if (_player.airborne == false)
-				{
-					_sound.playSound(_sound.MOVE);
-				}
+				
 			} else
 			{
 				this._player.pose = "standing";
@@ -264,7 +289,7 @@
 			{
 				this._player.ay += -8;
 				this._jumping = true;
-				_sound.playSound(_sound.JUMP);
+				this._sound.playSound(this._sound.JUMP);
 				if (this._keyboard.isKeyDown(Keyboard.F4))
 				{
 					this._win = true;

@@ -76,6 +76,9 @@
 			ret["collision"] = false;
 			var rdx:Number = this.fdx - target.fdx;
 			var rdy:Number = this.fdy - target.fdy;
+			ret["rdx"] = rdx;
+			ret["rdy"] = rdy;
+			
 			
 			var xDist:Number = this.fx - target.x;
 			var yDist:Number = this.fy - target.y;
