@@ -82,6 +82,12 @@
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
+				<platform type="generator" maxRange="8">
+					<source x="5" y="0.5" rotation="180" />
+					<destination x="5" y="6" rotations="0" />
+				</platform>
+				<platform type="powerup" x="8" y="3" name="lightning_rod" />
+				<!--
 				<platform type="powerup" x="8" y="3" name="strong_arm" />
 				<platform type="crusher" x="5" y="1">
 					<delay>40</delay>
@@ -90,7 +96,7 @@
 					<holdTime>40</holdTime>
 					<crushDistance>5</crushDistance>
 					<firstCrushDelay>60</firstCrushDelay>
-				</platform>
+				</platform> -->
 			</platforms>
 		</level>
 		<level id="1">

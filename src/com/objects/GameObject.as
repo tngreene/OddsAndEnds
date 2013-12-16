@@ -2,6 +2,7 @@
 {
 	import flash.display.MovieClip;
 	import com.layers.Layer;
+	import flash.geom.Point;
 	
 	public class GameObject extends MovieClip
 	{
@@ -57,7 +58,10 @@
 		{
 			return Math.round((this.dy + this.ay) * 100) / 100;
 		}
-		
+		public function distanceTo(go:GameObject)
+		{
+			return Math.sqrt(Math.pow((go.x - this.x), 2) + Math.pow((go.y - this.y), 2) ); 
+		}
 		public function get airborne():Boolean
 		{
 			return this.dy != 0 || this.ay != 0;
@@ -135,6 +139,44 @@
 				}
 			}
 			return ret;
+		}
+		
+		public function lineIntersect(start:Point, finish:Point):Boolean
+		{
+			var mLine:Number = (finish.y - start.y) / (finish.x - start.x);
+			var bLine:Number = start.y - mLine * start.x;
+			
+			var left:Number = this.x - this.halfWidth;
+			var right:Number = this.x + this.halfWidth;
+			var top:Number = this.y - this.halfHeight;
+			var bottom:Number = this.y + this.halfHeight;
+			
+			var leftIntersectY = left * mLine + bLine;
+			var rightIntersectY = right * mLine + bLine;
+			
+			var topIntersectX = (top - bLine) / mLine;
+			var bottomIntersectX = (bottom - bLine) / mLine;
+			
+			if (leftIntersectY <= top && leftIntersectY >= bottom && leftIntersectY <= Math.max(finish.y, start.y) && leftIntersectY >= Math.min(finish.y, start.y))
+			{
+				return true;
+			}
+			if (rightIntersectY <= top && rightIntersectY >= bottom && rightIntersectY <= Math.max(finish.y, start.y) && rightIntersectY >= Math.min(finish.y, start.y))
+			{
+				return true;
+			}
+			
+			
+			if (topIntersectX <= top && topIntersectX >= bottom && topIntersectX <= Math.max(finish.x, start.x) && topIntersectX >= Math.min(finish.x, start.x))
+			{
+				return true;
+			}
+			if (bottomIntersectX <= bottom && bottomIntersectX >= bottom && bottomIntersectX <= Math.max(finish.x, start.x) && bottomIntersectX >= Math.min(finish.x, start.x))
+			{
+				return true;
+			}
+			
+			return false;
 		}
 		public override function get x():Number
 		{

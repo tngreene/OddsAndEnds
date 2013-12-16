@@ -2,7 +2,10 @@
 {
 	import com.objects.GameObject;
 	import com.objects.Goal;
+	import com.objects.RecieverConductor;
+	import com.objects.SourceConductor;
 	import com.screens.GameScreen;
+	import fl.motion.Source;
 	import flash.display.MovieClip;
 	import com.layers.XMLManager;
 	import com.objects.Platform;
@@ -21,6 +24,8 @@
 		private var _spikes:Vector.<Spikes>;
 		private var _powerups:Vector.<PowerUp>;
 		private var _crushers:Vector.<Crusher>;
+		private var _sources:Vector.<SourceConductor>;
+		private var _recievers:Vector.<RecieverConductor>;
 		private var _levelHeight:Number;
 		private var _levelWidth:Number;
 		private var _loaded:Boolean;
@@ -36,6 +41,8 @@
 			this._spikes = new Vector.<Spikes>();
 			this._powerups = new Vector.<PowerUp>();
 			this._crushers = new Vector.<Crusher>();
+			this._sources = new Vector.<SourceConductor>;
+			this._recievers = new Vector.<RecieverConductor>;
 			this._loaded = false;
 			this._started = false;
 			this._spawnPoint = new Point();
@@ -201,6 +208,24 @@
 							crusher.setup(this._gridSize);
 							this._crushers.push(crusher);
 							break;
+						case "generator":
+							var source:SourceConductor = new SourceConductor(this);
+							var reciever:RecieverConductor = new RecieverConductor(this);
+							
+							source.x =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].source[0].@x;
+							source.y =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].source[0].@y;
+							source.rotation =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].source[0].@rotation;
+							source.maxRange = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].@maxRange;
+							
+							reciever.x =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].destination[0].@x;
+							reciever.y =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].destination[0].@y;
+							reciever.rotation =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].destination[0].@rotation;
+							
+							source.setup(this._gridSize);
+							reciever.setup(this._gridSize);
+							this._sources.push(source);
+							this._recievers.push(reciever);
+							break;
 						default:
 							throw new Error("You have entered an invalid platformtype");
 					}
@@ -249,6 +274,14 @@
 			{
 				crusher.onFrame();
 			}
+			for each(var source:SourceConductor in this._sources)
+			{
+				source.onFrame();
+			}
+			for each(var reciever:RecieverConductor in this._recievers)
+			{
+				reciever.onFrame();
+			}
 		}
 		// kills the player clip
 		public override function kill():void
@@ -265,10 +298,17 @@
 			{
 				powerup.kill();
 			}
-			
 			for each(var crusher:Crusher in this._crushers)
 			{
 				crusher.kill();
+			}
+			for each(var source:SourceConductor in this._sources)
+			{
+				source.kill();
+			}
+			for each(var reciever:RecieverConductor in this._recievers)
+			{
+				reciever.kill();
 			}
 			
 			this._goal.kill();

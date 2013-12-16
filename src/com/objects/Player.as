@@ -14,6 +14,8 @@
 		private var _activePowerups:Set;
 		private var _currentAnimation:String;
 		private var _animationTimer:Timer;
+		private var _lightning_rod:BlankRecieverConductor;
+		private var _lightning_rod_offset:Number = -44;
 		public function Player(layer:Layer) 
 		{
 			super(layer);
@@ -95,6 +97,24 @@
 		public override function onFrame()
 		{
 			super.onFrame();
+			
+			if (this._activePowerups.flagged("lightning_rod"))
+			{
+				if (this._lightning_rod == null)
+				{
+					this._lightning_rod = new BlankRecieverConductor(this._parent);
+				}
+					this._lightning_rod.x = this.x;
+					this._lightning_rod.y = this.y + this._lightning_rod_offset;
+			} else
+			{
+				if (this._lightning_rod != null)
+				{
+					this._lightning_rod.kill();
+					this._lightning_rod = null;
+				}
+			}
+			
 			if (this._animationTimer.isRunning())
 			{
 				this._animationTimer.onFrame();
