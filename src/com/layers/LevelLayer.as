@@ -99,6 +99,11 @@
 			return _crushers;
 		}
 		
+		public function get sources():Vector.<SourceConductor> 
+		{
+			return _sources;
+		}
+		
 		// setups the level
 		public override function setup(mediator:LayerMediator):Boolean
 		{

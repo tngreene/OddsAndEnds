@@ -3,8 +3,10 @@
 	import com.collections.Set;
 	import com.objects.Crusher;
 	import com.objects.PowerUp;
+	import com.objects.SourceConductor;
 	import com.screens.GameScreen;
 	import flash.display.MovieClip;
+	import flash.geom.Point;
 	import flash.ui.Keyboard;
 	import com.objects.Player;
 	import com.objects.Platform;
@@ -230,7 +232,14 @@
 						
 					}
 				}
-				
+				for each(var source:SourceConductor in this._level.sources)
+				{
+					if (this._player.lineIntersect(new Point(source.sourceX, source.sourceY), new Point(source.target.sourceX, source.target.sourceY)))
+					{
+						this._dead = true;
+						this._sound.playSound(this._sound.DIE);
+					}
+				}
 				for each(var powerup:PowerUp in this._level.powerups)
 				{
 					test = this._player.sweepTestCollision(powerup);
@@ -363,6 +372,8 @@
 			this._player.dy = 0;
 			this._player.ax = 0;
 			this._player.ay = 0;
+			
+			this._player.activePowerups.clear();
 			
 			if (fromDeath == true)
 			{

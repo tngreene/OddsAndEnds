@@ -12,6 +12,10 @@ package com.collections
 		{
 			this._data = new Object();
 		}
+		public function clear()
+		{
+			this._data = new Object();
+		}
 		public function flag(name:String)
 		{
 			this._data[name] = true;

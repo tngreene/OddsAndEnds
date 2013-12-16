@@ -50,6 +50,11 @@ package com.objects
 			this._lightningBolt.kill();
 		}
 		
+		public function get target():RecieverConductor 
+		{
+			return _oldtarget;
+		}
+		
 	}
 
 }
