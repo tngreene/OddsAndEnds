@@ -9,7 +9,6 @@
 	{
 			
 		private var _hud_mc:HUD;
-		//private var _item_hud_mc:ItemHUD;
 		private var _offsetLayer:OffsetLayer;
 		private var _playerLayer:PlayerLayer;
 		private var _levelLayer:LevelLayer;
@@ -39,7 +38,7 @@
 				this._hud_mc[str + "_mc"].gotoAndStop(str);
 				this._hud_mc[str + "_mc"].alpha = 0.2;
 			}
-			for each(var str:String in this._playerLayer.activePowerups)
+			for each(var str in this._playerLayer.activePowerups)
 			{
 				this._hud_mc[str + "_mc"].alpha = 0.8;
 			}

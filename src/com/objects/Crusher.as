@@ -25,11 +25,34 @@
 			this.y *= gridSize;
 			this.crushDistance *= gridSize;
 		}
+		public function onBreak()
+		{
+			this.state = "breaking";
+			this.time = 0;
+		}
+		private function eq(x:Number):Number { return -0.1 * x * x + 3 * x; };
 		public override function onFrame()
 		{
 			this.dy = 0;
 			switch(this.state)
 			{
+				case "breaking":
+					this.y--;
+					if (this.time >= 30)
+					{
+						this.state = "broken";
+						this.time = 0;
+					}
+					break;
+				case "broken":
+					this.y -= eq(this.time + 1) - eq(this.time);
+					this.alpha -= 0.02;
+					if (this.alpha <= 0)
+					{
+						// kill this
+						this._parent.destroy(this);
+					}
+					break;
 				case "firstCrush":
 					if (this.time >= this.timeOffset)
 					{

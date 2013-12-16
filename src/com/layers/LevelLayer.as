@@ -1,5 +1,6 @@
 ﻿package com.layers
 {
+	import com.objects.GameObject;
 	import com.objects.Goal;
 	import com.screens.GameScreen;
 	import flash.display.MovieClip;
@@ -276,10 +277,18 @@
 		public override function fulfill(key:String, target:Layer):void
 		{
 		}
-		public function killPowerup(powerup:PowerUp)
+		public override function destroy(go:GameObject):void
 		{
-			powerup.kill();
-			this._powerups.splice(this._powerups.indexOf(powerup), 1);
+			if (go is PowerUp)
+			{
+				this._powerups.splice(this._powerups.indexOf(go), 1);
+				go.kill();
+			}
+			if (go is Crusher)
+			{
+				this._crushers.splice(this._crushers.indexOf(go), 1);
+				go.kill();
+			}
 		}
 	}
 	

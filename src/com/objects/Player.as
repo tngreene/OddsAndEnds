@@ -12,7 +12,8 @@
 		private var _pose:String;
 		private var _ownedPowerups:Set;
 		private var _activePowerups:Set;
-		
+		private var _currentAnimation:String;
+		private var _animationTimer:Timer;
 		public function Player(layer:Layer) 
 		{
 			super(layer);
@@ -20,7 +21,13 @@
 			this._pose = "standing";
 			this._ownedPowerups = new Set();
 			this._activePowerups = new Set();
+			this._animationTimer = new Timer();
 			super._moves = true;
+		}
+		public function forcePlay(animation:String, duration:Number, callback:Function)
+		{
+			this._animationTimer.start(duration, callback);
+			this._currentAnimation = animation;
 		}
 		public override function get halfHeight():Number
 		{
@@ -87,42 +94,44 @@
 		}
 		public override function onFrame()
 		{
-			if (this._activePowerups.flagged("strong_arm"))
-			{
-				this.dx = 0;
-				this.dy = 0;
-				this.ax = 0;
-				this.ay = 0;
-				if (this._activePowerups.flagged("spike_shield"))
-					this.gotoAndStop("spike idle " + this._dir);
-				else
-					this.gotoAndStop("crusher idle " + this._dir);
-			}
 			super.onFrame();
-			if (!this._activePowerups.flagged("strong_arm"))
+			if (this._animationTimer.isRunning())
 			{
-				if (this.dx == 0)
-					this.pose = "standing";
-				
-				if (this._activePowerups.flagged("spike_shield"))
+				this._animationTimer.onFrame();
+				this.gotoAndStop(this._currentAnimation);
+			} else
+			{
+				if (this._activePowerups.flagged("strong_arm"))
 				{
-					this.gotoAndStop((this.pose == "" ? "" : (this.pose + " ")) + "spike " + this._dir);
-				} else 
-				{
-					if (this.airborne)
-						this.gotoAndStop("jump " + this._dir);
+					if (this._activePowerups.flagged("spike_shield"))
+						this.gotoAndStop("spike idle " + this._dir);
 					else
-						this.gotoAndStop((this.pose == "" ? "" : (this.pose + " ")) + this._dir);
+						this.gotoAndStop("crusher idle " + this._dir);
 				}
-			
-			if (this.robot_mc.right_arm != null)
-				this.robot_mc.right_arm.visible = this.robot_mc._strongArm;
-			if (this.robot_mc.left_arm != null)
-				this.robot_mc.left_arm.visible = this.robot_mc._strongArm;
-			if (this.robot_mc.lightning_rod != null)
-				this.robot_mc.lightning_rod.visible = this.robot_mc._lightningRod;
+				if (!this._activePowerups.flagged("strong_arm"))
+				{
+					if (this.dx == 0)
+						this.pose = "standing";
+					
+					if (this._activePowerups.flagged("spike_shield"))
+					{
+						this.gotoAndStop((this.pose == "" ? "" : (this.pose + " ")) + "spike " + this._dir);
+					} else 
+					{
+						if (this.airborne)
+							this.gotoAndStop("jump " + this._dir);
+						else
+							this.gotoAndStop((this.pose == "" ? "" : (this.pose + " ")) + this._dir);
+					}
+				
+				}
+				if (this.robot_mc.right_arm != null)
+					this.robot_mc.right_arm.visible = this._ownedPowerups.flagged("strong_arm");
+				if (this.robot_mc.left_arm != null)
+					this.robot_mc.left_arm.visible = this._ownedPowerups.flagged("strong_arm");
+				if (this.robot_mc.lightning_rod != null)
+					this.robot_mc.lightning_rod.visible = this._ownedPowerups.flagged("lightning_rod");
 			}
-			
 		}
 	}
 }

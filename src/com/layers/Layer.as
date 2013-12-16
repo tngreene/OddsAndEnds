@@ -1,6 +1,7 @@
 ﻿package com.layers
 {
 	
+	import com.objects.GameObject;
 	import com.screens.GameScreen;
 	import flash.display.MovieClip;
 	
@@ -56,6 +57,10 @@
 		// used when requests are made to the mediator
 		public function fulfill(key:String, target:Layer):void
 		{
+		}
+		public function destroy(go:GameObject):void
+		{
+			
 		}
 	}
 }

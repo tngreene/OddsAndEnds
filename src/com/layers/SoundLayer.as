@@ -137,7 +137,7 @@
 			
 			SoundMixer.soundTransform=temp;
 			
-			trace(temp.volume);
+			//trace(temp.volume);
 			if (_keyboard.LastKeyPressed == 77)
 			{
 				if (temp.volume== 0)
@@ -149,7 +149,7 @@
 					temp.volume = 0;
 				}
 			}
-			trace(temp.volume);
+			//trace(temp.volume);
 		}
 		public override function kill():void
 		{

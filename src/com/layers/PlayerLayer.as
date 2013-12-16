@@ -1,6 +1,7 @@
 ﻿package com.layers
 {
 	import com.collections.Set;
+	import com.objects.Crusher;
 	import com.objects.PowerUp;
 	import com.screens.GameScreen;
 	import flash.display.MovieClip;
@@ -22,6 +23,7 @@
 		private var _dead:Boolean = false;
 		private var _win:Boolean = false;
 		private var _deaths:Number = 0;
+		private var _frozen:Boolean = false;
 		private var _keyToPowerup:Dictionary = new Dictionary();
 		
 		public function PlayerLayer(_parent:GameScreen) 
@@ -68,7 +70,8 @@
 			// set acceleration to 0 so we can mess with it later
 			this._player.resetAcceleration();
 			// check keys
-			this.checkKeys();
+			if(!this._frozen)
+				this.checkKeys();
 			// apply gravity
 			this.applyGravity();
 			
@@ -147,8 +150,11 @@
 		private function checkBounds()
 		{
 			var collision = true;
-			while (collision)
+			var maxIterations = 200;
+			var iterations = 0;
+			while (collision && iterations < maxIterations)
 			{
+				iterations++;
 				collision = false;
 				for each(var platform:GameObject in this._level.platforms)
 				{
@@ -193,7 +199,7 @@
 					}
 				}
 				
-				for each(var crusher:GameObject in this._level.crushers)
+				for each(var crusher:Crusher in this._level.crushers)
 				{
 					test = this._player.sweepTestCollision(crusher);
 					if (test["collision"])
@@ -213,6 +219,12 @@
 							{
 								this._dead = true;
 								this._sound.playSound(this._sound.DIE);
+							} else
+							{
+								
+								crusher.onBreak();
+								this._player.forcePlay("crusher push left", 30, this.endStrongArm);
+								this._frozen = true;
 							}
 						}
 						
@@ -225,7 +237,7 @@
 					if (test["collision"])
 					{
 						this._player.powerup(powerup.powerUpName);
-						this._level.killPowerup(powerup);
+						this._level.destroy(powerup);
 					}
 				}
 				
@@ -235,8 +247,14 @@
 					this._win = true;
 				}
 			}
+			if (iterations == 200)
+				trace("Man thats a lot of collisions");
 			
-			
+		}
+		public function endStrongArm()
+		{
+			this._player.togglePowerup("strong_arm");
+			this._frozen = false;
 		}
 		public function get ownedPowerups():Vector.<String>
 		{
@@ -264,14 +282,14 @@
 			}
 			// if were holding right or left accelerate quickly in that direction
 			// terminal velocityis the accel / friction constant
-			if(this._keyboard.isKeyDown(Keyboard.RIGHT) )//&& !this._player.airborne)
+			if(this._keyboard.isKeyDown(Keyboard.RIGHT) && !this._player.activePowerups.flagged("strong_arm"))//&& !this._player.airborne)
 			{
 				this._player.ax += 4 * (this._player.airborne ? 0.1 : 1);
 				this._player.pose = "run";
 				this._player.dir = "right";
 				
 			}
-			else if(this._keyboard.isKeyDown(Keyboard.LEFT) )//&& !this._player.airborne)
+			else if(this._keyboard.isKeyDown(Keyboard.LEFT) && !this._player.activePowerups.flagged("strong_arm"))//&& !this._player.airborne)
 			{
 				this._player.ax += -4 * (this._player.airborne ? 0.04 : 1);
 				this._player.pose = "run";
