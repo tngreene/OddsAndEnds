@@ -44,7 +44,7 @@
 		private var _die:Sound = new die();
 		private var _jump:Sound = new jump();
 		private var _goal:Sound = new goal();
-		private var _music:Sound = new music();
+		
 		
 		private var _keyboard:KeyboardLayer = null;
 		var temp:SoundTransform = new SoundTransform();
@@ -75,7 +75,10 @@
 			_soundDict[JUMP] = _jump.play(_jump.length - FAKE_END);
 			_soundDict[GOAL] = _goal.play(_goal.length-FAKE_END);
 			
-			/*DISABLE LINE TO STOP MUSIC*/_soundDict[MUSIC] = _music.play(0,9999);
+			//if (_soundDict[MUSIC] == null)
+			//{
+			/*DISABLE LINE TO STOP MUSIC*///_soundDict[MUSIC] = _music.play(0, 9999);
+			//}
 			this._mediator.request("keyboard", this);
 			stage.addEventListener("LAST_KEY",toggleMute);
 			return true;
@@ -153,7 +156,8 @@
 		}
 		public override function kill():void
 		{
-			/*DISABLE LINE TO STOP MUSIC*/_soundDict[MUSIC].stop();			
+			/*DISABLE LINE TO STOP MUSIC*/SoundMixer.soundTransform = temp;
+			temp.volume = 0;
 			removeEventListener(_keyboard.LAST_KEY,toggleMute);
 		}
 		public override function fulfill(key:String, target:Layer):void

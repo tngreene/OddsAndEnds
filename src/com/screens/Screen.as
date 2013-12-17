@@ -99,6 +99,10 @@ package com.screens
 			this._parent.resetGame(e);
 			this.toTitle(e);
 		}
+		public function restartLevel(e:Event)
+		{
+			
+		}
 	}
 
 }

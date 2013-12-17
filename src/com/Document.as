@@ -11,6 +11,8 @@
 	import com.screens.VictoryScreen;
 	import flash.display.MovieClip;
 	import flash.events.Event;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
 	import flash.system.fscommand;
 	
 
@@ -52,7 +54,8 @@
 			this._screens["pause"] = new PauseScreen(this);
 			
 			this._screens["title"].playScreen();
-			
+			var _music:Sound = new music();
+			var tempChannel:SoundChannel = _music.play(0, 9999);
 			this.addEventListener(Event.ENTER_FRAME, this.onFrame);
 		}
 		public function onFrame(e:Event)

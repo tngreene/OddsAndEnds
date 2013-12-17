@@ -5,6 +5,7 @@
 	import com.objects.Crusher;
 	import com.objects.PowerUp;
 	import com.objects.SourceConductor;
+	import flash.events.Event;
 	//import com.objects.Timer;
 	import com.screens.GameScreen;
 	import flash.display.MovieClip;
@@ -53,7 +54,11 @@
 				this._keyToPowerup[Keyboard.Q] = {name: "spike_shield", pressed: false};
 				this._keyToPowerup[Keyboard.E] = {name: "strong_arm", pressed: false};
 				this._keyToPowerup[Keyboard.W] = {name: "lightning_rod", pressed: false};
-				tempTimer.addEventListener(TimerEvent.TIMER_COMPLETE,respawn);
+				tempTimer.addEventListener(TimerEvent.TIMER_COMPLETE, respawn);
+				
+				//Listens for when the soft reset button is applied
+				stage.addEventListener("RESTART_LEVEL", respawn);
+				
 				this.addChild(this._player);
 				// requests keyboard access
 				this._mediator.request("keyboard", this);
@@ -69,7 +74,10 @@
 			}
 			return false;
 		}
-		
+		public function dfdf(e:Event)
+		{
+			trace("amkmkkmkmkmk");
+		}
 		// calls all the functions
 		// that need to be called once a frame
 		public override function onFrame():void
