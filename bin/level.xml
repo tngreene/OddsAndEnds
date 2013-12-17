@@ -1,5 +1,5 @@
 <root>
-	<levels maxId="1" />
+	<levels maxId="3" />
 		<level id="0">
 			<!-- Object Count: 15 -->
 			<width>36</width>
@@ -141,14 +141,9 @@
 					<height>2</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="platform" x="12" y="13.25">
-					<width>14</width>
+				<platform type="platform" x="17" y="13.25">
+					<width>24</width>
 					<height>1.5</height>
-					<rotation></rotation>
-				</platform>
-				<platform type="platform" x="24" y="13">
-					<width>10</width>
-					<height>2</height>
 					<rotation></rotation>
 				</platform>
 				<platform type="platform" x="3" y="22">
@@ -191,8 +186,8 @@
 					<height>3.5</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="spike" x="12" y="12.25">
-					<width>14</width>
+				<platform type="spike" x="17" y="12.25">
+					<width>24</width>
 					<height></height>
 					<rotation>0</rotation>
 				</platform>
@@ -325,6 +320,7 @@
 				<platform type="crusher" x="28.5" y="0.5" />
 				<platform type="crusher" x="32.5" y="0.5" />
 				<platform type="crusher" x="33.5" y="0.5" />
+				<platform type="powerup" x="34.5" y="20.5" name="strongarm" />
 			</platforms>
 		</level>
 		<level id="3">
@@ -490,7 +486,7 @@
 					<height></height>
 					<rotation>270</rotation>
 				</platform>
-				<platform type="powerup" x="1.5" y="15.5" name="strongarm" />
+				<platform type="powerup" x="1.5" y="1.5" name="lightning_rod" />
 			</platforms>
 			
 		</level>			
