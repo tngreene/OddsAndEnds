@@ -89,6 +89,7 @@
 			if (this._dead)
 			{
 				this._dead = false;
+				this._level.reload();
 				this.respawn();
 				this._deaths++;
 			}

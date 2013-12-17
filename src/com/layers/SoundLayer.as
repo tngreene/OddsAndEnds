@@ -75,7 +75,7 @@
 			_soundDict[JUMP] = _jump.play(_jump.length - FAKE_END);
 			_soundDict[GOAL] = _goal.play(_goal.length-FAKE_END);
 			
-			/*DISABLE LINE TO STOP MUSIC*/_soundDict[MUSIC] = _music.play();
+			/*DISABLE LINE TO STOP MUSIC*/_soundDict[MUSIC] = _music.play(0,9999);
 			this._mediator.request("keyboard", this);
 			stage.addEventListener("LAST_KEY",toggleMute);
 			return true;

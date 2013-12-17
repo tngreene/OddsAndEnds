@@ -69,6 +69,7 @@ package com.objects
 					if (this.alpha <= 0)
 					{
 						// kill this
+						this.visible = false;
 						this._parent.destroy(this);
 					}
 					
