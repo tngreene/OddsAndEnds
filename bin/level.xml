@@ -467,19 +467,19 @@
 					<height>0.5</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="breakaway" x="4" y="23.5">
+				<platform type="breakaway" x="4" y="23.5" delay="1.5">
 					<width>8</width>
 				</platform>
-				<platform type="breakaway" x="22" y="7">
+				<platform type="breakaway" x="22" y="7" delay="1.5">
 					<width>3</width>
 				</platform>
-				<platform type="breakaway" x="27" y="6">
+				<platform type="breakaway" x="27" y="6" delay="1.5">
 					<width>3</width>
 				</platform>
-				<platform type="breakaway" x="29.5" y="16">
+				<platform type="breakaway" x="29.5" y="16" delay="1.5">
 					<width>2</width>
 				</platform>
-				<platform type="breakaway" x="35" y="16">
+				<platform type="breakaway" x="35" y="16" delay="1.5">
 					<width>2</width>
 				</platform>
 				<platform type="spike" x="28" y="8.25">
@@ -564,6 +564,5 @@
 				</platform>
 				<platform type="powerup" x="1.5" y="1.5" name="lightning_rod" />
 			</platforms>
-			
 		</level>			
 </root>
