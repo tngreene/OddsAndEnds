@@ -262,7 +262,10 @@
 							{
 								
 								crusher.onBreak();
-								this._player.forcePlay("crusher push left", 30, this.endStrongArm);
+								if (this._player.activePowerups.flagged("spike_shield"))
+									this._player.forcePlay("spike push " + this._player.dir, 30, this.endStrongArm);
+								else
+									this._player.forcePlay("crusher push " + this._player.dir, 30, this.endStrongArm);
 								this._frozen = true;
 							}
 						}
