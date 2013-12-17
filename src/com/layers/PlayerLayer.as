@@ -1,6 +1,7 @@
 ﻿package com.layers
 {
 	import com.collections.Set;
+	import com.objects.CrumblingPlatform;
 	import com.objects.Crusher;
 	import com.objects.PowerUp;
 	import com.objects.SourceConductor;
@@ -46,8 +47,8 @@
 				this._jumping = false;
 				
 				this._keyToPowerup[Keyboard.Q] = {name: "spike_shield", pressed: false};
-				this._keyToPowerup[Keyboard.W] = {name: "strong_arm", pressed: false};
-				this._keyToPowerup[Keyboard.E] = {name: "lightning_rod", pressed: false};
+				this._keyToPowerup[Keyboard.E] = {name: "strong_arm", pressed: false};
+				this._keyToPowerup[Keyboard.W] = {name: "lightning_rod", pressed: false};
 				
 				this.addChild(this._player);
 				// requests keyboard access
@@ -173,6 +174,25 @@
 							this._player.ay -= (1 - test["time"]) * this._player.fdy;
 							
 						}
+						collision = true;
+					}
+				}
+				for each(var crumbler:CrumblingPlatform in this._level.crumblers)
+				{
+					var test:Object = this._player.sweepTestCollision(crumbler);
+					if (test["collision"])
+					{
+						if (test["direction"] == "x")
+						{
+							
+							this._player.ax -= (1 - test["time"]) * this._player.fdx;
+							
+						} else if (test["direction"] == "y")
+						{
+							this._player.ay -= (1 - test["time"]) * this._player.fdy;
+							
+						}
+						crumbler.onBreak();
 						collision = true;
 					}
 				}

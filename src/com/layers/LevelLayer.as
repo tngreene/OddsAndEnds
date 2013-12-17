@@ -1,5 +1,6 @@
 ﻿package com.layers
 {
+	import com.objects.CrumblingPlatform;
 	import com.objects.GameObject;
 	import com.objects.Goal;
 	import com.objects.RecieverConductor;
@@ -26,6 +27,7 @@
 		private var _crushers:Vector.<Crusher>;
 		private var _sources:Vector.<SourceConductor>;
 		private var _recievers:Vector.<RecieverConductor>;
+		private var _crumblers:Vector.<CrumblingPlatform>;
 		private var _levelHeight:Number;
 		private var _levelWidth:Number;
 		private var _loaded:Boolean;
@@ -43,6 +45,7 @@
 			this._crushers = new Vector.<Crusher>();
 			this._sources = new Vector.<SourceConductor>;
 			this._recievers = new Vector.<RecieverConductor>;
+			this._crumblers = new Vector.<CrumblingPlatform>();
 			this._loaded = false;
 			this._started = false;
 			this._spawnPoint = new Point();
@@ -104,6 +107,11 @@
 			return _sources;
 		}
 		
+		public function get crumblers():Vector.<CrumblingPlatform> 
+		{
+			return _crumblers;
+		}
+		
 		// setups the level
 		public override function setup(mediator:LayerMediator):Boolean
 		{
@@ -128,6 +136,7 @@
 			this._crushers = new Vector.<Crusher>();
 			this._sources = new Vector.<SourceConductor>();
 			this._recievers = new Vector.<RecieverConductor>();
+			this._crumblers = new Vector.<CrumblingPlatform>();
 			
 			this._goal = null;
 			
@@ -205,12 +214,12 @@
 							crusher.x =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].@x;
 							crusher.y =  XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].@y;
 							
-							crusher.delay = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].delay[0];
-							crusher.crushTime = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].crushTime[0];
-							crusher.riseTime = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].riseTime[0];
-							crusher.holdTime = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].holdTime[0];
+							crusher.delay = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].delay[0] * 60;
+							crusher.crushTime = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].crushTime[0] * 60;
+							crusher.riseTime = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].riseTime[0] * 60;
+							crusher.holdTime = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].holdTime[0] * 60;
 							crusher.crushDistance = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].crushDistance[0];
-							crusher.timeOffset = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].firstCrushDelay[0];
+							crusher.timeOffset = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].firstCrushDelay[0] * 60;
 							
 							crusher.setup(this._gridSize);
 							this._crushers.push(crusher);
@@ -232,6 +241,19 @@
 							reciever.setup(this._gridSize);
 							this._sources.push(source);
 							this._recievers.push(reciever);
+							break;
+						case "breakaway":
+							var crumbler:CrumblingPlatform = new CrumblingPlatform(this);
+							
+							crumbler.x = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].@x;
+							crumbler.y = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].@y ;
+							crumbler.width = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].width[0];
+							crumbler.height = 0.5;
+							crumbler.breakTime = XMLManager.xmlInstance.xml.level[this._currentLevel].platforms[0].platform[i].@delay * 60;
+							
+							crumbler.setup(this._gridSize);
+							
+							this._crumblers.push(crumbler);
 							break;
 						default:
 							throw new Error("You have entered an invalid platformtype");
@@ -289,6 +311,10 @@
 			{
 				reciever.onFrame();
 			}
+			for each(var crumbler:CrumblingPlatform in this._crumblers)
+			{
+				crumbler.onFrame();
+			}
 		}
 		// kills the player clip
 		public override function kill():void
@@ -334,6 +360,11 @@
 			if (go is Crusher)
 			{
 				this._crushers.splice(this._crushers.indexOf(go), 1);
+				go.kill();
+			}
+			if (go is CrumblingPlatform)
+			{
+				this._crumblers.splice(this._crumblers.indexOf(go), 1);
 				go.kill();
 			}
 		}

@@ -84,19 +84,22 @@
 				</platform>
 				<platform type="generator" maxRange="8">
 					<source x="5" y="4.5" rotation="180" />
-					<destination x="5" y="12" rotations="0" />
+					<destination x="5" y="12" rotation="0" />
 				</platform>
 				<platform type="powerup" x="8" y="3" name="lightning_rod" />
-				<!--
+				<platform type="breakaway" x="5" y="3.25" delay="1">
+					<width>3</width>
+				</platform>
+				
 				<platform type="powerup" x="8" y="3" name="strong_arm" />
 				<platform type="crusher" x="5" y="1">
-					<delay>40</delay>
-					<crushTime>20</crushTime>
-					<riseTime>120</riseTime>
-					<holdTime>40</holdTime>
+					<delay>0.66</delay>
+					<crushTime>0.33</crushTime>
+					<riseTime>2</riseTime>
+					<holdTime>0.66</holdTime>
 					<crushDistance>5</crushDistance>
-					<firstCrushDelay>60</firstCrushDelay>
-				</platform> -->
+					<firstCrushDelay>1</firstCrushDelay>
+				</platform> 
 			</platforms>
 		</level>
 		<level id="1">
@@ -273,18 +276,12 @@
 				</platform>
 				<platform type="breakaway" x="27.5" y="16.5" delay="1.5">
 					<width>3</width>
-					<height>2</height>
-					<rotation></rotation>
 				</platform>
 				<platform type="breakaway" x="1.5" y="11.5" delay="1.5">
 					<width>3</width>
-					<height>2</height>
-					<rotation></rotation>
 				</platform>
 				<platform type="breakaway" x="6.5" y="8.5" delay="1.5">
 					<width>3</width>
-					<height>2</height>
-					<rotation></rotation>
 				</platform>
 				<platform type="spike" x="24" y="22.25">
 					<width>16</width>
@@ -392,28 +389,18 @@
 				</platform>
 				<platform type="platform" x="4" y="23.5">
 					<width>8</width>
-					<height>1</height>
-					<rotation></rotation>
 				</platform>
 				<platform type="breakaway" x="22" y="7">
 					<width>3</width>
-					<height>1</height>
-					<rotation></rotation>
 				</platform>
 				<platform type="breakaway" x="27" y="6">
 					<width>3</width>
-					<height>1</height>
-					<rotation></rotation>
 				</platform>
 				<platform type="breakaway" x="29.5" y="16">
 					<width>2</width>
-					<height>1</height>
-					<rotation></rotation>
 				</platform>
 				<platform type="breakaway" x="35" y="16">
 					<width>2</width>
-					<height>1</height>
-					<rotation></rotation>
 				</platform>
 				<platform type="spike" x="28" y="8.25">
 					<width>16</width>
@@ -441,51 +428,6 @@
 				<platform type="crusher" x="17" y="10.5" />
 				<platform type="crusher" x="21" y="10.5" />
 				<platform type="crusher" x="25" y="10.5" />
-				<platform type="switch" x="0.5" y="2.75">
-					<width></width>
-					<height></height>
-					<rotation>0</rotation>
-				</platform>
-				<platform type="switch" x="35.5" y="3.75">
-					<width></width>
-					<height></height>
-					<rotation>0</rotation>
-				</platform>
-				<platform type="switch" x="36" y="15.25">
-					<width></width>
-					<height></height>
-					<rotation>270</rotation>
-				</platform>
-				<platform type="node" x="8.5" y="0.25">
-					<width></width>
-					<height></height>
-					<rotation>180</rotation>
-				</platform>
-				<platform type="node" x="8.5" y="2.75">
-					<width></width>
-					<height></height>
-					<rotation>0</rotation>
-				</platform>
-				<platform type="node" x="4.5" y="5.25">
-					<width></width>
-					<height></height>
-					<rotation>180</rotation>
-				</platform>
-				<platform type="node" x="4.5" y="7.75">
-					<width></width>
-					<height></height>
-					<rotation>0</rotation>
-				</platform>
-				<platform type="node" x="28.25" y="17.5">
-					<width></width>
-					<height></height>
-					<rotation>90</rotation>
-				</platform>
-				<platform type="node" x="35.75" y="17.5">
-					<width></width>
-					<height></height>
-					<rotation>270</rotation>
-				</platform>
 				<platform type="powerup" x="1.5" y="1.5" name="lightning_rod" />
 			</platforms>
 			
