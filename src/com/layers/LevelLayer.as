@@ -146,6 +146,7 @@
 		{
 			if (XMLManager.xmlInstance.xml != null)
 			{
+				trace("Current level: " + currentLevel);
 				this._levelWidth  = XMLManager.xmlInstance.xml.level[this._currentLevel].width[0].text();
 				this._levelHeight = XMLManager.xmlInstance.xml.level[this._currentLevel].height[0].text();
 				//trace("Width: " + _levelWidth + ", Height: " + _levelHeight);

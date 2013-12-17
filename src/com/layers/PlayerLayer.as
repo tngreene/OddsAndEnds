@@ -5,6 +5,7 @@
 	import com.objects.Crusher;
 	import com.objects.PowerUp;
 	import com.objects.SourceConductor;
+	//import com.objects.Timer;
 	import com.screens.GameScreen;
 	import flash.display.MovieClip;
 	import flash.geom.Point;
@@ -13,6 +14,8 @@
 	import com.objects.Platform;
 	import com.objects.GameObject;
 	import flash.utils.Dictionary;
+	import flash.utils.Timer;
+	import flash.events.TimerEvent;
 	
 	public class PlayerLayer extends Layer
 	{
@@ -28,7 +31,8 @@
 		private var _deaths:Number = 0;
 		private var _frozen:Boolean = false;
 		private var _keyToPowerup:Dictionary = new Dictionary();
-		
+		var tempTimer:Timer = new Timer(1000, 2);
+				
 		public function PlayerLayer(_parent:GameScreen) 
 		{
 			super(_parent);
@@ -49,7 +53,7 @@
 				this._keyToPowerup[Keyboard.Q] = {name: "spike_shield", pressed: false};
 				this._keyToPowerup[Keyboard.E] = {name: "strong_arm", pressed: false};
 				this._keyToPowerup[Keyboard.W] = {name: "lightning_rod", pressed: false};
-				
+				tempTimer.addEventListener(TimerEvent.TIMER_COMPLETE,respawn);
 				this.addChild(this._player);
 				// requests keyboard access
 				this._mediator.request("keyboard", this);
@@ -70,6 +74,13 @@
 		// that need to be called once a frame
 		public override function onFrame():void
 		{
+			if (this._dead)
+			{
+				//Dispatch wait event
+				
+				tempTimer.start();				
+			}
+			else{
 			// set acceleration to 0 so we can mess with it later
 			this._player.resetAcceleration();
 			// check keys
@@ -86,21 +97,14 @@
 			{
 				this._sound.playSound(this._sound.MOVE);
 			}
-			if (this._dead)
-			{
-				this._dead = false;
-				this._level.reload();
-				this.respawn();
-				this._deaths++;
-			}
+
 			if (this._win)
 			{
 				this._win = false;
 				this._level.currentLevel++;
-				trace(XMLManager.xmlInstance.xml.levels.@maxId);
+				//trace(XMLManager.xmlInstance.xml.levels.@maxId);
 				if (this._level.currentLevel <= XMLManager.xmlInstance.xml.levels.@maxId)
 				{
-					this._level.reload();
 					this.respawn(false);
 				} else 
 				{
@@ -114,6 +118,7 @@
 				this._jumping = false;
 			// actually move the character
 			this._player.onFrame();
+			}
 		}
 		private function applyGravity()
 		{
@@ -280,8 +285,8 @@
 					this._win = true;
 				}
 			}
-			if (iterations == 200)
-				trace("Man thats a lot of collisions");
+			//if (iterations == 200)
+				//trace("Man thats a lot of collisions");
 			
 		}
 		public function endStrongArm()
@@ -300,6 +305,7 @@
 		// checks the keys
 		private function checkKeys()
 		{
+			//If you are not dead check the keys
 			for (var key:Object in this._keyToPowerup)
 			{
 				if (this._keyboard.isKeyDown(key as uint))
@@ -343,7 +349,7 @@
 				this._sound.playSound(this._sound.JUMP);
 				if (this._keyboard.isKeyDown(Keyboard.F4))
 				{
-					this._win = true;
+					//this._win = true;
 				}
 			}
 			// pause
@@ -390,6 +396,7 @@
 		//Default value of true since you will die more than you will changle levels
 		public function respawn(fromDeath:Boolean=true):void
 		{
+			this._level.reload();
 			this._player.x = this._level.spawnPoint.x;
 			this._player.y = this._level.spawnPoint.y;
 			this._player.dx = 0;
@@ -401,6 +408,10 @@
 			
 			if (fromDeath == true)
 			{
+				tempTimer.reset();
+				this._deaths++;
+				this._dead = false;
+				
 				_sound.playSound(_sound.RESPAWN);
 			}
 		}

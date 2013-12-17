@@ -21,6 +21,10 @@ package com.objects
 			this._time = 0;
 			this._callback = callback;
 		}
+		public function stop()
+		{
+			this._running = false;
+		}
 		public function onFrame()
 		{
 			if (this._running)

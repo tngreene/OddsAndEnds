@@ -28,7 +28,7 @@
 		// called once on startup
 		public function setup(mediator:LayerMediator):Boolean
 		{
-			trace("ERROR: wrong setup called");
+			//trace("ERROR: wrong setup called");
 			return false;
 		}
 		// abstracts out functionality thats the same for every layer

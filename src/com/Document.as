@@ -30,9 +30,9 @@
 			set2.flag("strong_arm");
 			
 			
-			trace(set1.toString());
+			//trace(set1.toString());
 			
-			trace(set2.toString());
+			//trace(set2.toString());
 			
 			
 			

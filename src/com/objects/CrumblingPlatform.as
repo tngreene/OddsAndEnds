@@ -64,6 +64,10 @@ package com.objects
 					{
 						block.y += this.dy;
 						block.alpha -= 0.02;
+						if (block.alpha <= 0)
+						{
+							this.visible = false;
+						}
 					}
 					this.alpha -= 0.02;
 					if (this.alpha <= 0)

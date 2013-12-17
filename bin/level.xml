@@ -467,7 +467,7 @@
 					<height>0.5</height>
 					<rotation></rotation>
 				</platform>
-				<platform type="platform" x="4" y="23.5">
+				<platform type="breakaway" x="4" y="23.5">
 					<width>8</width>
 				</platform>
 				<platform type="breakaway" x="22" y="7">
