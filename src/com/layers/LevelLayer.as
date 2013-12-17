@@ -126,6 +126,8 @@
 			this._spikes = new Vector.<Spikes>();
 			this._powerups = new Vector.<PowerUp>();
 			this._crushers = new Vector.<Crusher>();
+			this._sources = new Vector.<SourceConductor>();
+			this._recievers = new Vector.<RecieverConductor>();
 			
 			this._goal = null;
 			

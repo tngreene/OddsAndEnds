@@ -187,12 +187,15 @@
 							
 						} else if (test["direction"] == "y")
 						{
-							this._player.ay -= (1 - test["time"]) * this._player.fdy;
+							this._player.ay -= (1 - test["time"]) * (this._player.fdy);
 						}
-						if (!this._player.activePowerups.flagged("spike_shield"))
+						if (!this._player.activePowerups.flagged("spike_shield") || test["direction"] == "x")
 						{
 							this._dead = true;
 							this._sound.playSound(this._sound.DIE);
+						} else
+						{
+							
 						}
 						if (test["time"] < 0.9999999)
 						{
